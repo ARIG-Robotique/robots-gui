@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QCursor>
 #include <QQmlApplicationEngine>
 #include <ctime>
 
@@ -49,5 +50,6 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    app.setOverrideCursor(QCursor(Qt::BlankCursor));
     return app.exec();
 }
