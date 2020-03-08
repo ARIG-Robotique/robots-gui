@@ -27,13 +27,13 @@ int main(int argc, char *argv[])
     char timeBuffer[15];
     strftime(timeBuffer, 15, "%Y%m%d%H%M%S", ptm);
 
-    const string outputDir = "logs";
+    const string outputDir = "logs/";
     const string outputPrefix = outputDir + string(timeBuffer);
 
     // configuration du logger
-    auto file_sink = make_shared<spdlog::sinks::basic_file_sink_mt>(outputPrefix + ".log");
-    spdlog::default_logger()->sinks().push_back(file_sink);
-    spdlog::flush_every(std::chrono::seconds(1));
+    //auto file_sink = make_shared<spdlog::sinks::basic_file_sink_mt>(outputPrefix + ".log");
+    //spdlog::default_logger()->sinks().push_back(file_sink);
+    //spdlog::flush_every(std::chrono::seconds(1));
     spdlog::set_level(spdlog::level::info);  
 
     spdlog::info("Démarrage de l'application");
