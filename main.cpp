@@ -9,9 +9,19 @@
 #include "robotmodel.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
+void printUsage() {
+    cerr << "Usage socket unix : nerell-gui unix /tmp/socket.sock [debug]" << endl;
+    cerr << "Usage socket inet : nerell-gui inet 8686 [debug]" << endl;
+}
+
 int main(int argc, char *argv[])
 {
-    // construit la date d'execution
+    if (argc < 3) {
+        printUsage();
+        return 1;
+    }
+
+    // Construit la date d'execution
     time_t now = time(nullptr);
     tm *ptm = localtime(&now);
     char timeBuffer[15];
@@ -29,8 +39,19 @@ int main(int argc, char *argv[])
     spdlog::info("Démarrage de l'application");
 
     // Configuration de la Socket
-    SocketHelper socket(SOCKET_INET);
-    socket.setPort(9000);
+    string socketType = argv[1];
+    string socketConf = argv[2];
+
+    SocketHelper socket(socketType);
+    if (socket.isUnknown()) {
+        printUsage();
+        return 2;
+    } else if (socket.isInet()) {
+        socket.setPort(atoi(socketConf.c_str()));
+    } else if (socket.isUnix()) {
+        socket.setSocketFile(socketConf);
+    }
+
     SocketThread socketThread;
     socketThread.setSocketHelper(&socket);
     socketThread.start();
