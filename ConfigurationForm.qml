@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Dialogs 1.2
 import QtQuick.Controls.Material 2.12
 import org.arig.robotmodel 1.0
 
@@ -20,13 +19,58 @@ Page {
     }
 
     function getTeamColor(team) {
-        if (team === RobotModel.BLUE) {
+        if (team === RobotModel.BLEU) {
             return "blue";
-        } else if (team === RobotModel.YELLOW) {
+        } else if (team === RobotModel.JAUNE) {
             return "yellow";
         }
 
         return Material.backgroundColor;
+    }
+
+    Popup {
+        id: calibConfirmation
+        modal: true
+        focus: true
+        width: 350
+        height: 150
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+        anchors.centerIn: Overlay.overlay
+
+        contentItem:  Column {
+            padding: 5
+            spacing: 10
+
+            Label {
+                text: "Lancement de la calibration ?"
+                font.pointSize: 16
+            }
+
+            Label {
+                text: "Pas de retour arrière possible"
+                font.pointSize: 10
+            }
+
+            Row {
+                padding: 5
+                spacing: 10
+
+                Button {
+                    text: "Oui"
+                    onClicked: {
+                        mainModel.startCalibration = true
+                        calibConfirmation.close();
+                    }
+                }
+                Button {
+                    text: "Non"
+                    onClicked: {
+                        calibConfirmation.close();
+                    }
+                }
+            }
+        }
     }
 
     Label {
@@ -138,7 +182,7 @@ Page {
             libelle: qsTr("Phare")
             stateColor: getBooleanColor(mainModel.phare)
         }
-     }
+    }
 
     Frame {
         id: frameConfig
@@ -167,6 +211,7 @@ Page {
             id: rectColorTeam
             height: 42
             color: getTeamColor(mainModel.team)
+            visible: mainModel.team != RobotModel.UNKNOWN
             anchors.top: parent.top
             anchors.topMargin: 5
             anchors.left: lblTeam.right
@@ -191,12 +236,8 @@ Page {
 
             onClicked: {
                 areaSelectColor.checked = !areaSelectColor.checked;
-                mainModel.team = areaSelectColor.checked ? RobotModel.BLUE : RobotModel.YELLOW;
+                mainModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
             }
-        }
-
-        ButtonGroup {
-            buttons: strategies.childrens
         }
 
         Column {
@@ -232,6 +273,7 @@ Page {
         Button {
             id: buttonCalibration
             y: 277
+            visible: !mainModel.startCalibration
             text: qsTr("Lancer la calibration")
             anchors.right: parent.right
             anchors.rightMargin: 10
@@ -241,58 +283,48 @@ Page {
             anchors.bottomMargin: 10
             onClicked: {
                 if (!mainModel.startCalibration) {
+                    console.log("Start calibration")
                     calibConfirmation.open()
                 }
             }
         }
+
+        ButtonGroup {
+            buttons: strategies.childrens
+        }
     }
 
-    MessageDialog {
-        id: calibConfirmation
-
-        title: "Confirmation"
-        text: "Lancement de la calibration. Pas de retour arrière possible"
-        standardButtons: StandardButton.Yes | StandardButton.No
-        icon: StandardIcon.Warning
-
-        onYes: mainModel.startCalibration = true
-    }
-
-    Label {
-        id: lblScore
-        y: 207
-        width: 180
-        text: mainModel.score
-        visible: false
-        horizontalAlignment: Text.AlignRight
-        anchors.right: parent.horizontalCenter
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        font.pointSize: 50
-        anchors.verticalCenter: parent.verticalCenter
-    }
-
-    Label {
-        id: lblPoints
-        x: -9
-        y: 198
-        width: 180
-        text: "points"
-        anchors.leftMargin: 5
+    Frame {
+        id: matchInfos
         visible: false
         anchors.right: parent.right
         anchors.rightMargin: 0
-        font.pointSize: 50
-        anchors.left: parent.horizontalCenter
-        horizontalAlignment: Text.AlignLeft
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 0
+
+        Label {
+            y: 85
+            text: mainModel.score
+            verticalAlignment: Text.AlignVCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 150
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
     }
 
     states: [
         State {
             name: "match"
-            when: mainModel.step === RobotModel.MATCH
+            when: (mainModel.inMatch)
 
             PropertyChanges {
                 target: frameInfos
@@ -305,12 +337,7 @@ Page {
             }
 
             PropertyChanges {
-                target: lblScore
-                visible: true
-            }
-
-            PropertyChanges {
-                target: lblPoints
+                target: matchInfos
                 visible: true
             }
 
@@ -327,12 +354,13 @@ Page {
 
 /*##^##
 Designer {
-    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:20;anchors_x:16}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}
+    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}
+D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
+D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:20;anchors_x:16}D{i:23;anchors_width:180;anchors_x:264}D{i:22;anchors_width:180;anchors_x:264}
+D{i:29;anchors_width:200;anchors_x:0}
 }
 ##^##*/

@@ -1,3 +1,4 @@
+#include <QGuiApplication>
 #include "socketthread.h"
 #include "robotmodel.h"
 
@@ -39,7 +40,7 @@ void SocketThread::run() {
             result.status = RESPONSE_OK;
             result.datas = query.datas;
 
-        } else if (query.action == ACTION_GET_STATE) {
+        } else if (query.action == ACTION_GET_CONFIG) {
             spdlog::info("Demande de récupération d'état");
             RobotModel* model = RobotModel::getInstance();
 
@@ -49,10 +50,11 @@ void SocketThread::run() {
             result.datas["strategy"] = model->getStrategy();
 
         } else if (query.action == ACTION_UPDATE_STATE) {
-            spdlog::info("Envoi de mise à jour de l'état du robot");
+            spdlog::info("Envoi de mise à jour de l'état du robot pendant l'initialisation");
 
             json datas = query.datas;
             RobotModel* model = RobotModel::getInstance();
+            model->setInMatch(false);
             model->setAu(datas["au"]);
             model->setAlim12v(datas["alim12v"]);
             model->setAlim5vp(datas["alim5vp"]);
@@ -60,6 +62,18 @@ void SocketThread::run() {
             model->setTirette(datas["tirette"]);
             model->setPhare(datas["phare"]);
             model->setBalise(datas["balise"]);
+            string message = datas["message"];
+            model->setMessage(message.c_str());
+
+            result.status = RESPONSE_OK;
+
+        } else if (query.action == ACTION_UPDATE_MATCH) {
+            spdlog::info("Envoi de mise à jour de l'état du robot pendant le match");
+
+            json datas = query.datas;
+            RobotModel* model = RobotModel::getInstance();
+            model->setInMatch(true);
+            model->setScore(datas["score"]);
 
             result.status = RESPONSE_OK;
 
@@ -77,4 +91,7 @@ void SocketThread::run() {
         result.action = query.action;
         helper->sendResponse(result);
     }
+
+    // Fermeture de l'application
+    QGuiApplication::exit();
 }

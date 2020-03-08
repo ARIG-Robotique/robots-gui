@@ -10,7 +10,6 @@ class RobotModel : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Team)
-    Q_ENUMS(Steps)
     Q_ENUMS(Strategy)
 
     // RW
@@ -19,11 +18,11 @@ class RobotModel : public QObject
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
 
     // RO
-    Q_PROPERTY(Steps step READ getStep NOTIFY stepChanged)
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
     Q_PROPERTY(bool alim12v READ getAlim12v NOTIFY alim12vChanged)
     Q_PROPERTY(bool alim5vp READ getAlim5vp NOTIFY alim5vpChanged)
     Q_PROPERTY(bool alim5vl READ getAlim5vl NOTIFY alim5vlChanged)
+    Q_PROPERTY(bool inMatch READ getInMatch NOTIFY inMatchChanged)
     Q_PROPERTY(bool tirette READ getTirette NOTIFY tiretteChanged)
     Q_PROPERTY(bool phare READ getPhare NOTIFY phareChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
@@ -35,8 +34,7 @@ class RobotModel : public QObject
 public:
     RobotModel(QObject *parent = nullptr);
 
-    enum Team { BLUE, YELLOW };
-    enum Steps { CONFIGURATION, MATCH, END_MATCH };
+    enum Team { UNKNOWN, JAUNE, BLEU };
     enum Strategy { STRAT1, STRAT2, STRAT3 };
 
     static QObject* singletonProvider(QQmlEngine *engine = nullptr, QJSEngine *scriptEngine = nullptr);
@@ -53,8 +51,8 @@ public:
     void setStrategy(Strategy strategy);
 
     // RO
-    Steps getStep();
-    void setStep(Steps step);
+    bool getInMatch();
+    void setInMatch(bool value);
 
     bool getAu();
     void setAu(bool value);
@@ -93,7 +91,7 @@ signals:
     void phareChanged(bool newValue);
     void scoreChanged(int newValue);
     void startCalibrationChanged(bool newValue);
-    void stepChanged(Steps newStep);
+    void inMatchChanged(bool newValue);
     void strategyChanged(Strategy strategy);
     void teamChanged(Team newTeam);
     void tiretteChanged(bool newValue);
@@ -102,9 +100,8 @@ public slots:
 
 private:
     Team team;
-    Steps step;
     Strategy strategy;
-    bool au, alim12v, alim5vp, alim5vl, tirette, startCalibration, phare, balise;
+    bool inMatch, au, alim12v, alim5vp, alim5vl, tirette, startCalibration, phare, balise;
     int score;
     QString message;
 

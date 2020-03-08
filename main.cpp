@@ -71,6 +71,9 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+#ifdef RASPI
     app.setOverrideCursor(QCursor(Qt::BlankCursor));
+#endif
+
     return app.exec();
 }

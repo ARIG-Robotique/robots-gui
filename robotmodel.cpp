@@ -2,13 +2,6 @@
 
 RobotModel* RobotModel::instance = nullptr;
 
-QObject* RobotModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
-
-    return RobotModel::getInstance();
-}
-
 RobotModel* RobotModel::getInstance() {
     if (instance == nullptr) {
         new RobotModel();
@@ -21,16 +14,16 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
         instance = this;
     }
 
-    this->setTeam(BLUE);
-    this->setStep(CONFIGURATION);
+    this->setTeam(UNKNOWN);
     this->setStrategy(STRAT1);
+    this->setInMatch(false);
     this->setAu(false);
     this->setAlim12v(false);
     this->setAlim5vp(false);
     this->setAlim5vl(false);
     this->setTirette(false);
     this->setScore(0);
-    this->setMessage("Initialisation");
+    this->setMessage("Startup IHM");
 }
 
 // QML RW datas //
@@ -63,12 +56,12 @@ void RobotModel::setStrategy(Strategy strategy) {
 // QML RO datas //
 // ------------ //
 
-RobotModel::Steps RobotModel::getStep() {
-   return this->step;
+bool RobotModel::getInMatch() {
+   return this->inMatch;
 }
-void RobotModel::setStep(Steps step) {
-    this->step = step;
-    emit stepChanged(step);
+void RobotModel::setInMatch(bool value) {
+    this->inMatch = value;
+    emit inMatchChanged(value);
 }
 
 bool RobotModel::getAu() {

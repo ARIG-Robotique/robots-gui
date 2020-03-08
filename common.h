@@ -15,11 +15,11 @@ using json = nlohmann::json;
 #define RESPONSE_OK     "OK"
 #define RESPONSE_ERROR  "ERROR"
 
-#define ACTION_EXIT         "EXIT"
-#define ACTION_ECHO         "ECHO"
-#define ACTION_GET_STATE    "GET_STATE"
-#define ACTION_UPDATE_STATE "UPDATE_STATE"
-#define ACTION_PHOTO        "PHOTO"
+#define ACTION_EXIT           "EXIT"
+#define ACTION_ECHO           "ECHO"
+#define ACTION_GET_CONFIG     "GET_CONFIG"
+#define ACTION_UPDATE_STATE   "UPDATE_STATE"
+#define ACTION_UPDATE_MATCH   "UPDATE_MATCH"
 
 struct JsonResult {
     string status;
