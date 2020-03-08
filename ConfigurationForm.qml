@@ -196,7 +196,7 @@ Page {
         }
 
         ButtonGroup {
-            buttons: stategies.childrens
+            buttons: strategies.childrens
         }
 
         Column {
