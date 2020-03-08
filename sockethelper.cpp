@@ -1,6 +1,7 @@
 #include "sockethelper.h"
 
 #include <unistd.h>
+#include <sstream>
 #include <sys/stat.h>
 #include <arpa/inet.h>
 
