@@ -283,7 +283,7 @@ Page {
         Button {
             id: buttonCalibration
             y: 277
-            enabled: mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
+            enabled: mainModel.au && mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
             text: qsTr("Lancer la calibration")
             anchors.right: parent.right
             anchors.rightMargin: 10
