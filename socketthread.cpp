@@ -55,10 +55,11 @@ void SocketThread::run() {
             json datas = query.datas;
             RobotModel* model = RobotModel::getInstance();
             model->setInMatch(false);
+            model->setI2c(datas["i2c"]);
+            model->setLidar(datas["lidar"]);
             model->setAu(datas["au"]);
             model->setAlim12v(datas["alim12v"]);
             model->setAlim5vp(datas["alim5vp"]);
-            model->setAlim5vl(datas["alim5vl"]);
             model->setTirette(datas["tirette"]);
             model->setPhare(datas["phare"]);
             model->setBalise(datas["balise"]);

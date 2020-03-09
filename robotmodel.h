@@ -21,9 +21,10 @@ class RobotModel : public QObject
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
     Q_PROPERTY(bool alim12v READ getAlim12v NOTIFY alim12vChanged)
     Q_PROPERTY(bool alim5vp READ getAlim5vp NOTIFY alim5vpChanged)
-    Q_PROPERTY(bool alim5vl READ getAlim5vl NOTIFY alim5vlChanged)
     Q_PROPERTY(bool inMatch READ getInMatch NOTIFY inMatchChanged)
     Q_PROPERTY(bool tirette READ getTirette NOTIFY tiretteChanged)
+    Q_PROPERTY(bool i2c READ getI2c NOTIFY i2cChanged)
+    Q_PROPERTY(bool lidar READ getLidar NOTIFY lidarChanged)
     Q_PROPERTY(bool phare READ getPhare NOTIFY phareChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
@@ -54,6 +55,12 @@ public:
     bool getInMatch();
     void setInMatch(bool value);
 
+    bool getI2c();
+    void setI2c(bool value);
+
+    bool getLidar();
+    void setLidar(bool value);
+
     bool getAu();
     void setAu(bool value);
 
@@ -62,9 +69,6 @@ public:
 
     bool getAlim5vp();
     void setAlim5vp(bool value);
-
-    bool getAlim5vl();
-    void setAlim5vl(bool value);
 
     bool getTirette();
     void setTirette(bool value);
@@ -82,9 +86,10 @@ public:
     void setMessage(QString message);
 
 signals:
+    void i2cChanged(bool newValue);
+    void lidarChanged(bool newValue);
     void alim12vChanged(bool newValue);
     void alim5vpChanged(bool newValue);
-    void alim5vlChanged(bool newValue);
     void auChanged(bool newValue);
     void baliseChanged(bool newValue);
     void messageChanged(QString message);
@@ -101,7 +106,7 @@ public slots:
 private:
     Team team;
     Strategy strategy;
-    bool inMatch, au, alim12v, alim5vp, alim5vl, tirette, startCalibration, phare, balise;
+    bool inMatch, au, alim12v, alim5vp, tirette, startCalibration, phare, balise, i2c, lidar;
     int score;
     QString message;
 

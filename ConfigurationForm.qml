@@ -55,17 +55,20 @@ Page {
             Row {
                 padding: 5
                 spacing: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+
+                Button {
+                    text: "Non"
+                    onClicked: {
+                        calibConfirmation.close();
+                    }
+                }
 
                 Button {
                     text: "Oui"
                     onClicked: {
                         mainModel.startCalibration = true
-                        calibConfirmation.close();
-                    }
-                }
-                Button {
-                    text: "Non"
-                    onClicked: {
                         calibConfirmation.close();
                     }
                 }
@@ -75,7 +78,6 @@ Page {
 
     Label {
         id: lblMessage
-        y: 3
         height: 35
         text: mainModel.message
         horizontalAlignment: Text.AlignHCenter
@@ -99,88 +101,96 @@ Page {
         anchors.top: lblMessage.bottom
         anchors.topMargin: 10
 
-        StateComponent {
-            id: auState
+        Column {
+            spacing: 10
             anchors.right: parent.right
-            anchors.rightMargin: 5
+            anchors.rightMargin: 0
             anchors.left: parent.left
-            anchors.leftMargin: 5
+            anchors.leftMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
             anchors.top: parent.top
-            anchors.topMargin: 5
-            libelle: qsTr("Arret Urgence")
-            stateColor: getBooleanColor(mainModel.au)
-        }
+            anchors.topMargin: 0
 
-        StateComponent {
-            id: alim12vState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: auState.bottom
-            anchors.topMargin: 5
-            libelle: qsTr("Alimentation 12V")
-            stateColor: getBooleanColor(mainModel.alim12v)
-        }
+            StateComponent {
+                id: i2cState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Bus i2c")
+                stateColor: getBooleanColor(mainModel.i2c)
+            }
 
-        StateComponent {
-            id: alim5vpState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: alim12vState.bottom
-            anchors.topMargin: 5
-            libelle: qsTr("Alimentation 5V Puissance")
-            stateColor: getBooleanColor(mainModel.alim5vp)
-        }
+            StateComponent {
+                id: lidarState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Lidar")
+                stateColor: getBooleanColor(mainModel.lidar)
+            }
 
-        StateComponent {
-            id: alim5vlState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: alim5vpState.bottom
-            anchors.topMargin: 5
-            libelle: qsTr("Alimentation 5V Logique")
-            stateColor: getBooleanColor(mainModel.alim5vl)
-        }
+            StateComponent {
+                id: baliseState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Balise")
+                stateColor: getBooleanColor(mainModel.balise)
+            }
 
-        StateComponent {
-            id: tiretteState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: alim5vlState.bottom
-            anchors.topMargin: 5
-            libelle: qsTr("Tirette")
-            stateColor: getBooleanColor(mainModel.tirette)
-        }
+            StateComponent {
+                id: phareState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Phare")
+                stateColor: getBooleanColor(mainModel.phare)
+            }
 
-        StateComponent {
-            id: baliseState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: tiretteState.bottom
-            anchors.topMargin: 30
-            libelle: qsTr("Balise")
-            stateColor: getBooleanColor(mainModel.balise)
-        }
+            StateComponent {
+                id: auState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Arret Urgence")
+                stateColor: getBooleanColor(mainModel.au)
+            }
 
-        StateComponent {
-            id: phareState
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.top: baliseState.bottom
-            anchors.topMargin: 5
-            libelle: qsTr("Phare")
-            stateColor: getBooleanColor(mainModel.phare)
+            StateComponent {
+                id: alim12vState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Alimentation 12V")
+                stateColor: getBooleanColor(mainModel.alim12v)
+            }
+
+            StateComponent {
+                id: alim5vpState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Alimentation 5V Puissance")
+                stateColor: getBooleanColor(mainModel.alim5vp)
+            }
+
+            StateComponent {
+                id: tiretteState
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                libelle: qsTr("Tirette")
+                stateColor: getBooleanColor(mainModel.tirette)
+            }
         }
     }
 
@@ -273,7 +283,7 @@ Page {
         Button {
             id: buttonCalibration
             y: 277
-            visible: !mainModel.startCalibration
+            enabled: mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
             text: qsTr("Lancer la calibration")
             anchors.right: parent.right
             anchors.rightMargin: 10
@@ -358,8 +368,8 @@ Designer {
 D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}
 D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}
+D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:20;anchors_x:16}D{i:23;anchors_width:180;anchors_x:264}D{i:22;anchors_width:180;anchors_x:264}
 D{i:29;anchors_width:200;anchors_x:0}
 }

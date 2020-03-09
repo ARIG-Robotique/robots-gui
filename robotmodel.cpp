@@ -16,11 +16,12 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
 
     this->setTeam(UNKNOWN);
     this->setStrategy(STRAT1);
+    this->setI2c(false);
+    this->setLidar(false);
     this->setInMatch(false);
     this->setAu(false);
     this->setAlim12v(false);
     this->setAlim5vp(false);
-    this->setAlim5vl(false);
     this->setTirette(false);
     this->setScore(0);
     this->setMessage("Startup IHM");
@@ -64,6 +65,22 @@ void RobotModel::setInMatch(bool value) {
     emit inMatchChanged(value);
 }
 
+bool RobotModel::getI2c() {
+    return this->i2c;
+}
+void RobotModel::setI2c(bool value) {
+    this->i2c = value;
+    emit i2cChanged(value);
+}
+
+bool RobotModel::getLidar() {
+    return this->lidar;
+}
+void RobotModel::setLidar(bool value) {
+    this->lidar = value;
+    emit lidarChanged(value);
+}
+
 bool RobotModel::getAu() {
     return this->au;
 }
@@ -86,14 +103,6 @@ bool RobotModel::getAlim5vp(){
 void RobotModel::setAlim5vp(bool value){
     this->alim5vp = value;
     emit alim5vpChanged(value);
-}
-
-bool RobotModel::getAlim5vl(){
-    return this->alim5vl;
-}
-void RobotModel::setAlim5vl(bool value){
-    this->alim5vl = value;
-    emit alim5vlChanged(value);
 }
 
 bool RobotModel::getTirette() {
