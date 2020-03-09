@@ -4,9 +4,11 @@
 
 SocketThread::SocketThread() : QThread() {
     abort = false;
+    debug = false;
 }
 SocketThread::~SocketThread() {
     abort = true;
+    debug = false;
 }
 
 void SocketThread::setSocketHelper(SocketHelper *helper) {
@@ -41,7 +43,9 @@ void SocketThread::run() {
             result.datas = query.datas;
 
         } else if (query.action == ACTION_GET_CONFIG) {
-            spdlog::info("Demande de récupération d'état");
+            if (debug) {
+                spdlog::info("Demande de récupération d'état");
+            }
             RobotModel* model = RobotModel::getInstance();
 
             result.status = RESPONSE_OK;
@@ -50,7 +54,9 @@ void SocketThread::run() {
             result.datas["strategy"] = model->getStrategy();
 
         } else if (query.action == ACTION_UPDATE_STATE) {
-            spdlog::info("Envoi de mise à jour de l'état du robot pendant l'initialisation");
+            if (debug) {
+                spdlog::info("Envoi de mise à jour de l'état du robot pendant l'initialisation");
+            }
 
             json datas = query.datas;
             RobotModel* model = RobotModel::getInstance();
@@ -69,7 +75,9 @@ void SocketThread::run() {
             result.status = RESPONSE_OK;
 
         } else if (query.action == ACTION_UPDATE_MATCH) {
-            spdlog::info("Envoi de mise à jour de l'état du robot pendant le match");
+            if (debug) {
+                spdlog::info("Envoi de mise à jour de l'état du robot pendant le match");
+            }
 
             json datas = query.datas;
             RobotModel* model = RobotModel::getInstance();

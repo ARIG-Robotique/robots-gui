@@ -24,7 +24,7 @@ protected:
     void run() Q_DECL_OVERRIDE;
 
 private:
-    bool abort;
+    bool abort, debug;
     SocketHelper *helper;
     RobotModel *robotModel;
 };
