@@ -75,6 +75,8 @@ void SocketThread::run() {
             RobotModel* model = RobotModel::getInstance();
             model->setInMatch(true);
             model->setScore(datas["score"]);
+            string message = datas["message"];
+            model->setMessage(message.c_str());
 
             result.status = RESPONSE_OK;
 
