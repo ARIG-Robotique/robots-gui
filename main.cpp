@@ -10,13 +10,13 @@
 #include "spdlog/sinks/basic_file_sink.h"
 
 void printUsage() {
-    cerr << "Usage socket unix : nerell-gui unix /tmp/socket.sock [debug]" << endl;
-    cerr << "Usage socket inet : nerell-gui inet 8686 [debug]" << endl;
+    cerr << "Usage socket unix : nerell-gui unix /tmp/socket.sock sauronDns sauronPort [debug]" << endl;
+    cerr << "Usage socket inet : nerell-gui inet 8686 sauronDns sauronPort [debug]" << endl;
 }
 
 int main(int argc, char *argv[])
 {
-    if (argc < 3) {
+    if (argc < 5) {
         printUsage();
         return 1;
     }
@@ -41,6 +41,10 @@ int main(int argc, char *argv[])
     // Configuration de la Socket
     string socketType = argv[1];
     string socketConf = argv[2];
+    string sauronDns = argv[3];
+    string sauronPort = argv[4];
+
+    spdlog::info("Communication avec Sauron : {}:{}", sauronDns, sauronPort);
 
     SocketHelper socket(socketType);
     if (socket.isUnknown()) {
