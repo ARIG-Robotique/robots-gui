@@ -112,7 +112,7 @@ Page {
         anchors.left: parent.left
         anchors.leftMargin: 5
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 5
+        anchors.bottomMargin: 190
         anchors.top: lblMessage.bottom
         anchors.topMargin: 10
 
@@ -218,6 +218,103 @@ Page {
                 }
             }
         }
+    }
+
+    Frame {
+        id: frameTeam
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 190
+        anchors.top: lblMessage.bottom
+        anchors.topMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        anchors.left: frameInfos.right
+        anchors.leftMargin: 5
+
+        Label {
+            id: lblTeam
+            width: 59
+            height: 24
+            text: qsTr("Team")
+            anchors.top: parent.top
+            anchors.topMargin: 15
+            font.pointSize: 16
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+        }
+
+        Rectangle {
+            id: rectColorTeam
+            color: getTeamColor(mainModel.team)
+            anchors.bottom: buttonCalibration.top
+            anchors.bottomMargin: 0
+            visible: mainModel.team != RobotModel.UNKNOWN
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.left: lblTeam.right
+            anchors.leftMargin: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+        }
+
+        MouseArea {
+            property bool checked: true
+
+            enabled: !mainModel.startCalibration
+
+            id: areaSelectColor
+            anchors.bottom: buttonCalibration.top
+            anchors.bottomMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+
+            onClicked: {
+                areaSelectColor.checked = !areaSelectColor.checked;
+                mainModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
+            }
+        }
+
+        Button {
+            id: buttonCalibration
+            y: 277
+            enabled: mainModel.au && mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
+            text: qsTr("Lancer le calage bordure")
+            hoverEnabled: false
+            highlighted: false
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            onClicked: {
+                if (!mainModel.startCalibration) {
+                    console.log("Start calage bordure")
+                    calibConfirmation.open()
+                }
+            }
+        }
+    }
+
+    Frame {
+        id: frameConfig
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: frameTeam.bottom
+        anchors.topMargin: 5
+        anchors.right: parent.right
+        anchors.rightMargin: 5
+        anchors.left: parent.left
+        anchors.leftMargin: 5
+
+
+        ButtonGroup {
+            buttons: strategies.childrens
+        }
 
         Row {
             id: rowConfig
@@ -226,13 +323,40 @@ Page {
             anchors.rightMargin: 0
             anchors.left: parent.left
             anchors.leftMargin: 0
-            anchors.top: rowStates.bottom
+            anchors.top: parent.top
             anchors.topMargin: 0
             anchors.bottom: parent.top
             anchors.bottomMargin: 0
 
             Column {
-                width: 185
+                id: strategies
+                width: 200
+                anchors.top: rectColorTeam.bottom
+                anchors.topMargin: 0
+
+                RadioButton {
+                    checked: true
+                    enabled: !mainModel.tirette
+                    text: qsTr("Basic")
+                    font.pointSize: 16
+                    onClicked: mainModel.strategy = RobotModel.STRAT1
+                }
+                RadioButton {
+                    enabled: !mainModel.tirette
+                    text: qsTr("Aggressive")
+                    font.pointSize: 16
+                    onClicked: mainModel.strategy = RobotModel.STRAT2
+                }
+                RadioButton {
+                    enabled: !mainModel.tirette
+                    text: qsTr("Finale")
+                    font.pointSize: 16
+                    onClicked: mainModel.strategy = RobotModel.STRAT3
+                }
+            }
+
+            Column {
+                width: 200
                 spacing: 10
 
                 Switch {
@@ -252,7 +376,7 @@ Page {
             }
 
             Column {
-                width: 185
+                width: 200
                 spacing: 10
 
                 Switch {
@@ -270,116 +394,6 @@ Page {
                     text: qsTr("Config 6")
                 }
             }
-        }
-    }
-
-    Frame {
-        id: frameConfig
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 5
-        anchors.top: lblMessage.bottom
-        anchors.topMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.left: frameInfos.right
-        anchors.leftMargin: 5
-
-        Label {
-            id: lblTeam
-            width: 59
-            height: 24
-            text: qsTr("Team")
-            anchors.top: parent.top
-            anchors.topMargin: 15
-            font.pointSize: 16
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-        }
-
-        Rectangle {
-            id: rectColorTeam
-            height: 42
-            color: getTeamColor(mainModel.team)
-            visible: mainModel.team != RobotModel.UNKNOWN
-            anchors.top: parent.top
-            anchors.topMargin: 5
-            anchors.left: lblTeam.right
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-        }
-
-        MouseArea {
-            property bool checked: true
-
-            enabled: !mainModel.startCalibration
-
-            id: areaSelectColor
-            height: rectColorTeam.height
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.top: parent.top
-            anchors.topMargin: 5
-
-            onClicked: {
-                areaSelectColor.checked = !areaSelectColor.checked;
-                mainModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
-            }
-        }
-
-        Column {
-            id: strategies
-            anchors.top: rectColorTeam.bottom
-            anchors.topMargin: 30
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-
-            RadioButton {
-                checked: true
-                enabled: !mainModel.startCalibration
-                text: qsTr("Basic")
-                font.pointSize: 16
-                onClicked: mainModel.strategy = RobotModel.STRAT1
-            }
-            RadioButton {
-                enabled: !mainModel.startCalibration
-                text: qsTr("Aggressive")
-                font.pointSize: 16
-                onClicked: mainModel.strategy = RobotModel.STRAT2
-            }
-            RadioButton {
-                enabled: !mainModel.startCalibration
-                text: qsTr("Finale")
-                font.pointSize: 16
-                onClicked: mainModel.strategy = RobotModel.STRAT3
-            }
-        }
-
-        Button {
-            id: buttonCalibration
-            y: 277
-            enabled: mainModel.au && mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
-            text: qsTr("Lancer la calibration")
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-            onClicked: {
-                if (!mainModel.startCalibration) {
-                    console.log("Start calibration")
-                    calibConfirmation.open()
-                }
-            }
-        }
-
-        ButtonGroup {
-            buttons: strategies.childrens
         }
     }
 
@@ -421,6 +435,11 @@ Page {
             }
 
             PropertyChanges {
+                target: frameTeam
+                visible: false
+            }
+
+            PropertyChanges {
                 target: frameConfig
                 visible: false
             }
@@ -443,13 +462,13 @@ Page {
 
 /*##^##
 Designer {
-    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
+    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
 D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:20;anchors_x:16}D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}
-D{i:29;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
+D{i:28;anchors_height:42}D{i:29;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
 }
 ##^##*/
