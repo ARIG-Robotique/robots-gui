@@ -58,7 +58,7 @@ Page {
             spacing: 10
 
             Label {
-                text: "Lancement de la calibration ?"
+                text: "Lancement du calalge bordure ?"
                 font.pointSize: 16
             }
 
@@ -231,28 +231,19 @@ Page {
         anchors.left: frameInfos.right
         anchors.leftMargin: 5
 
-        Label {
-            id: lblTeam
-            width: 59
-            height: 24
-            text: qsTr("Team")
-            anchors.top: parent.top
-            anchors.topMargin: 15
-            font.pointSize: 16
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-        }
 
         Rectangle {
             id: rectColorTeam
             color: getTeamColor(mainModel.team)
+            radius: 5
+            border.color: "#00000000"
+            border.width: 1
             anchors.bottom: buttonCalibration.top
             anchors.bottomMargin: 0
-            visible: mainModel.team != RobotModel.UNKNOWN
             anchors.top: parent.top
             anchors.topMargin: 0
-            anchors.left: lblTeam.right
-            anchors.leftMargin: 5
+            anchors.left: parent.left
+            anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
         }
@@ -276,6 +267,20 @@ Page {
                 areaSelectColor.checked = !areaSelectColor.checked;
                 mainModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
             }
+        }
+
+        Label {
+            id: lblTeam
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenterOffset: -30
+            anchors.verticalCenter: parent.verticalCenter
+            width: 300
+            height: 24
+            text: qsTr("Taper ici pour choisir l'équipe")
+            visible: mainModel.team == RobotModel.UNKNOWN
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 16
         }
 
         Button {
@@ -462,13 +467,13 @@ Page {
 
 /*##^##
 Designer {
-    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
+    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
 D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:20;anchors_x:16}D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}
-D{i:28;anchors_height:42}D{i:29;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
+D{i:27;anchors_height:42}D{i:28;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
 }
 ##^##*/

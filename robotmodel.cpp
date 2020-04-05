@@ -24,7 +24,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlim5vp(false);
     this->setTirette(false);
     this->setScore(0);
-    this->setMessage("Startup IHM");
+    this->setMessage("Démarrage en cours ...");
 }
 
 // QML RW datas //
