@@ -23,6 +23,8 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlim12v(false);
     this->setAlim5vp(false);
     this->setTirette(false);
+    this->setModeManuel(false);
+    this->setSkipCalageBordure(false);
     this->setScore(0);
     this->setMessage("Démarrage en cours ...");
 }
@@ -52,6 +54,22 @@ RobotModel::Strategy RobotModel::getStrategy() {
 void RobotModel::setStrategy(Strategy strategy) {
     this->strategy = strategy;
     emit strategyChanged(strategy);
+}
+
+bool RobotModel::getSkipCalageBordure() {
+    return this->skipCalageBordure;
+}
+void RobotModel::setSkipCalageBordure(bool value) {
+    this->skipCalageBordure = value;
+    emit skipCalageBordureChanged(value);
+}
+
+bool RobotModel::getModeManuel() {
+    return this->modeManuel;
+}
+void RobotModel::setModeManuel(bool value) {
+    this->modeManuel = value;
+    emit modeManuelChanged(value);
 }
 
 // QML RO datas //

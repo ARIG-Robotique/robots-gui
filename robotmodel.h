@@ -16,6 +16,8 @@ class RobotModel : public QObject
     Q_PROPERTY(Team team READ getTeam WRITE setTeam NOTIFY teamChanged)
     Q_PROPERTY(Strategy strategy READ getStrategy WRITE setStrategy NOTIFY strategyChanged)
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
+    Q_PROPERTY(bool skipCalageBordure READ getSkipCalageBordure WRITE setSkipCalageBordure NOTIFY skipCalageBordureChanged)
+    Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -50,6 +52,12 @@ public:
 
     Strategy getStrategy();
     void setStrategy(Strategy strategy);
+
+    bool getSkipCalageBordure();
+    void setSkipCalageBordure(bool value);
+
+    bool getModeManuel();
+    void setModeManuel(bool value);
 
     // RO
     bool getInMatch();
@@ -100,13 +108,15 @@ signals:
     void strategyChanged(Strategy strategy);
     void teamChanged(Team newTeam);
     void tiretteChanged(bool newValue);
+    void skipCalageBordureChanged(bool newValue);
+    void modeManuelChanged(bool newValue);
 
 public slots:
 
 private:
     Team team;
     Strategy strategy;
-    bool inMatch, au, alim12v, alim5vp, tirette, startCalibration, phare, balise, i2c, lidar;
+    bool inMatch, au, alim12v, alim5vp, tirette, startCalibration, phare, balise, i2c, lidar, modeManuel, skipCalageBordure;
     int score;
     QString message;
 

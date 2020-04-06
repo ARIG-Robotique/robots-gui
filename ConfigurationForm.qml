@@ -323,7 +323,8 @@ Page {
 
         Row {
             id: rowConfig
-            spacing: 5
+            spacing: 100
+            enabled: !mainModel.tirette
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left
@@ -341,19 +342,16 @@ Page {
 
                 RadioButton {
                     checked: true
-                    enabled: !mainModel.tirette
                     text: qsTr("Basic")
                     font.pointSize: 16
                     onClicked: mainModel.strategy = RobotModel.STRAT1
                 }
                 RadioButton {
-                    enabled: !mainModel.tirette
                     text: qsTr("Aggressive")
                     font.pointSize: 16
                     onClicked: mainModel.strategy = RobotModel.STRAT2
                 }
                 RadioButton {
-                    enabled: !mainModel.tirette
                     text: qsTr("Finale")
                     font.pointSize: 16
                     onClicked: mainModel.strategy = RobotModel.STRAT3
@@ -366,38 +364,20 @@ Page {
 
                 Switch {
                     id: config1
-                    text: qsTr("Config 1")
+                    text: qsTr("Skip calage bordure")
+                    onClicked: mainModel.skipCalageBordure = config1.checked
                 }
 
                 Switch {
                     id: config2
-                    text: qsTr("Config 2")
+                    text: qsTr("Mode manuel")
+                    onClicked: mainModel.modeManuel = config2.checked
                 }
 
-                Switch {
-                    id: config3
-                    text: qsTr("Config 3")
-                }
-            }
-
-            Column {
-                width: 200
-                spacing: 10
-
-                Switch {
-                    id: config4
-                    text: qsTr("Config 4")
-                }
-
-                Switch {
-                    id: config5
-                    text: qsTr("Config 5")
-                }
-
-                Switch {
-                    id: config6
-                    text: qsTr("Config 6")
-                }
+//                Switch {
+//                    id: config3
+//                    text: qsTr("???")
+//                }
             }
         }
     }

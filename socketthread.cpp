@@ -52,6 +52,8 @@ void SocketThread::run() {
             result.datas["team"] = model->getTeam();
             result.datas["startCalibration"] = model->getStartCalibration();
             result.datas["strategy"] = model->getStrategy();
+            result.datas["modeManuel"] = model->getModeManuel();
+            result.datas["skipCalageBordure"] = model->getSkipCalageBordure();
 
         } else if (query.action == ACTION_UPDATE_STATE) {
             if (debug) {
