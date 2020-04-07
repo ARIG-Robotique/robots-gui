@@ -58,7 +58,7 @@ Page {
             spacing: 10
 
             Label {
-                text: "Lancement du calalge bordure ?"
+                text: "Lancement du calage bordure ?"
                 font.pointSize: 16
             }
 
