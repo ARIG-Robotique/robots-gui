@@ -364,7 +364,7 @@ Page {
 
                 Switch {
                     id: config1
-                    text: qsTr("Skip calage bordure")
+                    text: qsTr("Skip calage bordure / strategie")
                     onClicked: mainModel.skipCalageBordure = config1.checked
                 }
 
