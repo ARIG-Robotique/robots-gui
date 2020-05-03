@@ -10,10 +10,6 @@ Page {
 
     title: qsTr("Configuration Nerell")
 
-    RobotModel {
-        id: mainModel
-    }
-
     function getBooleanColor(value) {
         return value ? "green" : "red";
     }
@@ -83,7 +79,7 @@ Page {
                 Button {
                     text: "Oui"
                     onClicked: {
-                        mainModel.startCalibration = true
+                        RobotModel.startCalibration = true
                         calibConfirmation.close();
                     }
                 }
@@ -94,7 +90,7 @@ Page {
     Label {
         id: lblMessage
         height: 35
-        text: mainModel.message
+        text: RobotModel.message
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: parent.right
@@ -138,7 +134,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Bus i2c")
-                    stateColor: getBooleanColor(mainModel.i2c)
+                    stateColor: getBooleanColor(RobotModel.i2c)
                 }
 
                 StateComponent {
@@ -148,7 +144,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Lidar")
-                    stateColor: getBooleanColor(mainModel.lidar)
+                    stateColor: getBooleanColor(RobotModel.lidar)
                 }
 
                 StateComponent {
@@ -158,7 +154,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Balise")
-                    stateColor: getBooleanColor(mainModel.balise)
+                    stateColor: getBooleanColor(RobotModel.balise)
                 }
 
                 StateComponent {
@@ -168,7 +164,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Phare")
-                    stateColor: getBooleanColor(mainModel.phare)
+                    stateColor: getBooleanColor(RobotModel.phare)
                 }
 
             }
@@ -184,7 +180,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Arret Urgence")
-                    stateColor: getBooleanColor(mainModel.au)
+                    stateColor: getBooleanColor(RobotModel.au)
                 }
 
                 StateComponent {
@@ -194,7 +190,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Alim. 12V")
-                    stateColor: getBooleanColor(mainModel.alim12v)
+                    stateColor: getBooleanColor(RobotModel.alim12v)
                 }
 
                 StateComponent {
@@ -204,7 +200,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Alim. 5V")
-                    stateColor: getBooleanColor(mainModel.alim5vp)
+                    stateColor: getBooleanColor(RobotModel.alim5vp)
                 }
 
                 StateComponent {
@@ -214,7 +210,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Tirette")
-                    stateColor: getBooleanColor(mainModel.tirette)
+                    stateColor: getBooleanColor(RobotModel.tirette)
                 }
             }
         }
@@ -234,7 +230,7 @@ Page {
 
         Rectangle {
             id: rectColorTeam
-            color: getTeamColor(mainModel.team)
+            color: getTeamColor(RobotModel.team)
             radius: 5
             border.color: "#00000000"
             border.width: 1
@@ -251,7 +247,7 @@ Page {
         MouseArea {
             property bool checked: true
 
-            enabled: !mainModel.startCalibration
+            enabled: !RobotModel.startCalibration
 
             id: areaSelectColor
             anchors.bottom: buttonCalibration.top
@@ -265,7 +261,7 @@ Page {
 
             onClicked: {
                 areaSelectColor.checked = !areaSelectColor.checked;
-                mainModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
+                RobotModel.team = areaSelectColor.checked ? RobotModel.BLEU : RobotModel.JAUNE;
             }
         }
 
@@ -277,7 +273,7 @@ Page {
             width: 300
             height: 24
             text: qsTr("Taper ici pour choisir l'équipe")
-            visible: mainModel.team == RobotModel.UNKNOWN
+            visible: RobotModel.team == RobotModel.UNKNOWN
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 16
@@ -286,7 +282,7 @@ Page {
         Button {
             id: buttonCalibration
             y: 277
-            enabled: mainModel.au && mainModel.team != RobotModel.UNKNOWN && !mainModel.startCalibration
+            enabled: RobotModel.au && RobotModel.team != RobotModel.UNKNOWN && !RobotModel.startCalibration
             text: qsTr("Lancer le calage bordure")
             hoverEnabled: false
             highlighted: false
@@ -297,7 +293,7 @@ Page {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             onClicked: {
-                if (!mainModel.startCalibration) {
+                if (!RobotModel.startCalibration) {
                     console.log("Start calage bordure")
                     calibConfirmation.open()
                 }
@@ -324,7 +320,7 @@ Page {
         Row {
             id: rowConfig
             spacing: 100
-            enabled: !mainModel.tirette
+            enabled: !RobotModel.tirette
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left
@@ -344,17 +340,17 @@ Page {
                     checked: true
                     text: qsTr("Basic")
                     font.pointSize: 16
-                    onClicked: mainModel.strategy = RobotModel.STRAT1
+                    onClicked: RobotModel.strategy = RobotModel.STRAT1
                 }
                 RadioButton {
                     text: qsTr("Aggressive")
                     font.pointSize: 16
-                    onClicked: mainModel.strategy = RobotModel.STRAT2
+                    onClicked: RobotModel.strategy = RobotModel.STRAT2
                 }
                 RadioButton {
                     text: qsTr("Finale")
                     font.pointSize: 16
-                    onClicked: mainModel.strategy = RobotModel.STRAT3
+                    onClicked: RobotModel.strategy = RobotModel.STRAT3
                 }
             }
 
@@ -365,13 +361,13 @@ Page {
                 Switch {
                     id: config1
                     text: qsTr("Skip calage bordure / strategie")
-                    onClicked: mainModel.skipCalageBordure = config1.checked
+                    onClicked: RobotModel.skipCalageBordure = config1.checked
                 }
 
                 Switch {
                     id: config2
                     text: qsTr("Mode manuel")
-                    onClicked: mainModel.modeManuel = config2.checked
+                    onClicked: RobotModel.modeManuel = config2.checked
                 }
 
 //                Switch {
@@ -396,7 +392,7 @@ Page {
 
         Label {
             y: 85
-            text: mainModel.score
+            text: RobotModel.score
             verticalAlignment: Text.AlignVCenter
             anchors.left: parent.left
             anchors.leftMargin: 0
@@ -412,7 +408,7 @@ Page {
     states: [
         State {
             name: "match"
-            when: (mainModel.inMatch)
+            when: (RobotModel.inMatch)
 
             PropertyChanges {
                 target: frameInfos

@@ -9,6 +9,13 @@ RobotModel* RobotModel::getInstance() {
     return instance;
 }
 
+QObject* RobotModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
+    Q_UNUSED(engine)
+    Q_UNUSED(scriptEngine)
+
+    return RobotModel::getInstance();
+}
+
 RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     if (instance == nullptr) {
         instance = this;
