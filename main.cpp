@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     socketThread.start();
 
     // Enregistrement du model
-    qmlRegisterType<RobotModel>("org.arig.robotmodel", 1, 0, "RobotModel");
+    qmlRegisterSingletonType<RobotModel>("org.arig.robotmodel", 1, 0, "RobotModel", RobotModel::singletonProvider);
 
     // QML Application
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
