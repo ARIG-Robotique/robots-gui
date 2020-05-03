@@ -171,17 +171,30 @@ void SocketHelper::waitConnectionUnix() {
 }
 
 JsonQuery SocketHelper::getQuery(void) {
-    char buffer[256];
-    bzero(buffer, 256);
-    if (read(clientSockfd, buffer, 255) < 0) {
-        spdlog::error("Erreur de lecture read()");
+    std::string data;
+
+    while (1) {
+        char buffer[256];
+        bzero(buffer, 256);
+        if (read(clientSockfd, buffer, 255) < 0) {
+            spdlog::error("Erreur de lecture read()");
+            break;
+        }
+        data+= std::string(buffer);
+
+        // on arrete quand on a trouvé \r ou si on a rien lu
+        if (buffer[0] == 0 || std::find(buffer, buffer + 255, 13) != buffer + 255) {
+            break;
+        }
     }
 
     JsonQuery q;
-    // Controle que le premier caractère n'est pas null, \r ou \n
-    if (buffer[0] != 0 && buffer[0] != 10 && buffer[0] != 13) {
+    if (data.length() == 0) {
+        spdlog::error("Requête vide du client");
+        q.action = DATA_INVALID;
+    } else {
         try {
-            json jsonValue = json::parse(buffer);
+            json jsonValue = json::parse(data);
             spdlog::debug("Requête client : {}", jsonValue.dump(2));
             q.action = jsonValue["action"];
             q.datas = jsonValue["datas"];
@@ -189,9 +202,6 @@ JsonQuery SocketHelper::getQuery(void) {
             spdlog::error("Erreur de lecture du JSON : {}", e.what());
             q.action = DATA_UNPARSABLE;
         }
-    } else {
-        spdlog::error("Requête vide du client");
-        q.action = DATA_INVALID;
     }
 
     return q;

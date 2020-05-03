@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QCursor>
+#include <QDebug>
 #include <QQmlApplicationEngine>
 #include <ctime>
 
@@ -10,16 +11,38 @@
 #include "spdlog/sinks/basic_file_sink.h"
 
 void printUsage() {
-    cerr << "Usage socket unix : nerell-gui unix /tmp/socket.sock sauronDns sauronPort [debug]" << endl;
-    cerr << "Usage socket inet : nerell-gui inet 8686 sauronDns sauronPort [debug]" << endl;
+    cerr << "Usage socket unix : nerell-gui unix /tmp/ecran.sock [debug]" << endl;
+    cerr << "Usage socket inet : nerell-gui inet 8686 [debug]" << endl;
+}
+
+void qDebugToSpdLog(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context)
+    switch (type) {
+        case QtDebugMsg:
+            spdlog::debug(msg.toStdString());
+            break;
+        case QtInfoMsg:
+            spdlog::info(msg.toStdString());
+            break;
+        case QtWarningMsg:
+            spdlog::warn(msg.toStdString());
+            break;
+        case QtCriticalMsg:
+        case QtFatalMsg:
+            spdlog::error(msg.toStdString());
+            break;
+    }
 }
 
 int main(int argc, char *argv[])
 {
-    if (argc < 5) {
+    if (argc < 3) {
         printUsage();
         return 1;
     }
+
+    const bool debug = argc >=4 && strcmp(argv[3], "debug") == 0;
 
     // Construit la date d'execution
     time_t now = time(nullptr);
@@ -34,17 +57,14 @@ int main(int argc, char *argv[])
     //auto file_sink = make_shared<spdlog::sinks::basic_file_sink_mt>(outputPrefix + ".log");
     //spdlog::default_logger()->sinks().push_back(file_sink);
     //spdlog::flush_every(std::chrono::seconds(1));
-    spdlog::set_level(spdlog::level::info);  
+    spdlog::set_level(debug ? spdlog::level::debug : spdlog::level::info);
+    qInstallMessageHandler(qDebugToSpdLog);
 
     spdlog::info("Démarrage de l'application");
 
     // Configuration de la Socket
     string socketType = argv[1];
     string socketConf = argv[2];
-    string sauronDns = argv[3];
-    string sauronPort = argv[4];
-
-    spdlog::info("Communication avec Sauron : {}:{}", sauronDns, sauronPort);
 
     SocketHelper socket(socketType);
     if (socket.isUnknown()) {

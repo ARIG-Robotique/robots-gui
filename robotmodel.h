@@ -5,6 +5,7 @@
 #include <QQmlEngine>
 #include <QJSEngine>
 #include <QString>
+#include <QPoint>
 
 class RobotModel : public QObject
 {
@@ -18,6 +19,10 @@ class RobotModel : public QObject
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
     Q_PROPERTY(bool skipCalageBordure READ getSkipCalageBordure WRITE setSkipCalageBordure NOTIFY skipCalageBordureChanged)
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
+    Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
+    Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
+    Q_PROPERTY(QList<QPoint> posEcueil READ getPosEcueil WRITE setPosEcueil NOTIFY posEcueilChanged)
+    Q_PROPERTY(QList<QPoint> posBouees READ getPosBouees WRITE setPosBouees NOTIFY posBoueesChanged)
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -31,12 +36,14 @@ class RobotModel : public QObject
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(QString message READ getMessage NOTIFY messageChanged)
+    Q_PROPERTY(QString photo READ getPhoto NOTIFY photoChanged)
+    Q_PROPERTY(QList<QString> couleurEcueil READ getCouleurEcueil NOTIFY couleurEcueilChanged)
+    Q_PROPERTY(QList<QString> couleurBouees READ getCouleurBouees NOTIFY couleurBoueesChanged)
 
     static RobotModel* instance;
-
-public:
     RobotModel(QObject *parent = nullptr);
 
+public:
     enum Team { UNKNOWN, JAUNE, BLEU };
     enum Strategy { STRAT1, STRAT2, STRAT3 };
 
@@ -58,6 +65,20 @@ public:
 
     bool getModeManuel();
     void setModeManuel(bool value);
+
+    bool getUpdatePhoto();
+    void setUpdatePhoto(bool value);
+
+    bool getEtalonnageBalise();
+    void setEtalonnageBalise(bool value);
+
+    QList<QPoint> getPosEcueil();
+    void setPosEcueil(QList<QPoint> value);
+    Q_INVOKABLE void setPosEcueil(QJSValue value);
+
+    QList<QPoint> getPosBouees();
+    void setPosBouees(QList<QPoint> value);
+    Q_INVOKABLE void setPosBouees(QJSValue value);
 
     // RO
     bool getInMatch();
@@ -93,7 +114,28 @@ public:
     QString getMessage();
     void setMessage(QString message);
 
+    QString getPhoto();
+    void setPhoto(QString value);
+
+    QList<QString> getCouleurEcueil();
+    void setCouleurEcueil(QList<QString> value);
+
+    QList<QString> getCouleurBouees();
+    void setCouleurBouees(QList<QString> value);
+
 signals:
+    // RW
+    void teamChanged(Team newTeam);
+    void strategyChanged(Strategy strategy);
+    void startCalibrationChanged(bool newValue);
+    void skipCalageBordureChanged(bool newValue);
+    void modeManuelChanged(bool newValue);
+    void updatePhotoChanged(bool newValue);
+    void etalonnageBaliseChanged(bool newValue);
+    void posEcueilChanged(QList<QPoint> newValue);
+    void posBoueesChanged(QList<QPoint> newValue);
+
+    // RO
     void i2cChanged(bool newValue);
     void lidarChanged(bool newValue);
     void alim12vChanged(bool newValue);
@@ -103,22 +145,26 @@ signals:
     void messageChanged(QString message);
     void phareChanged(bool newValue);
     void scoreChanged(int newValue);
-    void startCalibrationChanged(bool newValue);
     void inMatchChanged(bool newValue);
-    void strategyChanged(Strategy strategy);
-    void teamChanged(Team newTeam);
     void tiretteChanged(bool newValue);
-    void skipCalageBordureChanged(bool newValue);
-    void modeManuelChanged(bool newValue);
+    void photoChanged(QString newValue);
+    void couleurEcueilChanged(QList<QString> newValue);
+    void couleurBoueesChanged(QList<QString> newValue);
 
 public slots:
 
 private:
+    // RW
     Team team;
     Strategy strategy;
-    bool inMatch, au, alim12v, alim5vp, tirette, startCalibration, phare, balise, i2c, lidar, modeManuel, skipCalageBordure;
+    bool startCalibration, modeManuel, skipCalageBordure, updatePhoto, etalonnageBalise;
+    QList<QPoint> posEcueil, posBouees;
+
+    // RO
     int score;
-    QString message;
+    bool inMatch, au, alim12v, alim5vp, tirette, phare, balise, i2c, lidar;
+    QString message, photo;
+    QList<QString> couleurEcueil, couleurBouees;
 
 };
 
