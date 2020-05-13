@@ -54,10 +54,23 @@ void SocketThread::run() {
             result.datas["strategy"] = model->getStrategy();
             result.datas["modeManuel"] = model->getModeManuel();
             result.datas["skipCalageBordure"] = model->getSkipCalageBordure();
+            result.datas["updatePhoto"] = model->getUpdatePhoto();
+            result.datas["etalonnageBalise"] = model->getEtalonnageBalise();
+            result.datas["posEcueil"] = json();
+
+            for (const QPoint &pt : model->getPosEcueil()) {
+                result.datas["posEcueil"].emplace_back(json({pt.x(), pt.y()}));
+            }
+            if (!model->getPosBouees().empty()) {
+                result.datas["posBouees"] = json();
+                for (const QPoint &pt : model->getPosBouees()) {
+                    result.datas["posBouees"].emplace_back(json({pt.x(), pt.y()}));
+                }
+            }
 
         } else if (query.action == ACTION_UPDATE_STATE) {
             if (debug) {
-                spdlog::info("Envoi de mise à jour de l'état du robot pendant l'initialisation");
+                spdlog::info("Reception de mise à jour de l'état du robot pendant l'initialisation");
             }
 
             json datas = query.datas;
@@ -78,15 +91,51 @@ void SocketThread::run() {
 
         } else if (query.action == ACTION_UPDATE_MATCH) {
             if (debug) {
-                spdlog::info("Envoi de mise à jour de l'état du robot pendant le match");
+                spdlog::info("Reception de mise à jour de l'état du robot pendant le match");
             }
 
             json datas = query.datas;
             RobotModel* model = RobotModel::getInstance();
             model->setInMatch(true);
             model->setScore(datas["score"]);
-            string message = datas["message"];
-            model->setMessage(message.c_str());
+            model->setMessage(QString::fromStdString(datas["message"]));
+
+            result.status = RESPONSE_OK;
+
+        } else if (query.action == ACTION_UPDATE_PHOTO) {
+            if (debug) {
+                spdlog::info("Reception d'une photo de la balise");
+            }
+
+            json datas = query.datas;
+            RobotModel* model = RobotModel::getInstance();
+            model->setUpdatePhoto(false);
+            model->setPhoto(QString::fromStdString(datas));
+
+            result.status = RESPONSE_OK;
+
+        } else if (query.action == ACTION_UPDATE_ETALONNAGE) {
+            if (debug) {
+                spdlog::info("Reception du résultat d'étalonnage");
+            }
+
+            json datas = query.datas;
+            RobotModel* model = RobotModel::getInstance();
+
+            QList<QString> ecueil;
+            for (auto &c : datas["ecueil"]) {
+                ecueil.push_back(QString::fromStdString(c));
+            }
+            QList<QString> bouees;
+            if (datas["bouees"] != nullptr) {
+                for (auto &c : datas["bouees"]) {
+                    bouees.push_back(QString::fromStdString(c));
+                }
+            }
+
+            model->setCouleurEcueil(ecueil);
+            model->setCouleurBouees(bouees);
+            model->setEtalonnageBalise(false);
 
             result.status = RESPONSE_OK;
 

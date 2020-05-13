@@ -1,28 +1,35 @@
 #include "robotmodel.h"
+#include "common.h"
 
 RobotModel* RobotModel::instance = nullptr;
 
 RobotModel* RobotModel::getInstance() {
     if (instance == nullptr) {
-        new RobotModel();
+        instance = new RobotModel();
     }
     return instance;
 }
 
 QObject* RobotModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
-    Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    return RobotModel::getInstance();
+    auto instance = RobotModel::getInstance();
+    engine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
+    return instance;
 }
 
 RobotModel::RobotModel(QObject *parent) : QObject(parent) {
-    if (instance == nullptr) {
-        instance = this;
-    }
-
+    // RW
     this->setTeam(UNKNOWN);
     this->setStrategy(STRAT1);
+    this->setStartCalibration(false);
+    this->setModeManuel(false);
+    this->setSkipCalageBordure(false);
+    this->setUpdatePhoto(false);
+    this->setEtalonnageBalise(false);
+
+    // RO
+    this->setScore(0);
     this->setI2c(false);
     this->setLidar(false);
     this->setInMatch(false);
@@ -30,9 +37,8 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlim12v(false);
     this->setAlim5vp(false);
     this->setTirette(false);
-    this->setModeManuel(false);
-    this->setSkipCalageBordure(false);
-    this->setScore(0);
+    this->setPhare(false);
+    this->setBalise(false);
     this->setMessage("Démarrage en cours ...");
 }
 
@@ -77,6 +83,54 @@ bool RobotModel::getModeManuel() {
 void RobotModel::setModeManuel(bool value) {
     this->modeManuel = value;
     emit modeManuelChanged(value);
+}
+
+bool RobotModel::getUpdatePhoto() {
+    return this->updatePhoto;
+}
+void RobotModel::setUpdatePhoto(bool value) {
+    this->updatePhoto = value;
+    emit updatePhotoChanged(value);
+}
+
+bool RobotModel::getEtalonnageBalise() {
+    return this->etalonnageBalise;
+}
+void RobotModel::setEtalonnageBalise(bool value) {
+    this->etalonnageBalise = value;
+    emit etalonnageBaliseChanged(value);
+}
+
+QList<QPoint> RobotModel::getPosEcueil() {
+    return this->posEcueil;
+}
+void RobotModel::setPosEcueil(QList<QPoint> value) {
+    this->posEcueil = value;
+    emit posEcueilChanged(value);
+}
+void RobotModel::setPosEcueil(QJSValue value) {
+    QList<QPoint> points;
+    unsigned int length = value.property("length").toUInt();
+    for (unsigned int i = 0; i < length; i++) {
+        points.push_back(value.property(i).toVariant().toPoint());
+    }
+    setPosEcueil(points);
+}
+
+QList<QPoint> RobotModel::getPosBouees() {
+    return this->posBouees;
+}
+void RobotModel::setPosBouees(QList<QPoint> value) {
+    this->posBouees = value;
+    emit posBoueesChanged(value);
+}
+void RobotModel::setPosBouees(QJSValue value) {
+    QList<QPoint> points;
+    unsigned int length = value.property("length").toUInt();
+    for (unsigned int i = 0; i < length; i++) {
+        points.push_back(value.property(i).toVariant().toPoint());
+    }
+    setPosBouees(points);
 }
 
 // QML RO datas //
@@ -168,4 +222,28 @@ QString RobotModel::getMessage() {
 void RobotModel::setMessage(QString message) {
     this->message = message;
     emit messageChanged(message);
+}
+
+QString RobotModel::getPhoto() {
+    return this->photo;
+}
+void RobotModel::setPhoto(QString value) {
+    this->photo = value;
+    emit photoChanged(value);
+}
+
+QList<QString> RobotModel::getCouleurEcueil() {
+    return this->couleurEcueil;
+}
+void RobotModel::setCouleurEcueil(QList<QString> value) {
+    this->couleurEcueil = value;
+    emit couleurEcueilChanged(value);
+}
+
+QList<QString> RobotModel::getCouleurBouees() {
+    return this->couleurBouees;
+}
+void RobotModel::setCouleurBouees(QList<QString> value) {
+    this->couleurBouees = value;
+    emit couleurBoueesChanged(value);
 }
