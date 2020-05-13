@@ -25,6 +25,10 @@ Page {
         return colors;
     }
 
+    function btnValiderEnabled() {
+        return currentMode == "" && posEcueil.length == 2;
+    }
+
     Component.onCompleted: {
         RobotModel.updatePhoto = true
         posEcueil = RobotModel.posEcueil
@@ -97,6 +101,7 @@ Page {
                 RobotModel.setPosBouees(posBouees)
                 RobotModel.etalonnageBalise = true
             }
+            enabled: btnValiderEnabled()
         }
     }
 
