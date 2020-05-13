@@ -135,7 +135,7 @@ Page {
                         }
                     } else if (currentMode == "bouees") {
                         posBouees = posBouees.concat(Qt.point(this.mouseX, this.mouseY))
-                        if (posBouees.length === 8) {
+                        if (posBouees.length === 6) {
                             currentMode = ""
                         }
                     }
