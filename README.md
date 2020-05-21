@@ -32,7 +32,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
             [500, 500],
             [500, 500]
         ],
-        "posBouees": [ ... ] // huit positions ou null
+        "posBouees": [ ... ] // six positions ou null
     }
 }
 ```
@@ -114,7 +114,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
     "action": "UPDATE_ETALONNAGE",
     "datas": {
         "ecueil": ["#ff00ff00", "#ffff0000"],
-        "bouees": [ ... ] // huit couleurs ou null
+        "bouees": [ ... ] // six couleurs ou null
     }
 }
 ```

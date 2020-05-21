@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQuick.Dialogs 1.2
+import org.arig.robotmodel 1.0
 
 
 ApplicationWindow {
@@ -33,6 +35,13 @@ ApplicationWindow {
             text: stackView.currentItem.title
             anchors.centerIn: parent
         }
+
+        ToolButton {
+            text: "\u274C"
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            anchors.right: parent.right
+            onClicked: exitConfirmation.open()
+        }
     }
 
     Drawer {
@@ -58,5 +67,62 @@ ApplicationWindow {
         id: stackView
         initialItem: "ConfigurationForm.qml"
         anchors.fill: parent
+    }
+
+    Popup {
+        id: exitConfirmation
+        modal: true
+        focus: true
+        width: 350
+        height: 150
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+        enter: Transition {
+            NumberAnimation {
+                property: "opacity"
+                from: 0.0
+                to: 1.0
+            }
+        }
+        exit: Transition {
+            NumberAnimation {
+                property: "opacity"
+                from: 1.0
+                to: 0.0
+            }
+        }
+
+        anchors.centerIn: Overlay.overlay
+
+        contentItem:  Column {
+            padding: 5
+            spacing: 10
+
+            Label {
+                text: "Quitter le programme ?"
+                font.pointSize: 16
+            }
+
+            Row {
+                padding: 5
+                spacing: 10
+                anchors.right: parent.right
+                anchors.rightMargin: 5
+
+                Button {
+                    text: "Non"
+                    onClicked: {
+                        exitConfirmation.close();
+                    }
+                }
+
+                Button {
+                    text: "Oui"
+                    onClicked: {
+                        RobotModel.exit = true
+                    }
+                }
+            }
+        }
     }
 }

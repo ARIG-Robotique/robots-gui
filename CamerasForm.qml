@@ -39,7 +39,7 @@ Page {
             couleurEcueil = getPrimaryColor(2)
         }
         if (couleurBouees.length === 0) {
-            couleurBouees = getPrimaryColor(8)
+            couleurBouees = getPrimaryColor(6)
         }
     }
 
@@ -83,7 +83,7 @@ Page {
             highlighted: currentMode == "bouees"
             onClicked: {
                 posBouees = []
-                couleurBouees = getPrimaryColor(8)
+                couleurBouees = getPrimaryColor(6)
                 currentMode = currentMode == "bouees" ? "" : "bouees"
             }
         }

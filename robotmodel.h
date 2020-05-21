@@ -14,6 +14,7 @@ class RobotModel : public QObject
     Q_ENUMS(Strategy)
 
     // RW
+    Q_PROPERTY(bool exit READ getExit WRITE setExit NOTIFY exitChanged)
     Q_PROPERTY(Team team READ getTeam WRITE setTeam NOTIFY teamChanged)
     Q_PROPERTY(Strategy strategy READ getStrategy WRITE setStrategy NOTIFY strategyChanged)
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
@@ -51,6 +52,9 @@ public:
     static RobotModel* getInstance();
 
     // RW
+    bool getExit();
+    void setExit(bool value);
+
     Team getTeam();
     void setTeam(Team team);
 
@@ -125,6 +129,7 @@ public:
 
 signals:
     // RW
+    void exitChanged(bool newValue);
     void teamChanged(Team newTeam);
     void strategyChanged(Strategy strategy);
     void startCalibrationChanged(bool newValue);
@@ -157,7 +162,7 @@ private:
     // RW
     Team team;
     Strategy strategy;
-    bool startCalibration, modeManuel, skipCalageBordure, updatePhoto, etalonnageBalise;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, updatePhoto, etalonnageBalise;
     QList<QPoint> posEcueil, posBouees;
 
     // RO

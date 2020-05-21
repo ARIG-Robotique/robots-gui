@@ -20,6 +20,7 @@ QObject* RobotModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptEngi
 
 RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     // RW
+    this->setExit(false);
     this->setTeam(UNKNOWN);
     this->setStrategy(STRAT1);
     this->setStartCalibration(false);
@@ -44,6 +45,14 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
 
 // QML RW datas //
 // ------------ //
+
+bool RobotModel::getExit() {
+    return this->exit;
+}
+void RobotModel::setExit(bool exit) {
+    this->exit = exit;
+    emit exitChanged(exit);
+}
 
 RobotModel::Team RobotModel::getTeam() {
     return this->team;

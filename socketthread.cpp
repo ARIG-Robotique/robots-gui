@@ -49,6 +49,7 @@ void SocketThread::run() {
             RobotModel* model = RobotModel::getInstance();
 
             result.status = RESPONSE_OK;
+            result.datas["exit"] = model->getExit();
             result.datas["team"] = model->getTeam();
             result.datas["startCalibration"] = model->getStartCalibration();
             result.datas["strategy"] = model->getStrategy();
