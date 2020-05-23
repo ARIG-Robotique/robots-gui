@@ -31,10 +31,12 @@ Page {
 
     Component.onCompleted: {
         RobotModel.updatePhoto = true
-        posEcueil = RobotModel.posEcueil
-        posBouees = RobotModel.posBouees
+
+        posEcueil = RobotModel.getPosEcueilForQML()
+        posBouees = RobotModel.getPosBoueesForQML()
         couleurEcueil = RobotModel.couleurEcueil
         couleurBouees = RobotModel.couleurBouees
+
         if (couleurEcueil.length === 0) {
             couleurEcueil = getPrimaryColor(2)
         }
@@ -97,8 +99,8 @@ Page {
             text: qsTr("Valider")
             checkable: false
             onClicked: {
-                RobotModel.setPosEcueil(posEcueil)
-                RobotModel.setPosBouees(posBouees)
+                RobotModel.setPosEcueilForQML(posEcueil)
+                RobotModel.setPosBoueesForQML(posBouees)
                 RobotModel.etalonnageBalise = true
             }
             enabled: btnValiderEnabled()

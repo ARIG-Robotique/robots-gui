@@ -117,7 +117,14 @@ void RobotModel::setPosEcueil(QList<QPoint> value) {
     this->posEcueil = value;
     emit posEcueilChanged(value);
 }
-void RobotModel::setPosEcueil(QJSValue value) {
+QList<QVariant> RobotModel::getPosEcueilForQML() {
+    QList<QVariant> value;
+    for (auto const &pt : getPosEcueil()) {
+        value.push_back(QVariant(pt));
+    }
+    return value;
+}
+void RobotModel::setPosEcueilForQML(QJSValue value) {
     QList<QPoint> points;
     unsigned int length = value.property("length").toUInt();
     for (unsigned int i = 0; i < length; i++) {
@@ -133,7 +140,14 @@ void RobotModel::setPosBouees(QList<QPoint> value) {
     this->posBouees = value;
     emit posBoueesChanged(value);
 }
-void RobotModel::setPosBouees(QJSValue value) {
+QList<QVariant> RobotModel::getPosBoueesForQML() {
+    QList<QVariant> value;
+    for (auto const &pt : getPosBouees()) {
+        value.push_back(QVariant(pt));
+    }
+    return value;
+}
+void RobotModel::setPosBoueesForQML(QJSValue value) {
     QList<QPoint> points;
     unsigned int length = value.property("length").toUInt();
     for (unsigned int i = 0; i < length; i++) {

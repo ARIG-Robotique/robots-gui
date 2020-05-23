@@ -22,8 +22,7 @@ class RobotModel : public QObject
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
-    Q_PROPERTY(QList<QPoint> posEcueil READ getPosEcueil WRITE setPosEcueil NOTIFY posEcueilChanged)
-    Q_PROPERTY(QList<QPoint> posBouees READ getPosBouees WRITE setPosBouees NOTIFY posBoueesChanged)
+    // posEccueil && posBouees pas déclarées car on utilise des getter/setters spécifiques
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -78,11 +77,13 @@ public:
 
     QList<QPoint> getPosEcueil();
     void setPosEcueil(QList<QPoint> value);
-    Q_INVOKABLE void setPosEcueil(QJSValue value);
+    Q_INVOKABLE void setPosEcueilForQML(QJSValue value);
+    Q_INVOKABLE QList<QVariant> getPosEcueilForQML();
 
     QList<QPoint> getPosBouees();
     void setPosBouees(QList<QPoint> value);
-    Q_INVOKABLE void setPosBouees(QJSValue value);
+    Q_INVOKABLE void setPosBoueesForQML(QJSValue value);
+    Q_INVOKABLE QList<QVariant> getPosBoueesForQML();
 
     // RO
     bool getInMatch();
