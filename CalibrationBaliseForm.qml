@@ -9,7 +9,7 @@ Page {
     width: 800
     height: 430
 
-    title: qsTr("Paramétrage balise")
+    title: qsTr("Calibration balise (Sauron)")
 
     property var currentMode: ""
     property var posEcueil: []

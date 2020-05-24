@@ -39,6 +39,7 @@ ApplicationWindow {
             text: "\u274C"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
+            enabled: RobotModel.au
             onClicked: exitConfirmation.open()
         }
     }
@@ -52,10 +53,11 @@ ApplicationWindow {
             anchors.fill: parent
 
             ItemDelegate {
-                text: qsTr("Cameras")
+                text: qsTr("Calibration Balise")
                 width: parent.width
+                enabled: RobotModel.au
                 onClicked: {
-                    stackView.push("CamerasForm.qml")
+                    stackView.push("CalibrationBaliseForm.qml")
                     drawer.close()
                 }
             }
