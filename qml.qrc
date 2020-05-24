@@ -4,7 +4,6 @@
         <file>ConfigurationForm.qml</file>
         <file>CamerasForm.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>img/20190504150746-source-idle-18.jpg</file>
         <file>StateComponent.qml</file>
     </qresource>
 </RCC>
