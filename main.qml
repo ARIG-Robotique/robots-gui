@@ -55,7 +55,7 @@ ApplicationWindow {
             ItemDelegate {
                 text: qsTr("Calibration Balise")
                 width: parent.width
-                enabled: RobotModel.au
+                enabled: RobotModel.balise
                 onClicked: {
                     stackView.push("CalibrationBaliseForm.qml")
                     drawer.close()
