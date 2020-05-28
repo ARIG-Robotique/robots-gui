@@ -21,6 +21,7 @@ ApplicationWindow {
             id: toolButton
             text: stackView.depth > 1 ? "\u25C0" : "\u2630"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
+            visible: !RobotModel.inMatch
             onClicked: {
                 if (stackView.depth > 1) {
                     stackView.pop()
@@ -39,7 +40,7 @@ ApplicationWindow {
             text: "\u274C"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
-            enabled: RobotModel.au
+            visible: RobotModel.au && !RobotModel.inMatch
             onClicked: exitConfirmation.open()
         }
     }
