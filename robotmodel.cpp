@@ -22,7 +22,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     // RW
     this->setExit(false);
     this->setTeam(UNKNOWN);
-    this->setStrategy(STRAT1);
+    this->setStrategy(BASIC_NORD);
     this->setStartCalibration(false);
     this->setModeManuel(false);
     this->setSkipCalageBordure(false);

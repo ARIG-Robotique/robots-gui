@@ -333,24 +333,30 @@ Page {
             Column {
                 id: strategies
                 width: 200
-                anchors.top: rectColorTeam.bottom
+                spacing: -17
+                anchors.top: parent.top
                 anchors.topMargin: 0
 
                 RadioButton {
                     checked: true
-                    text: qsTr("Basic")
+                    text: qsTr("Basic - Nord")
                     font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.STRAT1
+                    onClicked: RobotModel.strategy = RobotModel.BASIC_NORD
+                }
+                RadioButton {
+                    text: qsTr("Basic - Sud")
+                    font.pointSize: 16
+                    onClicked: RobotModel.strategy = RobotModel.BASIC_SUD
                 }
                 RadioButton {
                     text: qsTr("Aggressive")
                     font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.STRAT2
+                    onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
                 }
                 RadioButton {
                     text: qsTr("Finale")
                     font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.STRAT3
+                    onClicked: RobotModel.strategy = RobotModel.FINALE
                 }
             }
 
@@ -443,13 +449,13 @@ Page {
 
 /*##^##
 Designer {
-    D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:20;anchors_x:16}D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}
+    D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
+D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}
+D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}D{i:20;anchors_x:16}
 D{i:27;anchors_height:42}D{i:28;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
 }
 ##^##*/

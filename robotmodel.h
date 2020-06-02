@@ -45,7 +45,7 @@ class RobotModel : public QObject
 
 public:
     enum Team { UNKNOWN, JAUNE, BLEU };
-    enum Strategy { STRAT1, STRAT2, STRAT3 };
+    enum Strategy { BASIC_NORD, BASIC_SUD, AGGRESSIVE, FINALE };
 
     static QObject* singletonProvider(QQmlEngine *engine = nullptr, QJSEngine *scriptEngine = nullptr);
     static RobotModel* getInstance();
