@@ -40,7 +40,7 @@ ApplicationWindow {
             text: "\u274C"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
-            visible: RobotModel.au && !RobotModel.inMatch
+            visible: !RobotModel.inMatch
             onClicked: exitConfirmation.open()
         }
     }
@@ -114,6 +114,7 @@ ApplicationWindow {
                 Button {
                     text: "Non"
                     onClicked: {
+                        RobotModel.exit = false
                         exitConfirmation.close();
                     }
                 }
