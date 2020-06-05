@@ -5,8 +5,7 @@ import org.arig.robotmodel 1.0
 
 Page {
     id: page
-    width: 800
-    height: 430
+    anchors.fill: parent
 
     title: qsTr("Configuration Nerell")
 
@@ -387,26 +386,39 @@ Page {
     Frame {
         id: matchInfos
         visible: false
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.top: parent.top
-        anchors.topMargin: 0
+        anchors.fill: parent
+        background: Image {
+            source: "fond-ecran.png"
+        }
+
+        FontLoader {
+            id: crystalFont
+            source: "LiquidCrystal-Normal.otf"
+        }
 
         Label {
-            y: 85
-            text: RobotModel.score
+            height: 35
+            text: RobotModel.message
+            horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 0
             anchors.right: parent.right
-            anchors.rightMargin: 0
+            anchors.rightMargin: 5
+            anchors.left: parent.left
+            anchors.leftMargin: 5
+            anchors.top: parent.top
+            anchors.topMargin: 25
+            font.pointSize: 16
+        }
+
+        Label {
+            text: RobotModel.score
+            anchors.fill: parent
+            anchors.topMargin: 175
+            anchors.leftMargin: 15 // la font a problème de centrage
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 150
-            anchors.verticalCenter: parent.verticalCenter
+            font.family: crystalFont.name
+            renderType: Text.NativeRendering
         }
 
     }
@@ -415,6 +427,11 @@ Page {
         State {
             name: "match"
             when: (RobotModel.inMatch)
+
+            PropertyChanges {
+                target: lblMessage
+                visible: false
+            }
 
             PropertyChanges {
                 target: frameInfos

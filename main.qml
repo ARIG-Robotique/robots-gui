@@ -16,12 +16,12 @@ ApplicationWindow {
 
     header: ToolBar {
         contentHeight: toolButton.implicitHeight
+        visible: !RobotModel.inMatch
 
         ToolButton {
             id: toolButton
             text: stackView.depth > 1 ? "\u25C0" : "\u2630"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
-            visible: !RobotModel.inMatch
             onClicked: {
                 if (stackView.depth > 1) {
                     stackView.pop()
@@ -40,7 +40,6 @@ ApplicationWindow {
             text: "\u274C"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
-            visible: !RobotModel.inMatch
             onClicked: exitConfirmation.open()
         }
     }
