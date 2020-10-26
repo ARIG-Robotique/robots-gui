@@ -15,6 +15,7 @@ ApplicationWindow {
     title: qsTr("Nerell GUI")
 
     header: ToolBar {
+        id: toolBar
         contentHeight: toolButton.implicitHeight
         visible: !RobotModel.inMatch
 
@@ -31,13 +32,26 @@ ApplicationWindow {
             }
         }
 
+        ToolButton {
+            id: baliseButton
+            text: "Calibration"
+            anchors.left: toolButton.left
+            anchors.leftMargin: 50
+            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            enabled: RobotModel.balise && stackView.currentItem.title !== "Calibration balise (Sauron)"
+            onClicked: {
+                console.log(stackView.currentItem)
+                stackView.push("CalibrationBaliseForm.qml")
+            }
+        }
+
         Label {
             text: stackView.currentItem.title
             anchors.centerIn: parent
         }
 
         ToolButton {
-            text: "\u274C"
+            text: "\u274c"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             anchors.right: parent.right
             onClicked: exitConfirmation.open()
