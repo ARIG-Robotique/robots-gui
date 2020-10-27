@@ -364,6 +364,12 @@ Page {
                 spacing: 10
 
                 Switch {
+                    id: config3
+                    text: qsTr("Double dépose grand chenal")
+                    onClicked: RobotModel.doubleDepose = config3.checked
+                }
+
+                Switch {
                     id: config1
                     text: qsTr("Skip calage bordure / strategie")
                     onClicked: RobotModel.skipCalageBordure = config1.checked
@@ -373,12 +379,6 @@ Page {
                     id: config2
                     text: qsTr("Mode manuel")
                     onClicked: RobotModel.modeManuel = config2.checked
-                }
-
-                Switch {
-                    id: config3
-                    text: qsTr("Double dépose grand chenal")
-                    onClicked: RobotModel.doubleDepose = config3.checked
                 }
             }
         }
