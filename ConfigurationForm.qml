@@ -375,10 +375,11 @@ Page {
                     onClicked: RobotModel.modeManuel = config2.checked
                 }
 
-//                Switch {
-//                    id: config3
-//                    text: qsTr("???")
-//                }
+                Switch {
+                    id: config3
+                    text: qsTr("Double dépose grand chenal")
+                    onClicked: RobotModel.doubleDepose = config3.checked
+                }
             }
         }
     }

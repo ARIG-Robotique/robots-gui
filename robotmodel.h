@@ -20,6 +20,7 @@ class RobotModel : public QObject
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
     Q_PROPERTY(bool skipCalageBordure READ getSkipCalageBordure WRITE setSkipCalageBordure NOTIFY skipCalageBordureChanged)
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
+    Q_PROPERTY(bool doubleDepose READ getDoubleDepose WRITE setDoubleDepose NOTIFY doubleDeposeChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
     // posEccueil && posBouees pas déclarées car on utilise des getter/setters spécifiques
@@ -68,6 +69,9 @@ public:
 
     bool getModeManuel();
     void setModeManuel(bool value);
+
+    bool getDoubleDepose();
+    void setDoubleDepose(bool value);
 
     bool getUpdatePhoto();
     void setUpdatePhoto(bool value);
@@ -136,6 +140,7 @@ signals:
     void startCalibrationChanged(bool newValue);
     void skipCalageBordureChanged(bool newValue);
     void modeManuelChanged(bool newValue);
+    void doubleDeposeChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
     void etalonnageBaliseChanged(bool newValue);
     void posEcueilChanged(QList<QPoint> newValue);
@@ -163,7 +168,7 @@ private:
     // RW
     Team team;
     Strategy strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, updatePhoto, etalonnageBalise;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, updatePhoto, etalonnageBalise;
     QList<QPoint> posEcueil, posBouees;
 
     // RO

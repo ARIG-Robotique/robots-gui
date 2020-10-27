@@ -56,6 +56,7 @@ void SocketThread::run() {
             result.datas["modeManuel"] = model->getModeManuel();
             result.datas["skipCalageBordure"] = model->getSkipCalageBordure();
             result.datas["updatePhoto"] = model->getUpdatePhoto();
+            result.datas["doubleDepose"] = model->getDoubleDepose();
             result.datas["etalonnageBalise"] = model->getEtalonnageBalise();
             result.datas["posEcueil"] = json();
 

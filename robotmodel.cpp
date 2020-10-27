@@ -25,6 +25,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setStrategy(BASIC_NORD);
     this->setStartCalibration(false);
     this->setModeManuel(false);
+    this->setDoubleDepose(false);
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
     this->setEtalonnageBalise(false);
@@ -92,6 +93,14 @@ bool RobotModel::getModeManuel() {
 void RobotModel::setModeManuel(bool value) {
     this->modeManuel = value;
     emit modeManuelChanged(value);
+}
+
+bool RobotModel::getDoubleDepose() {
+    return this->doubleDepose;
+}
+void RobotModel::setDoubleDepose(bool value) {
+    this->doubleDepose = value;
+    emit doubleDeposeChanged(value);
 }
 
 bool RobotModel::getUpdatePhoto() {
