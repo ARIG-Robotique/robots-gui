@@ -318,7 +318,7 @@ Page {
 
         Row {
             id: rowConfig
-            spacing: 100
+            spacing: 10
             enabled: !RobotModel.tirette
             anchors.right: parent.right
             anchors.rightMargin: 0
@@ -331,56 +331,112 @@ Page {
 
             Column {
                 id: strategies
-                width: 200
-                spacing: -17
+                width: 170
+                spacing: 0
                 anchors.top: parent.top
                 anchors.topMargin: 0
 
                 RadioButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
                     checked: true
                     text: qsTr("Basic - Nord")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.BASIC_NORD
                 }
                 RadioButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
                     text: qsTr("Basic - Sud")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.BASIC_SUD
                 }
                 RadioButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
                     text: qsTr("Aggressive")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
                 }
-                RadioButton {
+                /*RadioButton {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
                     text: qsTr("Finale")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.FINALE
+                }*/
+            }
+
+            Column {
+                id: configMatch
+                width: 235
+                spacing: 10
+
+                Switch {
+                    id: configDblDeposeGdChenal
+                    text: qsTr("2 déposes gd chenal")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.doubleDepose = configDblDeposeGdChenal.checked
+                }
+
+                Switch {
+                    id: configDeposePartielle
+                    text: qsTr("Deposes partielle gd chenal")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.deposePartielle = configDeposePartielle.checked
+                }
+
+                Switch {
+                    id: configSafeAvoidance
+                    text: qsTr("Safe avoidance")
+                    checked: true
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.safeAvoidance = configSafeAvoidance.checked
                 }
             }
 
             Column {
+                id: configDebug
                 width: 200
                 spacing: 10
 
                 Switch {
-                    id: config3
-                    text: qsTr("Double dépose grand chenal")
-                    onClicked: RobotModel.doubleDepose = config3.checked
+                    id: configSkipCalageChoixStrat
+                    text: qsTr("Skip cal. bord. / strat.")
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.skipCalageBordure = configSkipCalageChoixStrat.checked
                 }
 
                 Switch {
-                    id: config1
-                    text: qsTr("Skip calage bordure / strategie")
-                    onClicked: RobotModel.skipCalageBordure = config1.checked
-                }
-
-                Switch {
-                    id: config2
+                    id: configModeManuel
                     text: qsTr("Mode manuel")
-                    onClicked: RobotModel.modeManuel = config2.checked
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.modeManuel = configModeManuel.checked
                 }
-            }
+           }
         }
     }
 
@@ -467,13 +523,14 @@ Page {
 
 /*##^##
 Designer {
-    D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+    D{i:0;autoSize:true;height:480;width:640}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
+D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
 D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}
-D{i:22;anchors_width:180;anchors_x:264}D{i:23;anchors_width:180;anchors_x:264}D{i:20;anchors_x:16}
-D{i:27;anchors_height:42}D{i:28;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
+D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}
+D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:22;anchors_width:180;anchors_x:264}
+D{i:23;anchors_width:180;anchors_x:264}D{i:20;anchors_x:16}D{i:27;anchors_height:42}
+D{i:28;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
 }
 ##^##*/

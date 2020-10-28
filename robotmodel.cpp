@@ -26,6 +26,8 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setStartCalibration(false);
     this->setModeManuel(false);
     this->setDoubleDepose(false);
+    this->setSafeAvoidance(true);
+    this->setDeposePartielle(false);
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
     this->setEtalonnageBalise(false);
@@ -101,6 +103,22 @@ bool RobotModel::getDoubleDepose() {
 void RobotModel::setDoubleDepose(bool value) {
     this->doubleDepose = value;
     emit doubleDeposeChanged(value);
+}
+
+bool RobotModel::getSafeAvoidance() {
+    return this->safeAvoidance;
+}
+void RobotModel::setSafeAvoidance(bool value) {
+    this->safeAvoidance = value;
+    emit safeAvoidanceChanged(value);
+}
+
+bool RobotModel::getDeposePartielle() {
+    return this->deposePartielle;
+}
+void RobotModel::setDeposePartielle(bool value) {
+    this->deposePartielle = value;
+    emit deposePartielleChanged(value);
 }
 
 bool RobotModel::getUpdatePhoto() {

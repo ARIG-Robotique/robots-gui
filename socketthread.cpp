@@ -57,6 +57,8 @@ void SocketThread::run() {
             result.datas["skipCalageBordure"] = model->getSkipCalageBordure();
             result.datas["updatePhoto"] = model->getUpdatePhoto();
             result.datas["doubleDepose"] = model->getDoubleDepose();
+            result.datas["safeAvoidance"] = model->getSafeAvoidance();
+            result.datas["deposePartielle"] = model->getDeposePartielle();
             result.datas["etalonnageBalise"] = model->getEtalonnageBalise();
             result.datas["posEcueil"] = json();
 
