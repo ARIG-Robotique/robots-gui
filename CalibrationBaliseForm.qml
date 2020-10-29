@@ -16,6 +16,7 @@ Page {
     property var posBouees: []
     property var couleurEcueil: []
     property var couleurBouees: []
+    property var nbBoueeCalibration: 5
 
     function getPrimaryColor(n) {
         var colors = [];
@@ -41,7 +42,7 @@ Page {
             couleurEcueil = getPrimaryColor(2)
         }
         if (couleurBouees.length === 0) {
-            couleurBouees = getPrimaryColor(6)
+            couleurBouees = getPrimaryColor(nbBoueeCalibration)
         }
     }
 
@@ -85,7 +86,7 @@ Page {
             highlighted: currentMode == "bouees"
             onClicked: {
                 posBouees = []
-                couleurBouees = getPrimaryColor(6)
+                couleurBouees = getPrimaryColor(nbBoueeCalibration)
                 currentMode = currentMode == "bouees" ? "" : "bouees"
             }
         }
@@ -142,7 +143,7 @@ Page {
                         }
                     } else if (currentMode == "bouees") {
                         posBouees = posBouees.concat(Qt.point(this.mouseX, this.mouseY))
-                        if (posBouees.length === 6) {
+                        if (posBouees.length === nbBoueeCalibration) {
                             currentMode = ""
                         }
                     }
