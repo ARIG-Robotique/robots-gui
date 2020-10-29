@@ -16,7 +16,7 @@ Page {
     property var posBouees: []
     property var couleurEcueil: []
     property var couleurBouees: []
-    property var nbBoueeCalibration: 5
+    property var nbBoueeCalibration: 6
 
     function getPrimaryColor(n) {
         var colors = [];
