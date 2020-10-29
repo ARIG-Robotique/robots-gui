@@ -355,7 +355,7 @@ Page {
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.BASIC_SUD
                 }
-                RadioButton {
+                /*RadioButton {
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -363,7 +363,7 @@ Page {
                     text: qsTr("Aggressive")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
-                }
+                }*/
                 /*RadioButton {
                     anchors.right: parent.right
                     anchors.rightMargin: 0
@@ -475,7 +475,7 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             font.pointSize: 150
             font.family: crystalFont.name
-            renderType: Text.NativeRendering
+            //renderType: Text.NativeRendering
         }
 
     }
