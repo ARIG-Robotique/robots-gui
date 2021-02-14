@@ -21,7 +21,6 @@ using json = nlohmann::json;
 #define ACTION_UPDATE_STATE   "UPDATE_STATE"
 #define ACTION_UPDATE_MATCH   "UPDATE_MATCH"
 #define ACTION_UPDATE_PHOTO   "UPDATE_PHOTO"
-#define ACTION_UPDATE_ETALONNAGE "UPDATE_ETALONNAGE"
 
 struct JsonResult {
     string status;

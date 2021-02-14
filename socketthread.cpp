@@ -60,17 +60,6 @@ void SocketThread::run() {
             result.data["safeAvoidance"] = model->getSafeAvoidance();
             result.data["deposePartielle"] = model->getDeposePartielle();
             result.data["etalonnageBalise"] = model->getEtalonnageBalise();
-            result.data["posEcueil"] = json();
-
-            for (const QPoint &pt : model->getPosEcueil()) {
-                result.data["posEcueil"].emplace_back(json({pt.x(), pt.y()}));
-            }
-            if (!model->getPosBouees().empty()) {
-                result.data["posBouees"] = json();
-                for (const QPoint &pt : model->getPosBouees()) {
-                    result.data["posBouees"].emplace_back(json({pt.x(), pt.y()}));
-                }
-            }
 
         } else if (query.action == ACTION_UPDATE_STATE) {
             if (debug) {
@@ -114,32 +103,17 @@ void SocketThread::run() {
             json data = query.data;
             RobotModel* model = RobotModel::getInstance();
             model->setUpdatePhoto(false);
-            model->setPhoto(QString::fromStdString(data));
-
-            result.status = RESPONSE_OK;
-
-        } else if (query.action == ACTION_UPDATE_ETALONNAGE) {
-            if (debug) {
-                spdlog::info("Reception du résultat d'étalonnage");
-            }
-
-            json data = query.data;
-            RobotModel* model = RobotModel::getInstance();
-
-            QList<QString> ecueil;
-            for (auto &c : data["ecueil"]) {
-                ecueil.push_back(QString::fromStdString(c));
-            }
-            QList<QString> bouees;
-            if (data["bouees"] != nullptr) {
-                for (auto &c : data["bouees"]) {
-                    bouees.push_back(QString::fromStdString(c));
-                }
-            }
-
-            model->setCouleurEcueil(ecueil);
-            model->setCouleurBouees(bouees);
             model->setEtalonnageBalise(false);
+            if (data["message"].is_null()) {
+                model->setPhotoMessage("");
+            } else {
+                model->setPhotoMessage(QString::fromStdString(data["message"]));
+            }
+            if (data["photo"].is_null()) {
+                model->setPhoto("");
+            } else {
+                model->setPhoto(QString::fromStdString(data["photo"]));
+            }
 
             result.status = RESPONSE_OK;
 

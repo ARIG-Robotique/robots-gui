@@ -25,7 +25,6 @@ class RobotModel : public QObject
     Q_PROPERTY(bool deposePartielle READ getDeposePartielle WRITE setDeposePartielle NOTIFY deposePartielleChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
-    // posEccueil && posBouees pas déclarées car on utilise des getter/setters spécifiques
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -39,9 +38,8 @@ class RobotModel : public QObject
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(QString message READ getMessage NOTIFY messageChanged)
+    Q_PROPERTY(QString photoMessage READ getPhotoMessage NOTIFY photoMessageChanged)
     Q_PROPERTY(QString photo READ getPhoto NOTIFY photoChanged)
-    Q_PROPERTY(QList<QString> couleurEcueil READ getCouleurEcueil NOTIFY couleurEcueilChanged)
-    Q_PROPERTY(QList<QString> couleurBouees READ getCouleurBouees NOTIFY couleurBoueesChanged)
 
     static RobotModel* instance;
     RobotModel(QObject *parent = nullptr);
@@ -87,16 +85,6 @@ public:
     bool getEtalonnageBalise();
     void setEtalonnageBalise(bool value);
 
-    QList<QPoint> getPosEcueil();
-    void setPosEcueil(QList<QPoint> value);
-    Q_INVOKABLE void setPosEcueilForQML(QJSValue value);
-    Q_INVOKABLE QList<QVariant> getPosEcueilForQML();
-
-    QList<QPoint> getPosBouees();
-    void setPosBouees(QList<QPoint> value);
-    Q_INVOKABLE void setPosBoueesForQML(QJSValue value);
-    Q_INVOKABLE QList<QVariant> getPosBoueesForQML();
-
     // RO
     bool getInMatch();
     void setInMatch(bool value);
@@ -129,16 +117,13 @@ public:
     void setScore(int value);
 
     QString getMessage();
-    void setMessage(QString message);
+    void setMessage(QString value);
+
+    QString getPhotoMessage();
+    void setPhotoMessage(QString value);
 
     QString getPhoto();
     void setPhoto(QString value);
-
-    QList<QString> getCouleurEcueil();
-    void setCouleurEcueil(QList<QString> value);
-
-    QList<QString> getCouleurBouees();
-    void setCouleurBouees(QList<QString> value);
 
 signals:
     // RW
@@ -153,8 +138,6 @@ signals:
     void deposePartielleChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
     void etalonnageBaliseChanged(bool newValue);
-    void posEcueilChanged(QList<QPoint> newValue);
-    void posBoueesChanged(QList<QPoint> newValue);
 
     // RO
     void i2cChanged(bool newValue);
@@ -168,9 +151,8 @@ signals:
     void scoreChanged(int newValue);
     void inMatchChanged(bool newValue);
     void tiretteChanged(bool newValue);
+    void photoMessageChanged(QString newValue);
     void photoChanged(QString newValue);
-    void couleurEcueilChanged(QList<QString> newValue);
-    void couleurBoueesChanged(QList<QString> newValue);
 
 public slots:
 
@@ -179,13 +161,11 @@ private:
     Team team;
     Strategy strategy;
     bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, safeAvoidance, deposePartielle, updatePhoto, etalonnageBalise;
-    QList<QPoint> posEcueil, posBouees;
 
     // RO
     int score;
     bool inMatch, au, alim12v, alim5vp, tirette, phare, balise, i2c, lidar;
-    QString message, photo;
-    QList<QString> couleurEcueil, couleurBouees;
+    QString message, photoMessage, photo;
 
 };
 

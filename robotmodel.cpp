@@ -137,52 +137,6 @@ void RobotModel::setEtalonnageBalise(bool value) {
     emit etalonnageBaliseChanged(value);
 }
 
-QList<QPoint> RobotModel::getPosEcueil() {
-    return this->posEcueil;
-}
-void RobotModel::setPosEcueil(QList<QPoint> value) {
-    this->posEcueil = value;
-    emit posEcueilChanged(value);
-}
-QList<QVariant> RobotModel::getPosEcueilForQML() {
-    QList<QVariant> value;
-    for (auto const &pt : getPosEcueil()) {
-        value.push_back(QVariant(pt));
-    }
-    return value;
-}
-void RobotModel::setPosEcueilForQML(QJSValue value) {
-    QList<QPoint> points;
-    unsigned int length = value.property("length").toUInt();
-    for (unsigned int i = 0; i < length; i++) {
-        points.push_back(value.property(i).toVariant().toPoint());
-    }
-    setPosEcueil(points);
-}
-
-QList<QPoint> RobotModel::getPosBouees() {
-    return this->posBouees;
-}
-void RobotModel::setPosBouees(QList<QPoint> value) {
-    this->posBouees = value;
-    emit posBoueesChanged(value);
-}
-QList<QVariant> RobotModel::getPosBoueesForQML() {
-    QList<QVariant> value;
-    for (auto const &pt : getPosBouees()) {
-        value.push_back(QVariant(pt));
-    }
-    return value;
-}
-void RobotModel::setPosBoueesForQML(QJSValue value) {
-    QList<QPoint> points;
-    unsigned int length = value.property("length").toUInt();
-    for (unsigned int i = 0; i < length; i++) {
-        points.push_back(value.property(i).toVariant().toPoint());
-    }
-    setPosBouees(points);
-}
-
 // QML RO data //
 // ----------- //
 
@@ -269,9 +223,17 @@ void RobotModel::setScore(int value){
 QString RobotModel::getMessage() {
     return this->message;
 }
-void RobotModel::setMessage(QString message) {
-    this->message = message;
-    emit messageChanged(message);
+void RobotModel::setMessage(QString value) {
+    this->message = value;
+    emit messageChanged(value);
+}
+
+QString RobotModel::getPhotoMessage() {
+    return this->photoMessage;
+}
+void RobotModel::setPhotoMessage(QString value) {
+    this->photoMessage = value;
+    emit photoMessageChanged(value);
 }
 
 QString RobotModel::getPhoto() {
@@ -280,20 +242,4 @@ QString RobotModel::getPhoto() {
 void RobotModel::setPhoto(QString value) {
     this->photo = value;
     emit photoChanged(value);
-}
-
-QList<QString> RobotModel::getCouleurEcueil() {
-    return this->couleurEcueil;
-}
-void RobotModel::setCouleurEcueil(QList<QString> value) {
-    this->couleurEcueil = value;
-    emit couleurEcueilChanged(value);
-}
-
-QList<QString> RobotModel::getCouleurBouees() {
-    return this->couleurBouees;
-}
-void RobotModel::setCouleurBouees(QList<QString> value) {
-    this->couleurBouees = value;
-    emit couleurBoueesChanged(value);
 }
