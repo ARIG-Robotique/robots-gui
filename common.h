@@ -27,12 +27,12 @@ struct JsonResult {
     string status;
     string action;
     string errorMessage;
-    json datas;
+    json data;
 };
 
 struct JsonQuery {
     string action;
-    json datas;
+    json data;
 };
 
 #endif //NERELL_GUI_COMMON_H

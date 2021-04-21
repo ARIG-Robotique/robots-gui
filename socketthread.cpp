@@ -40,7 +40,7 @@ void SocketThread::run() {
         JsonResult result;
         if (query.action == ACTION_ECHO) {
             result.status = RESPONSE_OK;
-            result.datas = query.datas;
+            result.data = query.data;
 
         } else if (query.action == ACTION_GET_CONFIG) {
             if (debug) {
@@ -49,26 +49,26 @@ void SocketThread::run() {
             RobotModel* model = RobotModel::getInstance();
 
             result.status = RESPONSE_OK;
-            result.datas["exit"] = model->getExit();
-            result.datas["team"] = model->getTeam();
-            result.datas["startCalibration"] = model->getStartCalibration();
-            result.datas["strategy"] = model->getStrategy();
-            result.datas["modeManuel"] = model->getModeManuel();
-            result.datas["skipCalageBordure"] = model->getSkipCalageBordure();
-            result.datas["updatePhoto"] = model->getUpdatePhoto();
-            result.datas["doubleDepose"] = model->getDoubleDepose();
-            result.datas["safeAvoidance"] = model->getSafeAvoidance();
-            result.datas["deposePartielle"] = model->getDeposePartielle();
-            result.datas["etalonnageBalise"] = model->getEtalonnageBalise();
-            result.datas["posEcueil"] = json();
+            result.data["exit"] = model->getExit();
+            result.data["team"] = model->getTeam();
+            result.data["startCalibration"] = model->getStartCalibration();
+            result.data["strategy"] = model->getStrategy();
+            result.data["modeManuel"] = model->getModeManuel();
+            result.data["skipCalageBordure"] = model->getSkipCalageBordure();
+            result.data["updatePhoto"] = model->getUpdatePhoto();
+            result.data["doubleDepose"] = model->getDoubleDepose();
+            result.data["safeAvoidance"] = model->getSafeAvoidance();
+            result.data["deposePartielle"] = model->getDeposePartielle();
+            result.data["etalonnageBalise"] = model->getEtalonnageBalise();
+            result.data["posEcueil"] = json();
 
             for (const QPoint &pt : model->getPosEcueil()) {
-                result.datas["posEcueil"].emplace_back(json({pt.x(), pt.y()}));
+                result.data["posEcueil"].emplace_back(json({pt.x(), pt.y()}));
             }
             if (!model->getPosBouees().empty()) {
-                result.datas["posBouees"] = json();
+                result.data["posBouees"] = json();
                 for (const QPoint &pt : model->getPosBouees()) {
-                    result.datas["posBouees"].emplace_back(json({pt.x(), pt.y()}));
+                    result.data["posBouees"].emplace_back(json({pt.x(), pt.y()}));
                 }
             }
 
@@ -77,18 +77,18 @@ void SocketThread::run() {
                 spdlog::info("Reception de mise à jour de l'état du robot pendant l'initialisation");
             }
 
-            json datas = query.datas;
+            json data = query.data;
             RobotModel* model = RobotModel::getInstance();
             model->setInMatch(false);
-            model->setI2c(datas["i2c"]);
-            model->setLidar(datas["lidar"]);
-            model->setAu(datas["au"]);
-            model->setAlim12v(datas["alim12v"]);
-            model->setAlim5vp(datas["alim5vp"]);
-            model->setTirette(datas["tirette"]);
-            model->setPhare(datas["phare"]);
-            model->setBalise(datas["balise"]);
-            string message = datas["message"];
+            model->setI2c(data["i2c"]);
+            model->setLidar(data["lidar"]);
+            model->setAu(data["au"]);
+            model->setAlim12v(data["alim12v"]);
+            model->setAlim5vp(data["alim5vp"]);
+            model->setTirette(data["tirette"]);
+            model->setPhare(data["phare"]);
+            model->setBalise(data["balise"]);
+            string message = data["message"];
             model->setMessage(message.c_str());
 
             result.status = RESPONSE_OK;
@@ -98,11 +98,11 @@ void SocketThread::run() {
                 spdlog::info("Reception de mise à jour de l'état du robot pendant le match");
             }
 
-            json datas = query.datas;
+            json data = query.data;
             RobotModel* model = RobotModel::getInstance();
             model->setInMatch(true);
-            model->setScore(datas["score"]);
-            model->setMessage(QString::fromStdString(datas["message"]));
+            model->setScore(data["score"]);
+            model->setMessage(QString::fromStdString(data["message"]));
 
             result.status = RESPONSE_OK;
 
@@ -111,10 +111,10 @@ void SocketThread::run() {
                 spdlog::info("Reception d'une photo de la balise");
             }
 
-            json datas = query.datas;
+            json data = query.data;
             RobotModel* model = RobotModel::getInstance();
             model->setUpdatePhoto(false);
-            model->setPhoto(QString::fromStdString(datas));
+            model->setPhoto(QString::fromStdString(data));
 
             result.status = RESPONSE_OK;
 
@@ -123,16 +123,16 @@ void SocketThread::run() {
                 spdlog::info("Reception du résultat d'étalonnage");
             }
 
-            json datas = query.datas;
+            json data = query.data;
             RobotModel* model = RobotModel::getInstance();
 
             QList<QString> ecueil;
-            for (auto &c : datas["ecueil"]) {
+            for (auto &c : data["ecueil"]) {
                 ecueil.push_back(QString::fromStdString(c));
             }
             QList<QString> bouees;
-            if (datas["bouees"] != nullptr) {
-                for (auto &c : datas["bouees"]) {
+            if (data["bouees"] != nullptr) {
+                for (auto &c : data["bouees"]) {
                     bouees.push_back(QString::fromStdString(c));
                 }
             }

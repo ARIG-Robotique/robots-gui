@@ -20,7 +20,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
 {
     "status": "OK",
     "action": "GET_CONFIG",
-    "datas": {
+    "data": {
         "team": "JAUNE",
         "startCalibration": false,
         "strategy": "STRAT1",
@@ -43,7 +43,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
 ```json
 {
     "action": "UPDATE_STATE",
-    "datas": {
+    "data": {
         "i2c": true,
         "lidar": true,
         "au": true,
@@ -71,7 +71,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
 ```json
 {
     "action": "UPDATE_MATCH",
-    "datas": {
+    "data": {
         "score": 90,
         "message": "Fin de match"
     }
@@ -92,7 +92,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
 ```json
 {
     "action": "UPDATE_PHOTO",
-    "datas": {
+    "data": {
         "photo": "jpeg en base64 sans l'en-tete"
     }
 }
@@ -112,7 +112,7 @@ nerell-gui unix /tmp/ecran.sock [debug]
 ```json
 {
     "action": "UPDATE_ETALONNAGE",
-    "datas": {
+    "data": {
         "ecueil": ["#ff00ff00", "#ffff0000"],
         "bouees": [ ... ] // six couleurs ou null
     }

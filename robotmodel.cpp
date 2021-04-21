@@ -46,8 +46,8 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setMessage("Démarrage en cours ...");
 }
 
-// QML RW datas //
-// ------------ //
+// QML RW data //
+// ----------- //
 
 bool RobotModel::getExit() {
     return this->exit;
@@ -183,8 +183,8 @@ void RobotModel::setPosBoueesForQML(QJSValue value) {
     setPosBouees(points);
 }
 
-// QML RO datas //
-// ------------ //
+// QML RO data //
+// ----------- //
 
 bool RobotModel::getInMatch() {
    return this->inMatch;
