@@ -60,6 +60,7 @@ void SocketThread::run() {
             result.data["safeAvoidance"] = model->getSafeAvoidance();
             result.data["deposePartielle"] = model->getDeposePartielle();
             result.data["etalonnageBalise"] = model->getEtalonnageBalise();
+            result.data["twoRobots"] = model->getTwoRobots();
 
         } else if (query.action == ACTION_UPDATE_STATE) {
             if (debug) {
@@ -75,10 +76,14 @@ void SocketThread::run() {
             model->setAlim12v(data["alim12v"]);
             model->setAlim5vp(data["alim5vp"]);
             model->setTirette(data["tirette"]);
-            model->setPhare(data["phare"]);
+            model->setOtherRobot(data["otherRobot"]);
             model->setBalise(data["balise"]);
             string message = data["message"];
             model->setMessage(message.c_str());
+
+            if (model->getOtherRobot()) {
+                model->setTwoRobots(true);
+            }
 
             result.status = RESPONSE_OK;
 

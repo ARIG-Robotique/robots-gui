@@ -31,6 +31,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
     this->setEtalonnageBalise(false);
+    this->setTwoRobots(false);
 
     // RO
     this->setScore(0);
@@ -41,7 +42,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlim12v(false);
     this->setAlim5vp(false);
     this->setTirette(false);
-    this->setPhare(false);
+    this->setOtherRobot(false);
     this->setBalise(false);
     this->setMessage("Démarrage en cours ...");
 }
@@ -137,6 +138,14 @@ void RobotModel::setEtalonnageBalise(bool value) {
     emit etalonnageBaliseChanged(value);
 }
 
+bool RobotModel::getTwoRobots() {
+    return this->twoRobots;
+}
+void RobotModel::setTwoRobots(bool value) {
+    this->twoRobots = value;
+    emit twoRobotsChanged(value);
+}
+
 // QML RO data //
 // ----------- //
 
@@ -196,12 +205,12 @@ void RobotModel::setTirette(bool value) {
     emit tiretteChanged(value);
 }
 
-bool RobotModel::getPhare() {
-    return this->phare;
+bool RobotModel::getOtherRobot() {
+    return this->otherRobot;
 }
-void RobotModel::setPhare(bool value) {
-    this->phare = value;
-    emit phareChanged(value);
+void RobotModel::setOtherRobot(bool value) {
+    this->otherRobot = value;
+    emit otherRobotChanged(value);
 }
 
 bool RobotModel::getBalise() {

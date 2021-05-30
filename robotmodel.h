@@ -25,6 +25,7 @@ class RobotModel : public QObject
     Q_PROPERTY(bool deposePartielle READ getDeposePartielle WRITE setDeposePartielle NOTIFY deposePartielleChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
+    Q_PROPERTY(bool twoRobots READ getTwoRobots WRITE setTwoRobots NOTIFY twoRobotsChanged)
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -34,7 +35,7 @@ class RobotModel : public QObject
     Q_PROPERTY(bool tirette READ getTirette NOTIFY tiretteChanged)
     Q_PROPERTY(bool i2c READ getI2c NOTIFY i2cChanged)
     Q_PROPERTY(bool lidar READ getLidar NOTIFY lidarChanged)
-    Q_PROPERTY(bool phare READ getPhare NOTIFY phareChanged)
+    Q_PROPERTY(bool otherRobot READ getOtherRobot NOTIFY otherRobotChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(QString message READ getMessage NOTIFY messageChanged)
@@ -85,6 +86,9 @@ public:
     bool getEtalonnageBalise();
     void setEtalonnageBalise(bool value);
 
+    bool getTwoRobots();
+    void setTwoRobots(bool value);
+
     // RO
     bool getInMatch();
     void setInMatch(bool value);
@@ -107,8 +111,8 @@ public:
     bool getTirette();
     void setTirette(bool value);
 
-    bool getPhare();
-    void setPhare(bool value);
+    bool getOtherRobot();
+    void setOtherRobot(bool value);
 
     bool getBalise();
     void setBalise(bool value);
@@ -138,6 +142,7 @@ signals:
     void deposePartielleChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
     void etalonnageBaliseChanged(bool newValue);
+    void twoRobotsChanged(bool newValue);
 
     // RO
     void i2cChanged(bool newValue);
@@ -147,7 +152,7 @@ signals:
     void auChanged(bool newValue);
     void baliseChanged(bool newValue);
     void messageChanged(QString message);
-    void phareChanged(bool newValue);
+    void otherRobotChanged(bool newValue);
     void scoreChanged(int newValue);
     void inMatchChanged(bool newValue);
     void tiretteChanged(bool newValue);
@@ -160,11 +165,11 @@ private:
     // RW
     Team team;
     Strategy strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, safeAvoidance, deposePartielle, updatePhoto, etalonnageBalise;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, safeAvoidance, deposePartielle, updatePhoto, etalonnageBalise, twoRobots;
 
     // RO
     int score;
-    bool inMatch, au, alim12v, alim5vp, tirette, phare, balise, i2c, lidar;
+    bool inMatch, au, alim12v, alim5vp, tirette, otherRobot, balise, i2c, lidar;
     QString message, photoMessage, photo;
 
 };

@@ -157,13 +157,13 @@ Page {
                 }
 
                 StateComponent {
-                    id: phareState
+                    id: otherRobotState
                     anchors.right: parent.right
                     anchors.rightMargin: 5
                     anchors.left: parent.left
                     anchors.leftMargin: 5
-                    libelle: qsTr("Phare")
-                    stateColor: getBooleanColor(RobotModel.phare)
+                    libelle: qsTr("Odin")
+                    stateColor: getBooleanColor(RobotModel.otherRobot)
                 }
 
             }
@@ -341,7 +341,7 @@ Page {
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
-                    checked: true
+                    checked: RobotModel.strategy === RobotModel.BASIC_NORD
                     text: qsTr("Basic - Nord")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.BASIC_NORD
@@ -351,6 +351,7 @@ Page {
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
+                    checked: RobotModel.strategy === RobotModel.BASIC_SUD
                     text: qsTr("Basic - Sud")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.BASIC_SUD
@@ -360,6 +361,7 @@ Page {
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
+                    checked: RobotModel.strategy === RobotModel.AGGRESSIVE
                     text: qsTr("Aggressive")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
@@ -369,6 +371,7 @@ Page {
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
+                    checked: RobotModel.strategy === RobotModel.FINALE
                     text: qsTr("Finale")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.FINALE
@@ -383,6 +386,7 @@ Page {
                 Switch {
                     id: configDblDeposeGdChenal
                     text: qsTr("2 déposes gd chenal")
+                    checked: RobotModel.doubleDepose
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -393,6 +397,7 @@ Page {
                 Switch {
                     id: configDeposePartielle
                     text: qsTr("Deposes partielle gd chenal")
+                    checked: RobotModel.deposePartielle
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -403,7 +408,7 @@ Page {
                 Switch {
                     id: configSafeAvoidance
                     text: qsTr("Safe avoidance")
-                    checked: true
+                    checked: RobotModel.safeAvoidance
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -418,8 +423,20 @@ Page {
                 spacing: 10
 
                 Switch {
+                    id: configTwoRobots
+                    text: qsTr("Deux robots")
+                    checked: RobotModel.twoRobots
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.twoRobots = configTwoRobots.checked
+                }
+
+                Switch {
                     id: configSkipCalageChoixStrat
                     text: qsTr("Skip cal. bord. / strat.")
+                    checked: RobotModel.skipCalageBordure
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -430,6 +447,7 @@ Page {
                 Switch {
                     id: configModeManuel
                     text: qsTr("Mode manuel")
+                    checked: RobotModel.modeManuel
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
