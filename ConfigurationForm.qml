@@ -425,6 +425,7 @@ Page {
                 Switch {
                     id: configTwoRobots
                     text: qsTr("Deux robots")
+                    enabled: !RobotModel.otherRobot
                     checked: RobotModel.twoRobots
                     anchors.right: parent.right
                     anchors.rightMargin: 0
