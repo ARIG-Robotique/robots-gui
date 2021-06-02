@@ -147,16 +147,6 @@ Page {
                 }
 
                 StateComponent {
-                    id: baliseState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Balise")
-                    stateColor: getBooleanColor(RobotModel.balise)
-                }
-
-                StateComponent {
                     id: otherRobotState
                     anchors.right: parent.right
                     anchors.rightMargin: 5
@@ -166,6 +156,15 @@ Page {
                     stateColor: getBooleanColor(RobotModel.otherRobot)
                 }
 
+                StateComponent {
+                    id: baliseState
+                    anchors.right: parent.right
+                    anchors.rightMargin: 5
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    libelle: qsTr("Balise")
+                    stateColor: getBooleanColor(RobotModel.balise)
+                }
             }
 
             Column {
