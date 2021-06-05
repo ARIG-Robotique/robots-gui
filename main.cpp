@@ -81,6 +81,8 @@ int main(int argc, char *argv[])
     socketThread.start();
 
     // Enregistrement du model
+    qRegisterMetaType<RobotModel::Team>("Team");
+    qRegisterMetaType<RobotModel::Strategy>("Strategy");
     qmlRegisterSingletonType<RobotModel>("org.arig.robotmodel", 1, 0, "RobotModel", RobotModel::singletonProvider);
 
     // QML Application

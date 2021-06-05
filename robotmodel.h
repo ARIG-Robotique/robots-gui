@@ -10,9 +10,15 @@
 class RobotModel : public QObject
 {
     Q_OBJECT
-    Q_ENUMS(Team)
-    Q_ENUMS(Strategy)
 
+public:
+    enum Team { UNKNOWN, JAUNE, BLEU };
+    enum Strategy { BASIC_NORD, BASIC_SUD, AGGRESSIVE, FINALE };
+
+    Q_ENUM(Team)
+    Q_ENUM(Strategy)
+
+private:
     // RW
     Q_PROPERTY(bool exit READ getExit WRITE setExit NOTIFY exitChanged)
     Q_PROPERTY(Team team READ getTeam WRITE setTeam NOTIFY teamChanged)
@@ -46,9 +52,6 @@ class RobotModel : public QObject
     RobotModel(QObject *parent = nullptr);
 
 public:
-    enum Team { UNKNOWN, JAUNE, BLEU };
-    enum Strategy { BASIC_NORD, BASIC_SUD, AGGRESSIVE, FINALE };
-
     static QObject* singletonProvider(QQmlEngine *engine = nullptr, QJSEngine *scriptEngine = nullptr);
     static RobotModel* getInstance();
 
