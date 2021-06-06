@@ -65,10 +65,10 @@ Page {
         flickDeceleration: 0
 
         // FIXME ça devrait dépendre de imgBalise mais le Flickable se bloque quand on change à la volée
-        contentWidth: 1280;
-        contentHeight: 960
-        contentX: 1280 / 2 - this.width / 2
-        contentY: 960 / 2 - this.height / 2
+        contentWidth: 1500
+        contentHeight: 1100
+        contentX: 1500 / 2 - this.width / 2
+        contentY: 1100 / 2 - this.height / 2
 
         Image {
             id: imgBalise
