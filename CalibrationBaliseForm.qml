@@ -11,6 +11,8 @@ Page {
 
     title: qsTr("Calibration balise (Sauron)")
 
+    property var etalonnageDone: false
+
     Component.onCompleted: {
         RobotModel.updatePhoto = true
     }
@@ -47,6 +49,17 @@ Page {
             highlighted: RobotModel.etalonnageBalise
             onClicked: {
                 RobotModel.etalonnageBalise = true
+                RobotModel.etalonnageOk = false
+                etalonnageDone = true
+            }
+        }
+
+        Button {
+            text: qsTr("Valider")
+            enabled: !RobotModel.updatePhoto && !RobotModel.etalonnageBalise && etalonnageDone
+            highlighted: RobotModel.etalonnageOk
+            onClicked: {
+                RobotModel.etalonnageOk = true
             }
         }
     }

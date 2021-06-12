@@ -9,8 +9,8 @@ Page {
 
     title: qsTr("Configuration Nerell")
 
-    function getBooleanColor(value) {
-        return value ? "green" : "red";
+    function getBooleanColor(value, value2) {
+        return value ? value2 === false ? "orange" : "green" : "red";
     }
 
     function getTeamColor(team) {
@@ -163,7 +163,7 @@ Page {
                     anchors.left: parent.left
                     anchors.leftMargin: 5
                     libelle: qsTr("Balise")
-                    stateColor: getBooleanColor(RobotModel.balise)
+                    stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
                 }
             }
 

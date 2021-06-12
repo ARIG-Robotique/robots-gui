@@ -31,6 +31,7 @@ private:
     Q_PROPERTY(bool deposePartielle READ getDeposePartielle WRITE setDeposePartielle NOTIFY deposePartielleChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
+    Q_PROPERTY(bool etalonnageOk READ getEtalonnageOk WRITE setEtalonnageOk NOTIFY etalonnageOkChanged)
     Q_PROPERTY(bool twoRobots READ getTwoRobots WRITE setTwoRobots NOTIFY twoRobotsChanged)
 
     // RO
@@ -89,6 +90,9 @@ public:
     bool getEtalonnageBalise();
     void setEtalonnageBalise(bool value);
 
+    bool getEtalonnageOk();
+    void setEtalonnageOk(bool value);
+
     bool getTwoRobots();
     void setTwoRobots(bool value);
 
@@ -145,6 +149,7 @@ signals:
     void deposePartielleChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
     void etalonnageBaliseChanged(bool newValue);
+    void etalonnageOkChanged(bool newValue);
     void twoRobotsChanged(bool newValue);
 
     // RO
@@ -168,7 +173,7 @@ private:
     // RW
     Team team;
     Strategy strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, safeAvoidance, deposePartielle, updatePhoto, etalonnageBalise, twoRobots;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, doubleDepose, safeAvoidance, deposePartielle, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
 
     // RO
     int score;
