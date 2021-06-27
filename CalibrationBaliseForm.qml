@@ -17,6 +17,11 @@ Page {
         RobotModel.updatePhoto = true
     }
 
+    Component.onDestruction: {
+        RobotModel.updatePhoto = false
+        RobotModel.etalonnageBalise = false
+    }
+
     RowLayout {
         id: buttons
         spacing: 5
