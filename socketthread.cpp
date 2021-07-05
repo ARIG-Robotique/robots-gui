@@ -54,11 +54,12 @@ void SocketThread::run() {
             result.data["startCalibration"] = model->getStartCalibration();
             result.data["strategy"] = model->getStrategy();
             result.data["modeManuel"] = model->getModeManuel();
-            result.data["skipCalageBordure"] = model->getSkipCalageBordure();
-            result.data["updatePhoto"] = model->getUpdatePhoto();
-            result.data["doubleDepose"] = model->getDoubleDepose();
             result.data["safeAvoidance"] = model->getSafeAvoidance();
+            result.data["skipCalageBordure"] = model->getSkipCalageBordure();
+            result.data["doubleDepose"] = model->getDoubleDepose();
             result.data["deposePartielle"] = model->getDeposePartielle();
+            result.data["echangeEcueil"] = model->getEchangeEcueil();
+            result.data["updatePhoto"] = model->getUpdatePhoto();
             result.data["etalonnageBalise"] = model->getEtalonnageBalise();
             result.data["twoRobots"] = model->getTwoRobots();
 

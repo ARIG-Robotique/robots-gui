@@ -309,6 +309,8 @@ Page {
         anchors.rightMargin: 5
         anchors.left: parent.left
         anchors.leftMargin: 5
+        topPadding: 0
+        bottomPadding: 0
 
 
         ButtonGroup {
@@ -325,7 +327,7 @@ Page {
             anchors.leftMargin: 0
             anchors.top: parent.top
             anchors.topMargin: 0
-            anchors.bottom: parent.top
+            anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
 
             Column {
@@ -380,7 +382,7 @@ Page {
             Column {
                 id: configMatch
                 width: 235
-                spacing: 10
+                spacing: 0
 
                 Switch {
                     id: configDblDeposeGdChenal
@@ -395,13 +397,24 @@ Page {
 
                 Switch {
                     id: configDeposePartielle
-                    text: qsTr("Deposes partielle gd chenal")
+                    text: qsTr("Dépose partielle gd chenal")
                     checked: RobotModel.deposePartielle
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
                     onClicked: RobotModel.deposePartielle = configDeposePartielle.checked
+                }
+
+                Switch {
+                    id: configEchangeEcueil
+                    text: qsTr("Échange ecueil")
+                    checked: RobotModel.echangeEcueil
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onClicked: RobotModel.echangeEcueil = configEchangeEcueil.checked
                 }
 
                 Switch {
@@ -419,7 +432,7 @@ Page {
             Column {
                 id: configDebug
                 width: 200
-                spacing: 10
+                spacing: 0
 
                 Switch {
                     id: configTwoRobots

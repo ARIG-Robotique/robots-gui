@@ -25,9 +25,10 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setStrategy(BASIC_NORD);
     this->setStartCalibration(false);
     this->setModeManuel(false);
-    this->setDoubleDepose(false);
     this->setSafeAvoidance(true);
+    this->setDoubleDepose(false);
     this->setDeposePartielle(false);
+    this->setEchangeEcueil(false);
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
     this->setEtalonnageBalise(false);
@@ -99,14 +100,6 @@ void RobotModel::setModeManuel(bool value) {
     emit modeManuelChanged(value);
 }
 
-bool RobotModel::getDoubleDepose() {
-    return this->doubleDepose;
-}
-void RobotModel::setDoubleDepose(bool value) {
-    this->doubleDepose = value;
-    emit doubleDeposeChanged(value);
-}
-
 bool RobotModel::getSafeAvoidance() {
     return this->safeAvoidance;
 }
@@ -115,12 +108,28 @@ void RobotModel::setSafeAvoidance(bool value) {
     emit safeAvoidanceChanged(value);
 }
 
+bool RobotModel::getDoubleDepose() {
+    return this->doubleDepose;
+}
+void RobotModel::setDoubleDepose(bool value) {
+    this->doubleDepose = value;
+    emit doubleDeposeChanged(value);
+}
+
 bool RobotModel::getDeposePartielle() {
     return this->deposePartielle;
 }
 void RobotModel::setDeposePartielle(bool value) {
     this->deposePartielle = value;
     emit deposePartielleChanged(value);
+}
+
+bool RobotModel::getEchangeEcueil() {
+    return this->echangeEcueil;
+}
+void RobotModel::setEchangeEcueil(bool value) {
+    this->echangeEcueil = value;
+    emit echangeEcueilChanged(value);
 }
 
 bool RobotModel::getUpdatePhoto() {
