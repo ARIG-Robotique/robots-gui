@@ -177,7 +177,7 @@ Page {
                     anchors.rightMargin: 5
                     anchors.left: parent.left
                     anchors.leftMargin: 5
-                    libelle: qsTr("Arret Urgence")
+                    libelle: qsTr("A.U.")
                     stateColor: getBooleanColor(RobotModel.au)
                 }
 
@@ -187,7 +187,7 @@ Page {
                     anchors.rightMargin: 5
                     anchors.left: parent.left
                     anchors.leftMargin: 5
-                    libelle: qsTr("Alim. 12V")
+                    libelle: qsTr("Moteurs")
                     stateColor: getBooleanColor(RobotModel.alim12v)
                 }
 
@@ -197,7 +197,7 @@ Page {
                     anchors.rightMargin: 5
                     anchors.left: parent.left
                     anchors.leftMargin: 5
-                    libelle: qsTr("Alim. 5V")
+                    libelle: qsTr("Servos")
                     stateColor: getBooleanColor(RobotModel.alim5vp)
                 }
 
