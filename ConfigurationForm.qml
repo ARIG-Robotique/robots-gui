@@ -342,20 +342,10 @@ Page {
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
-                    checked: RobotModel.strategy === RobotModel.BASIC_NORD
-                    text: qsTr("Basic - Nord")
+                    checked: RobotModel.strategy === RobotModel.BASIC
+                    text: qsTr("Basic")
                     font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.BASIC_NORD
-                }
-                RadioButton {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    checked: RobotModel.strategy === RobotModel.BASIC_SUD
-                    text: qsTr("Basic - Sud")
-                    font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.BASIC_SUD
+                    onClicked: RobotModel.strategy = RobotModel.BASIC
                 }
                 RadioButton {
                     anchors.right: parent.right
@@ -367,7 +357,7 @@ Page {
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
                 }
-                /*RadioButton {
+                RadioButton {
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -376,7 +366,7 @@ Page {
                     text: qsTr("Finale")
                     font.pointSize: 16
                     onClicked: RobotModel.strategy = RobotModel.FINALE
-                }*/
+                }
             }
 
             Column {

@@ -13,7 +13,7 @@ class RobotModel : public QObject
 
 public:
     enum Team { UNKNOWN, JAUNE, BLEU };
-    enum Strategy { BASIC_NORD, BASIC_SUD, AGGRESSIVE, FINALE };
+    enum Strategy { BASIC, AGGRESSIVE, FINALE };
 
     Q_ENUM(Team)
     Q_ENUM(Strategy)
