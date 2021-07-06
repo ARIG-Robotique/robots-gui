@@ -88,7 +88,7 @@ ApplicationWindow {
         id: exitConfirmation
         modal: true
         focus: true
-        width: 350
+        width: 400
         height: 150
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
