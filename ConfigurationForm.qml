@@ -377,12 +377,14 @@ Page {
                 Switch {
                     id: configDeposePartielle
                     text: qsTr("Dépose partielle gd chenal")
-                    checked: RobotModel.deposePartielle
+                    checked: RobotModel.deposePartielle && RobotModel.twoRobots
+                    enabled: RobotModel.twoRobots
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
                     anchors.leftMargin: 0
                     onClicked: RobotModel.deposePartielle = configDeposePartielle.checked
+                    onCheckedChanged: RobotModel.deposePartielle = configDeposePartielle.checked
                 }
 
                 Switch {
