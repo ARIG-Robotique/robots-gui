@@ -372,18 +372,7 @@ Page {
             Column {
                 id: configMatch
                 width: 235
-                spacing: 0
-
-                Switch {
-                    id: configDblDeposeGdChenal
-                    text: qsTr("2 déposes gd chenal")
-                    checked: RobotModel.doubleDepose
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.doubleDepose = configDblDeposeGdChenal.checked
-                }
+                spacing: 10
 
                 Switch {
                     id: configDeposePartielle
@@ -422,7 +411,7 @@ Page {
             Column {
                 id: configDebug
                 width: 200
-                spacing: 0
+                spacing: 10
 
                 Switch {
                     id: configTwoRobots

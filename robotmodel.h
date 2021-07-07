@@ -27,7 +27,6 @@ private:
     Q_PROPERTY(bool skipCalageBordure READ getSkipCalageBordure WRITE setSkipCalageBordure NOTIFY skipCalageBordureChanged)
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
     Q_PROPERTY(bool safeAvoidance READ getSafeAvoidance WRITE setSafeAvoidance NOTIFY safeAvoidanceChanged)
-    Q_PROPERTY(bool doubleDepose READ getDoubleDepose WRITE setDoubleDepose NOTIFY doubleDeposeChanged)
     Q_PROPERTY(bool deposePartielle READ getDeposePartielle WRITE setDeposePartielle NOTIFY deposePartielleChanged)
     Q_PROPERTY(bool echangeEcueil READ getEchangeEcueil WRITE setEchangeEcueil NOTIFY echangeEcueilChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
@@ -78,9 +77,6 @@ public:
 
     bool getSafeAvoidance();
     void setSafeAvoidance(bool value);
-
-    bool getDoubleDepose();
-    void setDoubleDepose(bool value);
 
     bool getDeposePartielle();
     void setDeposePartielle(bool value);
@@ -149,7 +145,6 @@ signals:
     void skipCalageBordureChanged(bool newValue);
     void modeManuelChanged(bool newValue);
     void safeAvoidanceChanged(bool newValue);
-    void doubleDeposeChanged(bool newValue);
     void deposePartielleChanged(bool newValue);
     void echangeEcueilChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
@@ -178,7 +173,7 @@ private:
     // RW
     Team team;
     Strategy strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, doubleDepose, deposePartielle, echangeEcueil, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, deposePartielle, echangeEcueil, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
 
     // RO
     int score;
