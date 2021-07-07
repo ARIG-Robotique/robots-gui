@@ -60,6 +60,7 @@ void SocketThread::run() {
             result.data["echangeEcueil"] = model->getEchangeEcueil();
             result.data["updatePhoto"] = model->getUpdatePhoto();
             result.data["etalonnageBalise"] = model->getEtalonnageBalise();
+            result.data["etalonnageOk"] = model->getEtalonnageOk();
             result.data["twoRobots"] = model->getTwoRobots();
 
         } else if (query.action == ACTION_UPDATE_STATE) {
