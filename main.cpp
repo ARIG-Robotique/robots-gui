@@ -2,12 +2,14 @@
 #include <QCursor>
 #include <QDebug>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <ctime>
 
 #include "common.h"
 #include "sockethelper.h"
 #include "socketthread.h"
 #include "robotmodel.h"
+#include "paramsmodel.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
 void printUsage() {
@@ -80,21 +82,23 @@ int main(int argc, char *argv[])
     socketThread.setSocketHelper(&socket);
     socketThread.start();
 
-    // Enregistrement du model
-    qRegisterMetaType<RobotModel::Team>("Team");
-    qRegisterMetaType<RobotModel::Strategy>("Strategy");
-    qmlRegisterSingletonType<RobotModel>("org.arig.robotmodel", 1, 0, "RobotModel", RobotModel::singletonProvider);
-
     // QML Application
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    QQmlContext* ctx = engine.rootContext();
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl) {
             QCoreApplication::exit(-1);
         }
     }, Qt::QueuedConnection);
+
+    // Enregistrement du model
+    ctx->setContextProperty("RobotModel", RobotModel::getInstance());
+    ctx->setContextProperty("ParamsModel", ParamsModel::getInstance());
+
+
     engine.load(url);
 
 #ifdef RASPI

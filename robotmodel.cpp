@@ -10,24 +10,12 @@ RobotModel* RobotModel::getInstance() {
     return instance;
 }
 
-QObject* RobotModel::singletonProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
-    Q_UNUSED(scriptEngine)
-
-    auto instance = RobotModel::getInstance();
-    engine->setObjectOwnership(instance, QQmlEngine::CppOwnership);
-    return instance;
-}
-
 RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     // RW
     this->setExit(false);
-    this->setTeam(UNKNOWN);
-    this->setStrategy(BASIC);
     this->setStartCalibration(false);
     this->setModeManuel(false);
     this->setSafeAvoidance(true);
-    this->setDeposePartielle(false);
-    this->setEchangeEcueil(false);
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
     this->setEtalonnageBalise(false);
@@ -59,10 +47,10 @@ void RobotModel::setExit(bool exit) {
     emit exitChanged(exit);
 }
 
-RobotModel::Team RobotModel::getTeam() {
+QString RobotModel::getTeam() {
     return this->team;
 }
-void RobotModel::setTeam(Team team) {
+void RobotModel::setTeam(QString team) {
     this->team = team;
     emit teamChanged(team);
 }
@@ -75,10 +63,10 @@ void RobotModel::setStartCalibration(bool value) {
     emit startCalibrationChanged(value);
 }
 
-RobotModel::Strategy RobotModel::getStrategy() {
+QString RobotModel::getStrategy() {
     return this->strategy;
 }
-void RobotModel::setStrategy(Strategy strategy) {
+void RobotModel::setStrategy(QString strategy) {
     this->strategy = strategy;
     emit strategyChanged(strategy);
 }
@@ -105,22 +93,6 @@ bool RobotModel::getSafeAvoidance() {
 void RobotModel::setSafeAvoidance(bool value) {
     this->safeAvoidance = value;
     emit safeAvoidanceChanged(value);
-}
-
-bool RobotModel::getDeposePartielle() {
-    return this->deposePartielle;
-}
-void RobotModel::setDeposePartielle(bool value) {
-    this->deposePartielle = value;
-    emit deposePartielleChanged(value);
-}
-
-bool RobotModel::getEchangeEcueil() {
-    return this->echangeEcueil;
-}
-void RobotModel::setEchangeEcueil(bool value) {
-    this->echangeEcueil = value;
-    emit echangeEcueilChanged(value);
 }
 
 bool RobotModel::getUpdatePhoto() {
@@ -153,6 +125,19 @@ bool RobotModel::getTwoRobots() {
 void RobotModel::setTwoRobots(bool value) {
     this->twoRobots = value;
     emit twoRobotsChanged(value);
+}
+
+QVariantMap RobotModel::getOptions() {
+    return this->options;
+}
+void RobotModel::setOptions(QVariantMap value) {
+    this->options = value;
+    emit optionsChanged(value);
+}
+
+void RobotModel::setOption(QString name, bool value) {
+    this->options.insert(name, value);
+    emit optionsChanged(this->options);
 }
 
 // QML RO data //

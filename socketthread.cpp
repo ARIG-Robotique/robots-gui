@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include "socketthread.h"
 #include "robotmodel.h"
+#include "paramsmodel.h"
 
 SocketThread::SocketThread() : QThread() {
     abort = false;
@@ -37,31 +38,77 @@ void SocketThread::run() {
             continue;
         }
 
+        ParamsModel* paramsModel = ParamsModel::getInstance();
+        RobotModel* robotModel = RobotModel::getInstance();
+
         JsonResult result;
         if (query.action == ACTION_ECHO) {
             result.status = RESPONSE_OK;
             result.data = query.data;
 
+        } else if (query.action == ACTION_SET_PARAMS) {
+            if (debug) {
+                spdlog::info("Réception des paramètres");
+            }
+
+            json data = query.data;
+
+            paramsModel->setName(QString::fromStdString(data["name"]));
+            paramsModel->setPrimary(data["primary"]);
+
+            QList<TeamAndColor> teams;
+            auto rawTeams = data["teams"].get<map<string, string>>();
+            for (auto const &t : rawTeams) {
+                teams.append(TeamAndColor(QString::fromStdString(t.first), QString::fromStdString(t.second)));
+            }
+            paramsModel->setTeams(teams);
+
+            QStringList strategies;
+            auto rawStrategies = data["strategies"].get<list<string>>();
+            for (auto const &s : rawStrategies) {
+                strategies.push_back(QString::fromStdString(s));
+            }
+            paramsModel->setStrategies(strategies);
+            robotModel->setStrategy(strategies.at(0));
+
+            QStringList options;
+            auto rawOptions = data["options"].get<list<string>>();
+            for (auto const &o : rawOptions) {
+                options.push_back(QString::fromStdString(o));
+                robotModel->setOption(QString::fromStdString(o), false);
+            }
+            paramsModel->setOptions(options);
+
+            result.status = RESPONSE_OK;
+
         } else if (query.action == ACTION_GET_CONFIG) {
             if (debug) {
                 spdlog::info("Demande de récupération d'état");
             }
-            RobotModel* model = RobotModel::getInstance();
 
             result.status = RESPONSE_OK;
-            result.data["exit"] = model->getExit();
-            result.data["team"] = model->getTeam();
-            result.data["startCalibration"] = model->getStartCalibration();
-            result.data["strategy"] = model->getStrategy();
-            result.data["modeManuel"] = model->getModeManuel();
-            result.data["safeAvoidance"] = model->getSafeAvoidance();
-            result.data["skipCalageBordure"] = model->getSkipCalageBordure();
-            result.data["deposePartielle"] = model->getDeposePartielle();
-            result.data["echangeEcueil"] = model->getEchangeEcueil();
-            result.data["updatePhoto"] = model->getUpdatePhoto();
-            result.data["etalonnageBalise"] = model->getEtalonnageBalise();
-            result.data["etalonnageOk"] = model->getEtalonnageOk();
-            result.data["twoRobots"] = model->getTwoRobots();
+            result.data["exit"] = robotModel->getExit();
+            if (!robotModel->getTeam().isEmpty()) {
+                result.data["team"] = robotModel->getTeam().toStdString();
+            }
+            if (!robotModel->getStrategy().isEmpty()) {
+                result.data["strategy"] = robotModel->getStrategy().toStdString();
+            }
+            result.data["startCalibration"] = robotModel->getStartCalibration();
+            result.data["modeManuel"] = robotModel->getModeManuel();
+            result.data["safeAvoidance"] = robotModel->getSafeAvoidance();
+            result.data["skipCalageBordure"] = robotModel->getSkipCalageBordure();
+            result.data["updatePhoto"] = robotModel->getUpdatePhoto();
+            result.data["etalonnageBalise"] = robotModel->getEtalonnageBalise();
+            result.data["etalonnageOk"] = robotModel->getEtalonnageOk();
+            result.data["twoRobots"] = robotModel->getTwoRobots();
+            result.data["options"] = json({});
+
+            QVariantMap::const_iterator i = robotModel->getOptions().constBegin();
+            while (i != robotModel->getOptions().constEnd()) {
+                result.data["options"][i.key().toStdString()] = i.value().toBool();
+                ++i;
+            }
 
         } else if (query.action == ACTION_UPDATE_STATE) {
             if (debug) {
@@ -69,22 +116,35 @@ void SocketThread::run() {
             }
 
             json data = query.data;
-            RobotModel* model = RobotModel::getInstance();
-            model->setInMatch(false);
-            model->setI2c(data["i2c"]);
-            model->setLidar(data["lidar"]);
-            model->setAu(data["au"]);
-            model->setAlim12v(data["alim12v"]);
-            model->setAlim5vp(data["alim5vp"]);
-            model->setTirette(data["tirette"]);
-            model->setOtherRobot(data["otherRobot"]);
-            model->setBalise(data["balise"]);
-            string message = data["message"];
-            model->setMessage(message.c_str());
 
-            if (model->getOtherRobot()) {
-                model->setTwoRobots(true);
+            robotModel->setInMatch(false);
+            robotModel->setI2c(data["i2c"]);
+            robotModel->setLidar(data["lidar"]);
+            robotModel->setAu(data["au"]);
+            robotModel->setAlim12v(data["alim12v"]);
+            robotModel->setAlim5vp(data["alim5vp"]);
+            robotModel->setTirette(data["tirette"]);
+            robotModel->setOtherRobot(data["otherRobot"]);
+            robotModel->setBalise(data["balise"]);
+            if (data["message"].is_null()) {
+                robotModel->setMessage("");
+            } else {
+                robotModel->setMessage(QString::fromStdString(data["message"]));
             }
+
+            if (robotModel->getOtherRobot()) {
+                robotModel->setTwoRobots(true);
+
+                if (!paramsModel->getPrimary()) {
+                    robotModel->setTeam(QString::fromStdString(data["team"]));
+                    robotModel->setStrategy(QString::fromStdString(data["strategy"]));
+
+                    for (auto &opt : data["options"].items()) {
+                        robotModel->setOption(QString::fromStdString(opt.key()), opt.value());
+                    }
+                }
+            }
+
 
             result.status = RESPONSE_OK;
 
@@ -94,10 +154,14 @@ void SocketThread::run() {
             }
 
             json data = query.data;
-            RobotModel* model = RobotModel::getInstance();
-            model->setInMatch(true);
-            model->setScore(data["score"]);
-            model->setMessage(QString::fromStdString(data["message"]));
+
+            robotModel->setInMatch(true);
+            robotModel->setScore(data["score"]);
+            if (data["message"].is_null()) {
+                robotModel->setMessage("");
+            } else {
+                robotModel->setMessage(QString::fromStdString(data["message"]));
+            }
 
             result.status = RESPONSE_OK;
 
@@ -107,18 +171,18 @@ void SocketThread::run() {
             }
 
             json data = query.data;
-            RobotModel* model = RobotModel::getInstance();
-            model->setUpdatePhoto(false);
-            model->setEtalonnageBalise(false);
+
+            robotModel->setUpdatePhoto(false);
+            robotModel->setEtalonnageBalise(false);
             if (data["message"].is_null()) {
-                model->setPhotoMessage("");
+                robotModel->setPhotoMessage("");
             } else {
-                model->setPhotoMessage(QString::fromStdString(data["message"]));
+                robotModel->setPhotoMessage(QString::fromStdString(data["message"]));
             }
             if (data["photo"].is_null()) {
-                model->setPhoto("");
+                robotModel->setPhoto("");
             } else {
-                model->setPhoto(QString::fromStdString(data["photo"]));
+                robotModel->setPhoto(QString::fromStdString(data["photo"]));
             }
 
             result.status = RESPONSE_OK;

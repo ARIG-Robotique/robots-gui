@@ -17,6 +17,7 @@ using json = nlohmann::json;
 
 #define ACTION_EXIT           "EXIT"
 #define ACTION_ECHO           "ECHO"
+#define ACTION_SET_PARAMS     "SET_PARAMS"
 #define ACTION_GET_CONFIG     "GET_CONFIG"
 #define ACTION_UPDATE_STATE   "UPDATE_STATE"
 #define ACTION_UPDATE_MATCH   "UPDATE_MATCH"

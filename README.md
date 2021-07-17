@@ -2,9 +2,78 @@
 
 ```
 robots-gui unix /tmp/ecran.sock [debug]
+robots-gui inet 9000 [debug]
 ```
 
 ## Messages JSON
+
+### Paramétrage initial
+
+* Query
+```json
+{
+    "action": "SET_PARAMS",
+    "data": {
+        "name": "Nerell",
+        "primary": true,
+        "teams": {
+            "BLEU": "#00f",
+            "JAUNE": "#0ff"
+        },
+        "strategies": [
+            "BASIC",
+            "AGRESSIVE"
+        ],
+        "options": [
+            "option1",
+            "option2"
+        ]
+    }
+}
+```
+
+* Réponse
+```json
+{
+    "status": "OK",
+    "action": "SET_PARAMS",
+}
+```
+
+### Mettre à jour les informations d'init
+
+* Query
+```json
+{
+    "action": "UPDATE_STATE",
+    "data": {
+    "au": true,
+        "message": "Démarrage",
+        "i2c": true,
+        "alim12v": true,
+        "alim5vp": true,
+        "tirette": true,
+        "lidar": true,
+        "balise": true,
+        "otherRobot": true,
+        // si non primary
+        "team": "JAUNE",
+        "strategy": "BASIC",
+        "options": {
+            "option1": true,
+            "option2": false
+        }
+    }
+}
+```
+
+* Réponse
+```json
+{
+    "status": "OK",
+    "action": "UPDATE_STATE"
+}
+```
 
 ### Récupérer la configuration
 
@@ -22,46 +91,21 @@ robots-gui unix /tmp/ecran.sock [debug]
     "action": "GET_CONFIG",
     "data": {
         "team": "JAUNE",
+        "strategy": "BASIC",
+        "exit": false,
+        "twoRobots": true,
+        "safeAvoidance": true,
         "startCalibration": false,
-        "strategy": "STRAT1",
         "modeManuel": false,
         "skipCalageBordure": false,
         "updatePhoto": false,
-        "etalionnageBalise": false,
-        "posEcueil": [
-            [500, 500],
-            [500, 500]
-        ],
-        "posBouees": [ ... ] // six positions ou null
+        "etalonnageBalise": false,
+        "etalonnageOk": false,
+        "options": {
+            "option1": true,
+            "option2": false
+        }
     }
-}
-```
-
-### Mettre à jour les informations d'init
-
-* Query
-```json
-{
-    "action": "UPDATE_STATE",
-    "data": {
-        "i2c": true,
-        "lidar": true,
-        "au": true,
-        "alim12v": true,
-        "alim5vp": true,
-        "tirette": true,
-        "otherRobot": true,
-        "balise": true,
-        "message": "Démarrage"
-    }
-}
-```
-
-* Réponse
-```json
-{
-    "status": "OK",
-    "action": "UPDATE_STATE"
 }
 ```
 
@@ -93,6 +137,7 @@ robots-gui unix /tmp/ecran.sock [debug]
 {
     "action": "UPDATE_PHOTO",
     "data": {
+        "message": null,
         "photo": "jpeg en base64 sans l'en-tete"
     }
 }
@@ -103,26 +148,5 @@ robots-gui unix /tmp/ecran.sock [debug]
 {
     "status": "OK",
     "action": "UPDATE_PHOTO"
-}
-```
-
-### Mettre à jour le résultat d'étalonnage balise
-
-* Query
-```json
-{
-    "action": "UPDATE_ETALONNAGE",
-    "data": {
-        "ecueil": ["#ff00ff00", "#ffff0000"],
-        "bouees": [ ... ] // six couleurs ou null
-    }
-}
-```
-
-* Réponse
-```json
-{
-    "status": "OK",
-    "action": "UPDATE_ETALONNAGE"
 }
 ```
