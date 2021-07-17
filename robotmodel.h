@@ -5,34 +5,27 @@
 #include <QQmlEngine>
 #include <QJSEngine>
 #include <QString>
-#include <QPoint>
+#include <QVariantMap>
+
 
 class RobotModel : public QObject
 {
     Q_OBJECT
 
-public:
-    enum Team { UNKNOWN, JAUNE, BLEU };
-    enum Strategy { BASIC, AGGRESSIVE, FINALE };
-
-    Q_ENUM(Team)
-    Q_ENUM(Strategy)
-
 private:
     // RW
     Q_PROPERTY(bool exit READ getExit WRITE setExit NOTIFY exitChanged)
-    Q_PROPERTY(Team team READ getTeam WRITE setTeam NOTIFY teamChanged)
-    Q_PROPERTY(Strategy strategy READ getStrategy WRITE setStrategy NOTIFY strategyChanged)
+    Q_PROPERTY(QString team READ getTeam WRITE setTeam NOTIFY teamChanged)
+    Q_PROPERTY(QString strategy READ getStrategy WRITE setStrategy NOTIFY strategyChanged)
     Q_PROPERTY(bool startCalibration READ getStartCalibration WRITE setStartCalibration NOTIFY startCalibrationChanged)
     Q_PROPERTY(bool skipCalageBordure READ getSkipCalageBordure WRITE setSkipCalageBordure NOTIFY skipCalageBordureChanged)
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
     Q_PROPERTY(bool safeAvoidance READ getSafeAvoidance WRITE setSafeAvoidance NOTIFY safeAvoidanceChanged)
-    Q_PROPERTY(bool deposePartielle READ getDeposePartielle WRITE setDeposePartielle NOTIFY deposePartielleChanged)
-    Q_PROPERTY(bool echangeEcueil READ getEchangeEcueil WRITE setEchangeEcueil NOTIFY echangeEcueilChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
     Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
     Q_PROPERTY(bool etalonnageOk READ getEtalonnageOk WRITE setEtalonnageOk NOTIFY etalonnageOkChanged)
     Q_PROPERTY(bool twoRobots READ getTwoRobots WRITE setTwoRobots NOTIFY twoRobotsChanged)
+    Q_PROPERTY(QVariantMap options READ getOptions WRITE setOptions NOTIFY optionsChanged)
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
@@ -53,21 +46,20 @@ private:
     RobotModel(QObject *parent = nullptr);
 
 public:
-    static QObject* singletonProvider(QQmlEngine *engine = nullptr, QJSEngine *scriptEngine = nullptr);
     static RobotModel* getInstance();
 
     // RW
     bool getExit();
     void setExit(bool value);
 
-    Team getTeam();
-    void setTeam(Team team);
+    QString getTeam();
+    void setTeam(QString team);
 
     bool getStartCalibration();
     void setStartCalibration(bool value);
 
-    Strategy getStrategy();
-    void setStrategy(Strategy strategy);
+    QString getStrategy();
+    void setStrategy(QString strategy);
 
     bool getSkipCalageBordure();
     void setSkipCalageBordure(bool value);
@@ -77,12 +69,6 @@ public:
 
     bool getSafeAvoidance();
     void setSafeAvoidance(bool value);
-
-    bool getDeposePartielle();
-    void setDeposePartielle(bool value);
-
-    bool getEchangeEcueil();
-    void setEchangeEcueil(bool value);
 
     bool getUpdatePhoto();
     void setUpdatePhoto(bool value);
@@ -95,6 +81,12 @@ public:
 
     bool getTwoRobots();
     void setTwoRobots(bool value);
+
+    QVariantMap getOptions();
+    void setOptions(QVariantMap value);
+
+    Q_INVOKABLE void setOption(QString name, bool value);
+
 
     // RO
     bool getInMatch();
@@ -139,18 +131,17 @@ public:
 signals:
     // RW
     void exitChanged(bool newValue);
-    void teamChanged(Team newTeam);
-    void strategyChanged(Strategy strategy);
+    void teamChanged(QString newValue);
+    void strategyChanged(QString newValue);
     void startCalibrationChanged(bool newValue);
     void skipCalageBordureChanged(bool newValue);
     void modeManuelChanged(bool newValue);
     void safeAvoidanceChanged(bool newValue);
-    void deposePartielleChanged(bool newValue);
-    void echangeEcueilChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
     void etalonnageBaliseChanged(bool newValue);
     void etalonnageOkChanged(bool newValue);
     void twoRobotsChanged(bool newValue);
+    void optionsChanged(QVariantMap newValue);
 
     // RO
     void i2cChanged(bool newValue);
@@ -171,9 +162,9 @@ public slots:
 
 private:
     // RW
-    Team team;
-    Strategy strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, deposePartielle, echangeEcueil, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
+    QString team, strategy;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
+    QVariantMap options;
 
     // RO
     int score;

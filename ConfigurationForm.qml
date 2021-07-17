@@ -1,27 +1,17 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
-import org.arig.robotmodel 1.0
 import QtQuick.Layouts 1.1
+
 
 Page {
     id: page
     anchors.fill: parent
 
-    title: qsTr("Configuration Robots")
+    title: "Configuration " + ParamsModel.name
 
     function getBooleanColor(value, value2) {
         return value ? value2 === false ? "orange" : "green" : "red";
-    }
-
-    function getTeamColor(team) {
-        if (team === RobotModel.BLEU) {
-            return "blue";
-        } else if (team === RobotModel.JAUNE) {
-            return "yellow";
-        }
-
-        return Material.backgroundColor;
     }
 
     Popup {
@@ -87,381 +77,269 @@ Page {
         }
     }
 
-    Label {
-        id: lblMessage
-        height: 35
-        text: RobotModel.message
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.left: parent.left
-        anchors.leftMargin: 5
-        anchors.top: parent.top
-        anchors.topMargin: 5
-        font.pointSize: 16
-    }
-
-    Frame {
-        id: frameInfos
-        width: 395
-        anchors.left: parent.left
-        anchors.leftMargin: 5
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 190
-        anchors.top: lblMessage.bottom
-        anchors.topMargin: 10
-
-        Row {
-            id: rowStates
-            height: 180
-            spacing: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-
-            Column {
-                width: 185
-                spacing: 10
-
-                StateComponent {
-                    id: i2cState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Bus i2c")
-                    stateColor: getBooleanColor(RobotModel.i2c)
-                }
-
-                StateComponent {
-                    id: lidarState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Lidar")
-                    stateColor: getBooleanColor(RobotModel.lidar)
-                }
-
-                StateComponent {
-                    id: otherRobotState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Odin")
-                    stateColor: getBooleanColor(RobotModel.otherRobot)
-                }
-
-                StateComponent {
-                    id: baliseState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Balise")
-                    stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
-                }
-            }
-
-            Column {
-                width: 185
-                spacing: 10
-
-                StateComponent {
-                    id: auState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("A.U.")
-                    stateColor: getBooleanColor(RobotModel.au)
-                }
-
-                StateComponent {
-                    id: alim12vState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Moteurs")
-                    stateColor: getBooleanColor(RobotModel.alim12v)
-                }
-
-                StateComponent {
-                    id: alim5vpState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Servos")
-                    stateColor: getBooleanColor(RobotModel.alim5vp)
-                }
-
-                StateComponent {
-                    id: tiretteState
-                    anchors.right: parent.right
-                    anchors.rightMargin: 5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
-                    libelle: qsTr("Tirette")
-                    stateColor: getBooleanColor(RobotModel.tirette)
-                }
-            }
-        }
-    }
-
-    Frame {
-        id: frameTeam
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 190
-        anchors.top: lblMessage.bottom
-        anchors.topMargin: 10
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.left: frameInfos.right
-        anchors.leftMargin: 5
-
-        RowLayout {
-            anchors.bottom: buttonCalibration.top
-            anchors.bottomMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-
-            Rectangle {
-                id: rectColorTeamBleu
-                color: getTeamColor(RobotModel.BLEU)
-                opacity: RobotModel.team == RobotModel.BLEU ? 1 : 0.2
-                radius: 5
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: !RobotModel.startCalibration
-                    onClicked: {
-                        RobotModel.team = RobotModel.BLEU
-                    }
-                }
-            }
-
-            Rectangle {
-                id: rectColorTeamJaune
-                color: getTeamColor(RobotModel.JAUNE)
-                opacity: RobotModel.team == RobotModel.JAUNE ? 1 : 0.2
-                radius: 5
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: !RobotModel.startCalibration
-                    onClicked: {
-                        RobotModel.team = RobotModel.JAUNE
-                    }
-                }
-            }
-        }
+    ColumnLayout {
+        id: pageConfig
+        anchors.fill: parent
+        anchors.margins: 5
 
         Label {
-            id: lblTeam
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenterOffset: -30
-            anchors.verticalCenter: parent.verticalCenter
-            width: 300
-            height: 24
-            text: qsTr("Taper ici pour choisir l'équipe")
-            visible: RobotModel.team == RobotModel.UNKNOWN
-            verticalAlignment: Text.AlignVCenter
+            Layout.fillWidth: true
+            Layout.preferredHeight: 35
+            text: RobotModel.message
             horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             font.pointSize: 16
         }
 
-        Button {
-            id: buttonCalibration
-            y: 277
-            enabled: RobotModel.au && RobotModel.team != RobotModel.UNKNOWN && !RobotModel.startCalibration
-            text: qsTr("Lancer le calage bordure")
-            hoverEnabled: false
-            highlighted: false
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            onClicked: {
-                if (!RobotModel.startCalibration) {
-                    console.log("Start calage bordure")
-                    calibConfirmation.open()
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.minimumHeight: 40*4 + 20
+            Layout.maximumHeight: 40*4 + 20
+
+            Frame {
+                id: statusFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
+
+                RowLayout {
+                    anchors.fill: parent
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: 1
+
+                        StateComponent {
+                            id: i2cState
+                            libelle: "Bus i2c"
+                            stateColor: getBooleanColor(RobotModel.i2c)
+                        }
+
+                        StateComponent {
+                            id: lidarState
+                            libelle: "Lidar"
+                            stateColor: getBooleanColor(RobotModel.lidar)
+                        }
+
+                        StateComponent {
+                            id: otherRobotState
+                            libelle: ParamsModel.primary ? "Odin" : "Nerell"
+                            stateColor: getBooleanColor(RobotModel.otherRobot)
+                        }
+
+                        StateComponent {
+                            id: baliseState
+                            visible: ParamsModel.primary
+                            libelle: "Balise"
+                            stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: 1
+
+                        StateComponent {
+                            id: auState
+                            libelle: "A.U."
+                            stateColor: getBooleanColor(RobotModel.au)
+                        }
+
+                        StateComponent {
+                            id: alim12vState
+                            libelle: "Moteurs"
+                            stateColor: getBooleanColor(RobotModel.alim12v)
+                        }
+
+                        StateComponent {
+                            id: alim5vpState
+                            libelle: "Servos"
+                            stateColor: getBooleanColor(RobotModel.alim5vp)
+                        }
+
+                        StateComponent {
+                            id: tiretteState
+                            visible: ParamsModel.primary || !RobotModel.otherRobot
+                            libelle: "Tirette"
+                            stateColor: getBooleanColor(RobotModel.tirette)
+                        }
+                    }
+                }
+            }
+
+            Frame {
+                id: teamFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
+
+                Label {
+                    anchors.fill: parent
+                    anchors.bottomMargin: 40
+                    text: "Taper ici pour choisir l'équipe"
+                    visible: !RobotModel.team && (ParamsModel.primary || !RobotModel.otherRobot)
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pointSize: 16
+                }
+
+                ColumnLayout {
+                    anchors.fill: parent
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+
+                        Repeater {
+                            model: ParamsModel.teams
+
+                            delegate: Rectangle {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: 1
+                                color: modelData.color
+                                opacity: RobotModel.team === modelData.name ? 1 : 0.2
+                                radius: 5
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    enabled: !RobotModel.startCalibration && (ParamsModel.primary || !RobotModel.otherRobot)
+                                    onClicked: {
+                                        RobotModel.team = modelData.name
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        topInset: 5
+                        bottomInset: 0
+                        bottomPadding: 5
+                        enabled: RobotModel.au && !!RobotModel.team && !RobotModel.startCalibration && (ParamsModel.primary || !RobotModel.otherRobot)
+                        text: "Lancer le calage bordure"
+                        hoverEnabled: false
+                        highlighted: false
+                        onClicked: {
+                            if (!RobotModel.startCalibration) {
+                                console.log("Start calage bordure")
+                                calibConfirmation.open()
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
 
-    Frame {
-        id: frameConfig
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.top: frameTeam.bottom
-        anchors.topMargin: 5
-        anchors.right: parent.right
-        anchors.rightMargin: 5
-        anchors.left: parent.left
-        anchors.leftMargin: 5
-        topPadding: 0
-        bottomPadding: 0
-
-
-        ButtonGroup {
-            buttons: strategies.childrens
-        }
-
-        Row {
-            id: rowConfig
-            spacing: 10
+        RowLayout {
+            Layout.fillWidth: true
             enabled: !RobotModel.tirette
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
 
-            Column {
-                id: strategies
-                width: 170
-                spacing: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
+            Frame {
+                id: strategiesFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
 
-                RadioButton {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
+                ColumnLayout {
+                    anchors.top: parent.top
                     anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    checked: RobotModel.strategy === RobotModel.BASIC
-                    text: qsTr("Basic")
-                    font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.BASIC
-                }
-                RadioButton {
                     anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    checked: RobotModel.strategy === RobotModel.AGGRESSIVE
-                    text: qsTr("Aggressive")
-                    font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.AGGRESSIVE
-                }
-                RadioButton {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    checked: RobotModel.strategy === RobotModel.FINALE
-                    text: qsTr("Finale")
-                    font.pointSize: 16
-                    onClicked: RobotModel.strategy = RobotModel.FINALE
+
+                    Repeater {
+                        model: ParamsModel.strategies
+
+                        delegate: RadioButton {
+                            padding: 5
+                            text: modelData
+                            font.pointSize: 16
+                            checked: RobotModel.strategy === modelData
+                            onClicked: RobotModel.strategy = modelData
+                        }
+                    }
                 }
             }
 
-            Column {
-                id: configMatch
-                width: 235
-                spacing: 10
+            Frame {
+                id: configMatchFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
 
-                Switch {
-                    id: configDeposePartielle
-                    text: qsTr("Dépose partielle gd chenal")
-                    checked: RobotModel.deposePartielle && RobotModel.twoRobots
-                    enabled: RobotModel.twoRobots
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
+                ColumnLayout {
+                    anchors.top: parent.top
                     anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.deposePartielle = configDeposePartielle.checked
-                    onCheckedChanged: RobotModel.deposePartielle = configDeposePartielle.checked
-                }
+                    anchors.right: parent.right
+                    spacing: 0
 
-                Switch {
-                    id: configEchangeEcueil
-                    text: qsTr("Échange ecueil")
-                    checked: RobotModel.echangeEcueil
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.echangeEcueil = configEchangeEcueil.checked
-                }
+                    Repeater {
+                        model: ParamsModel.options
 
-                Switch {
-                    id: configSafeAvoidance
-                    text: qsTr("Safe avoidance")
-                    checked: RobotModel.safeAvoidance
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.safeAvoidance = configSafeAvoidance.checked
+                        delegate: Switch {
+                            id: optionItem
+                            padding: 5
+                            text: modelData
+                            checked: RobotModel.options[modelData]
+                            onClicked: RobotModel.setOption(modelData, optionItem.checked)
+                        }
+                    }
                 }
             }
 
-            Column {
-                id: configDebug
-                width: 200
-                spacing: 10
+            Frame {
+                id: configDebugFrame
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 1
 
-                Switch {
-                    id: configTwoRobots
-                    text: qsTr("Deux robots")
-                    enabled: !RobotModel.otherRobot
-                    checked: RobotModel.twoRobots
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
+                ColumnLayout {
+                    anchors.top: parent.top
                     anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.twoRobots = configTwoRobots.checked
-                }
+                    anchors.right: parent.right
+                    spacing: 0
 
-                Switch {
-                    id: configSkipCalageChoixStrat
-                    text: qsTr("Skip cal. bord. / strat.")
-                    checked: RobotModel.skipCalageBordure
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.skipCalageBordure = configSkipCalageChoixStrat.checked
-                }
+                    Switch {
+                        id: configTwoRobots
+                        padding: 5
+                        text: "Deux robots"
+                        enabled: !RobotModel.otherRobot
+                        checked: RobotModel.twoRobots
+                        onClicked: RobotModel.twoRobots = configTwoRobots.checked
+                    }
 
-                Switch {
-                    id: configModeManuel
-                    text: qsTr("Mode manuel")
-                    checked: RobotModel.modeManuel
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onClicked: RobotModel.modeManuel = configModeManuel.checked
+                    Switch {
+                        id: configSafeAvoidance
+                        padding: 5
+                        text: "Safe avoidance"
+                        checked: RobotModel.safeAvoidance
+                        onClicked: RobotModel.safeAvoidance = configSafeAvoidance.checked
+                    }
+
+                    Switch {
+                        id: configSkipCalageChoixStrat
+                        padding: 5
+                        text: qsTr("Skip cal. bord. / strat.")
+                        checked: RobotModel.skipCalageBordure
+                        onClicked: RobotModel.skipCalageBordure = configSkipCalageChoixStrat.checked
+                    }
+
+                    Switch {
+                        id: configModeManuel
+                        padding: 5
+                        text: qsTr("Mode manuel")
+                        checked: RobotModel.modeManuel
+                        onClicked: RobotModel.modeManuel = configModeManuel.checked
+                    }
                 }
-           }
+            }
         }
     }
 
     Frame {
-        id: matchInfos
+        id: pageMatch
         visible: false
         anchors.fill: parent
         background: Image {
@@ -506,27 +384,12 @@ Page {
             when: (RobotModel.inMatch)
 
             PropertyChanges {
-                target: lblMessage
+                target: pageConfig
                 visible: false
             }
 
             PropertyChanges {
-                target: frameInfos
-                visible: false
-            }
-
-            PropertyChanges {
-                target: frameTeam
-                visible: false
-            }
-
-            PropertyChanges {
-                target: frameConfig
-                visible: false
-            }
-
-            PropertyChanges {
-                target: matchInfos
+                target: pageMatch
                 visible: true
             }
 
@@ -537,20 +400,3 @@ Page {
         }
     ]
 }
-
-
-
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:2;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:3;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:4;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:5;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:6;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:7;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:8;anchors_width:145;anchors_x:"-9";anchors_y:3}
-D{i:10;anchors_width:145;anchors_x:"-9";anchors_y:3}D{i:11;anchors_width:356;anchors_x:393;anchors_y:"-1"}
-D{i:9;anchors_width:356;anchors_x:393;anchors_y:"-1"}D{i:1;anchors_height:332;anchors_x:35;anchors_y:34}
-D{i:12;anchors_width:356;anchors_x:5;anchors_y:59}D{i:22;anchors_width:180;anchors_x:264}
-D{i:23;anchors_width:180;anchors_x:264}D{i:20;anchors_x:16}D{i:27;anchors_height:42}
-D{i:28;anchors_height:42;anchors_width:200;anchors_x:0}D{i:31;anchors_width:200;anchors_x:0}
-}
-##^##*/
