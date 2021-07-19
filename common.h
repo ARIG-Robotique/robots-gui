@@ -1,5 +1,5 @@
-#ifndef NERELL_GUI_COMMON_H
-#define NERELL_GUI_COMMON_H
+#ifndef ROBOTS_GUI_COMMON_H
+#define ROBOTS_GUI_COMMON_H
 
 #include <iostream>
 #include "json.hpp"
@@ -34,4 +34,4 @@ struct JsonQuery {
     json data;
 };
 
-#endif //NERELL_GUI_COMMON_H
+#endif //ROBOTS_GUI_COMMON_H

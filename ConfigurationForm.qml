@@ -8,7 +8,7 @@ Page {
     id: page
     anchors.fill: parent
 
-    title: qsTr("Configuration Nerell")
+    title: qsTr("Configuration Robots")
 
     function getBooleanColor(value, value2) {
         return value ? value2 === false ? "orange" : "green" : "red";

@@ -11,8 +11,8 @@
 #include "spdlog/sinks/basic_file_sink.h"
 
 void printUsage() {
-    cerr << "Usage socket unix : nerell-gui unix /tmp/ecran.sock [debug]" << endl;
-    cerr << "Usage socket inet : nerell-gui inet 8686 [debug]" << endl;
+    cerr << "Usage socket unix : robots-gui unix /tmp/ecran.sock [debug]" << endl;
+    cerr << "Usage socket inet : robots-gui inet 8686 [debug]" << endl;
 }
 
 void qDebugToSpdLog(QtMsgType type, const QMessageLogContext &context, const QString &msg)

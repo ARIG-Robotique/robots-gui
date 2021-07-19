@@ -12,7 +12,7 @@ ApplicationWindow {
     height: 480
     maximumHeight: 480
     minimumHeight: 480
-    title: qsTr("Nerell GUI")
+    title: qsTr("Robots GUI")
 
     header: ToolBar {
         id: toolBar
