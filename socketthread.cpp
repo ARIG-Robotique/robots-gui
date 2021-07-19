@@ -136,8 +136,12 @@ void SocketThread::run() {
                 robotModel->setTwoRobots(true);
 
                 if (!paramsModel->getPrimary()) {
-                    robotModel->setTeam(QString::fromStdString(data["team"]));
-                    robotModel->setStrategy(QString::fromStdString(data["strategy"]));
+                    if (!data["team"].is_null()) {
+                        robotModel->setTeam(QString::fromStdString(data["team"]));
+                    }
+                    if (!data["strategy"].is_null()) {
+                        robotModel->setStrategy(QString::fromStdString(data["strategy"]));
+                    }
 
                     for (auto &opt : data["options"].items()) {
                         robotModel->setOption(QString::fromStdString(opt.key()), opt.value());
