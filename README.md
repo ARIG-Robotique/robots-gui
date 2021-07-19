@@ -1,7 +1,7 @@
 # Interface graphique de controlle
 
 ```
-nerell-gui unix /tmp/ecran.sock [debug]
+robots-gui unix /tmp/ecran.sock [debug]
 ```
 
 ## Messages JSON
