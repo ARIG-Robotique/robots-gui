@@ -182,7 +182,7 @@ Page {
                     visible: !RobotModel.team && (ParamsModel.primary || !RobotModel.otherRobot)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: 16
+                    font.pointSize: 12
                 }
 
                 ColumnLayout {
