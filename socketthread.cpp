@@ -121,8 +121,8 @@ void SocketThread::run() {
             robotModel->setI2c(data["i2c"]);
             robotModel->setLidar(data["lidar"]);
             robotModel->setAu(data["au"]);
-            robotModel->setAlim12v(data["alim12v"]);
-            robotModel->setAlim5vp(data["alim5vp"]);
+            robotModel->setAlimMoteurs(data["alimMoteurs"]);
+            robotModel->setAlimServos(data["alimServos"]);
             robotModel->setTirette(data["tirette"]);
             robotModel->setOtherRobot(data["otherRobot"]);
             robotModel->setBalise(data["balise"]);

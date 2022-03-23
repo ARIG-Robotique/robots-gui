@@ -29,8 +29,8 @@ private:
 
     // RO
     Q_PROPERTY(bool au READ getAu NOTIFY auChanged)
-    Q_PROPERTY(bool alim12v READ getAlim12v NOTIFY alim12vChanged)
-    Q_PROPERTY(bool alim5vp READ getAlim5vp NOTIFY alim5vpChanged)
+    Q_PROPERTY(bool alimMoteurs READ getAlimMoteurs NOTIFY alimMoteursChanged)
+    Q_PROPERTY(bool alimServos READ getAlimServos NOTIFY alimServosChanged)
     Q_PROPERTY(bool inMatch READ getInMatch NOTIFY inMatchChanged)
     Q_PROPERTY(bool tirette READ getTirette NOTIFY tiretteChanged)
     Q_PROPERTY(bool i2c READ getI2c NOTIFY i2cChanged)
@@ -101,11 +101,11 @@ public:
     bool getAu();
     void setAu(bool value);
 
-    bool getAlim12v();
-    void setAlim12v(bool value);
+    bool getAlimMoteurs();
+    void setAlimMoteurs(bool value);
 
-    bool getAlim5vp();
-    void setAlim5vp(bool value);
+    bool getAlimServos();
+    void setAlimServos(bool value);
 
     bool getTirette();
     void setTirette(bool value);
@@ -146,8 +146,8 @@ signals:
     // RO
     void i2cChanged(bool newValue);
     void lidarChanged(bool newValue);
-    void alim12vChanged(bool newValue);
-    void alim5vpChanged(bool newValue);
+    void alimMoteursChanged(bool newValue);
+    void alimServosChanged(bool newValue);
     void auChanged(bool newValue);
     void baliseChanged(bool newValue);
     void messageChanged(QString message);
@@ -168,7 +168,7 @@ private:
 
     // RO
     int score;
-    bool inMatch, au, alim12v, alim5vp, tirette, otherRobot, balise, i2c, lidar;
+    bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot, balise, i2c, lidar;
     QString message, photoMessage, photo;
 
 };

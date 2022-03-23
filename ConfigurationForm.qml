@@ -148,15 +148,15 @@ Page {
                         }
 
                         StateComponent {
-                            id: alim12vState
+                            id: alimMoteursState
                             libelle: "Moteurs"
-                            stateColor: getBooleanColor(RobotModel.alim12v)
+                            stateColor: getBooleanColor(RobotModel.alimMoteurs)
                         }
 
                         StateComponent {
-                            id: alim5vpState
+                            id: alimServosState
                             libelle: "Servos"
-                            stateColor: getBooleanColor(RobotModel.alim5vp)
+                            stateColor: getBooleanColor(RobotModel.alimServos)
                         }
 
                         StateComponent {

@@ -28,8 +28,8 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setLidar(false);
     this->setInMatch(false);
     this->setAu(false);
-    this->setAlim12v(false);
-    this->setAlim5vp(false);
+    this->setAlimMoteurs(false);
+    this->setAlimServos(false);
     this->setTirette(false);
     this->setOtherRobot(false);
     this->setBalise(false);
@@ -175,20 +175,20 @@ void RobotModel::setAu(bool value) {
     emit auChanged(value);
 }
 
-bool RobotModel::getAlim12v(){
-    return this->alim12v;
+bool RobotModel::getAlimMoteurs(){
+    return this->alimMoteurs;
 }
-void RobotModel::setAlim12v(bool value){
-    this->alim12v = value;
-    emit alim12vChanged(value);
+void RobotModel::setAlimMoteurs(bool value){
+    this->alimMoteurs = value;
+    emit alimMoteursChanged(value);
 }
 
-bool RobotModel::getAlim5vp(){
-    return this->alim5vp;
+bool RobotModel::getAlimServos(){
+    return this->alimServos;
 }
-void RobotModel::setAlim5vp(bool value){
-    this->alim5vp = value;
-    emit alim5vpChanged(value);
+void RobotModel::setAlimServos(bool value){
+    this->alimServos = value;
+    emit alimServosChanged(value);
 }
 
 bool RobotModel::getTirette() {
