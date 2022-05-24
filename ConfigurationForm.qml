@@ -130,7 +130,7 @@ Page {
 
                         StateComponent {
                             id: baliseState
-                            visible: ParamsModel.primary
+                            visible: ParamsModel.primary || !RobotModel.otherRobot
                             libelle: "Balise"
                             stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
                         }

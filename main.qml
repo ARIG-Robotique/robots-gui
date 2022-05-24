@@ -29,7 +29,7 @@ ApplicationWindow {
             text: "Calibration"
             anchors.leftMargin: 50
             font.pixelSize: Qt.application.font.pixelSize * 1.6
-            visible: ParamsModel.primary && stackView.currentItem.title !== "Calibration balise"
+            visible: (ParamsModel.primary || !RobotModel.otherRobot) && stackView.currentItem.title !== "Calibration balise"
             enabled: RobotModel.balise
             onClicked: stackView.push("CalibrationBaliseForm.qml")
         }
