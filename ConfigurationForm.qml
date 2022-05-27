@@ -11,7 +11,7 @@ Page {
     title: "Configuration " + ParamsModel.name
 
     function getBooleanColor(value, value2) {
-        return value ? value2 === false ? "orange" : "green" : "red";
+        return value ? value2 === false ? "yellow" : "green" : "red";
     }
 
     Popup {
