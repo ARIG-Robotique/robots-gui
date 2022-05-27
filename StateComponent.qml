@@ -9,18 +9,18 @@ RowLayout {
     property string libelle: libelle
     property string stateColor: "gray"
 
+    Rectangle {
+        Layout.fillHeight: true
+        width: 35
+        color: stateColor
+        radius: 10
+    }
+
     Label {
         Layout.fillWidth: true
         Layout.fillHeight: true
         text: libelle
         font.pointSize: 16
         verticalAlignment: Text.AlignVCenter
-    }
-
-    Rectangle {
-        Layout.fillHeight: true
-        width: 35
-        color: stateColor
-        radius: 10
     }
 }
