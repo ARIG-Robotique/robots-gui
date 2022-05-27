@@ -253,7 +253,7 @@ Page {
                         model: ParamsModel.strategies
 
                         delegate: RadioButton {
-                            padding: 5
+                            padding: 1
                             text: modelData
                             font.pointSize: 16
                             checked: RobotModel.strategy === modelData
