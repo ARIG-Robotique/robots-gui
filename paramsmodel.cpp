@@ -31,6 +31,14 @@ void ParamsModel::setPrimary(bool primary) {
     emit primaryChanged(primary);
 }
 
+bool ParamsModel::getPami() {
+    return this->pami;
+}
+void ParamsModel::setPami(bool pami) {
+    this->pami = pami;
+    emit pamiChanged(pami);
+}
+
 QList<TeamAndColor> ParamsModel::getTeams() {
     return this->teams;
 }

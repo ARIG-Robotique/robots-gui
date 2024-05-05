@@ -41,6 +41,7 @@ class ParamsModel : public QObject
 private:
     Q_PROPERTY(QString name READ getName NOTIFY nameChanged)
     Q_PROPERTY(bool primary READ getPrimary NOTIFY primaryChanged)
+    Q_PROPERTY(bool pami READ getPami NOTIFY pamiChanged)
     Q_PROPERTY(QList<TeamAndColor> teams READ getTeams NOTIFY teamsChanged)
     Q_PROPERTY(QStringList strategies READ getStrategies NOTIFY strategiesChanged)
     Q_PROPERTY(QStringList options READ getOptions NOTIFY optionsChanged)
@@ -57,6 +58,9 @@ public:
     bool getPrimary();
     void setPrimary(bool primary);
 
+    bool getPami();
+    void setPami(bool pami);
+
     QList<TeamAndColor> getTeams();
     void setTeams(QList<TeamAndColor> teams);
 
@@ -69,6 +73,7 @@ public:
 signals:
     void nameChanged(QString newValue);
     void primaryChanged(bool newValue);
+    void pamiChanged(bool newValue);
     void teamsChanged(QList<TeamAndColor> newValue);
     void strategiesChanged(QStringList newValue);
     void optionsChanged(QStringList newValue);
@@ -76,9 +81,9 @@ signals:
 private:
     QString name;
     bool primary;
+    bool pami;
     QList<TeamAndColor> teams;
     QStringList strategies, options;
-
 };
 
 #endif // PARAMSMODEL_H
