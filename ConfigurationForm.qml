@@ -124,14 +124,14 @@ Page {
 
                         StateComponent {
                             id: otherRobotState
-                            libelle: ParamsModel.primary ? "Odin" : "Nerell"
+                            libelle: ParamsModel.primary ? "Triangle" : "Nerell"
                             stateColor: getBooleanColor(RobotModel.otherRobot)
                         }
 
                         StateComponent {
                             id: baliseState
                             visible: ParamsModel.primary || !RobotModel.otherRobot
-                            libelle: "Balise"
+                            libelle: "Cyclops"
                             stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
                         }
                     }
