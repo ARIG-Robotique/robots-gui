@@ -32,7 +32,9 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlimServos(false);
     this->setTirette(false);
     this->setOtherRobot(false);
-    this->setNbPamis(0);
+    this->setPamiTriangle(false);
+    this->setPamiCarre(false);
+    this->setPamiRond(false);
     this->setBalise(false);
     this->setMessage("Démarrage en cours ...");
 }
@@ -208,6 +210,33 @@ void RobotModel::setOtherRobot(bool value) {
     emit otherRobotChanged(value);
 }
 
+bool RobotModel::getPamiTriangle() {
+    return this->pamiTriangle;
+}
+void RobotModel::setPamiTriangle(bool value) {
+    this->pamiTriangle = value;
+    emit pamiTriangleChanged(value);
+    refreshNbPamis();
+}
+
+bool RobotModel::getPamiCarre() {
+    return this->pamiCarre;
+}
+void RobotModel::setPamiCarre(bool value) {
+    this->pamiCarre = value;
+    emit pamiCarreChanged(value);
+    refreshNbPamis();
+}
+
+bool RobotModel::getPamiRond() {
+    return this->pamiRond;
+}
+void RobotModel::setPamiRond(bool value) {
+    this->pamiRond = value;
+    emit pamiRondChanged(value);
+    refreshNbPamis();
+}
+
 int RobotModel::getNbPamis() {
     return this->nbPamis;
 }
@@ -254,4 +283,12 @@ QString RobotModel::getPhoto() {
 void RobotModel::setPhoto(QString value) {
     this->photo = value;
     emit photoChanged(value);
+}
+
+// Business private
+void RobotModel::refreshNbPamis() {
+    this->nbPamis = this->pamiTriangle ? 1 : 0;
+    this->nbPamis += this->pamiCarre ? 1 : 0;
+    this->nbPamis += this->pamiRond ? 1 : 0;
+    emit nbPamisChanged(this->nbPamis);
 }

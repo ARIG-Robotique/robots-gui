@@ -11,7 +11,14 @@ Page {
     title: "Configuration " + ParamsModel.name
 
     function getBooleanColor(value, value2) {
-        return value ? !!value2 ? "yellow" : "green" : "red";
+        if (value) {
+            if (value2) {
+                return "green";
+            } else {
+                return "yellow";
+            }
+        }
+        return "red";
     }
 
     Popup {
@@ -124,8 +131,9 @@ Page {
 
                         StateComponent {
                             id: otherRobotState
-                            libelle: ParamsModel.primary ? "PAMIs" : "Nerell"
+                            libelle: ParamsModel.primary ? "PAMIs " + RobotModel.nbPamis + "/3" : "Nerell"
                             stateColor: {
+                                const color;
                                 if (RobotModel.primary) {
                                     color = getBooleanColor(RobotModel.nbPamis > 0, RobotModel.nbPamis === 3)
                                 } else {

@@ -10,6 +10,10 @@ Page {
 
     title: "Etats des PAMIs"
 
+    function getBooleanColor(value) {
+        return value ? "green" : "red";
+    }
+
     ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
@@ -29,7 +33,7 @@ Page {
 
             StateComponent {
                 libelle: "Triangle"
-                stateColor: "red"
+                stateColor: getBooleanColor(RobotModel.pamiTriangle)
             }
 
             Button {
@@ -70,7 +74,7 @@ Page {
 
             StateComponent {
                 libelle: "Carre"
-                stateColor: "red"
+                stateColor: getBooleanColor(RobotModel.pamiCarre)
             }
 
             Button {
@@ -111,7 +115,7 @@ Page {
 
             StateComponent {
                 libelle: "Rond"
-                stateColor: "red"
+                stateColor: getBooleanColor(RobotModel.pamiRond)
             }
 
             Button {

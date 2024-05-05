@@ -36,6 +36,9 @@ private:
     Q_PROPERTY(bool i2c READ getI2c NOTIFY i2cChanged)
     Q_PROPERTY(bool lidar READ getLidar NOTIFY lidarChanged)
     Q_PROPERTY(bool otherRobot READ getOtherRobot NOTIFY otherRobotChanged)
+    Q_PROPERTY(bool pamiTriangle READ getPamiTriangle NOTIFY pamiTriangleChanged)
+    Q_PROPERTY(bool pamiCarre READ getPamiCarre NOTIFY pamiCarreChanged)
+    Q_PROPERTY(bool pamiRond READ getPamiRond NOTIFY pamiRondChanged)
     Q_PROPERTY(int nbPamis READ getNbPamis NOTIFY nbPamisChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
@@ -114,6 +117,15 @@ public:
     bool getOtherRobot();
     void setOtherRobot(bool value);
 
+    bool getPamiTriangle();
+    void setPamiTriangle(bool value);
+
+    bool getPamiCarre();
+    void setPamiCarre(bool value);
+
+    bool getPamiRond();
+    void setPamiRond(bool value);
+
     int getNbPamis();
     void setNbPamis(int value);
 
@@ -156,6 +168,9 @@ signals:
     void baliseChanged(bool newValue);
     void messageChanged(QString message);
     void otherRobotChanged(bool newValue);
+    void pamiTriangleChanged(bool newValue);
+    void pamiCarreChanged(bool newValue);
+    void pamiRondChanged(bool newValue);
     void nbPamisChanged(int newValue);
     void scoreChanged(int newValue);
     void inMatchChanged(bool newValue);
@@ -166,6 +181,8 @@ signals:
 public slots:
 
 private:
+    void refreshNbPamis();
+
     // RW
     QString team, strategy;
     bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
@@ -173,7 +190,8 @@ private:
 
     // RO
     int score;
-    bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot, nbPamis, balise, i2c, lidar;
+    bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot;
+    bool pamiTriangle, pamiCarre, pamiRond, nbPamis, balise, i2c, lidar;
     QString message, photoMessage, photo;
 
 };

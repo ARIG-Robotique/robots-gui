@@ -70,6 +70,7 @@ void SocketThread::run() {
             }
             paramsModel->setStrategies(strategies);
             robotModel->setStrategy(strategies.at(0));
+            robotModel->setTeam("");
 
             QStringList options;
             auto rawOptions = data["options"].get<list<string>>();
@@ -125,7 +126,9 @@ void SocketThread::run() {
             robotModel->setAlimServos(data["alimServos"]);
             robotModel->setTirette(data["tirette"]);
             robotModel->setOtherRobot(data["otherRobot"]);
-            robotModel->setNbPamis(data["nbPamis"]);
+            robotModel->setPamiTriangle(data["pamiTriangle"]);
+            robotModel->setPamiCarre(data["pamiCarre"]);
+            robotModel->setPamiRond(data["pamiRond"]);
             robotModel->setBalise(data["balise"]);
             if (data["message"].is_null()) {
                 robotModel->setMessage("");
