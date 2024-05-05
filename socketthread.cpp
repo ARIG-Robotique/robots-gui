@@ -125,6 +125,7 @@ void SocketThread::run() {
             robotModel->setAlimServos(data["alimServos"]);
             robotModel->setTirette(data["tirette"]);
             robotModel->setOtherRobot(data["otherRobot"]);
+            robotModel->setNbPamis(data["nbPamis"]);
             robotModel->setBalise(data["balise"]);
             if (data["message"].is_null()) {
                 robotModel->setMessage("");

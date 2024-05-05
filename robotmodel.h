@@ -36,6 +36,7 @@ private:
     Q_PROPERTY(bool i2c READ getI2c NOTIFY i2cChanged)
     Q_PROPERTY(bool lidar READ getLidar NOTIFY lidarChanged)
     Q_PROPERTY(bool otherRobot READ getOtherRobot NOTIFY otherRobotChanged)
+    Q_PROPERTY(int nbPamis READ getNbPamis NOTIFY nbPamisChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(QString message READ getMessage NOTIFY messageChanged)
@@ -113,6 +114,9 @@ public:
     bool getOtherRobot();
     void setOtherRobot(bool value);
 
+    int getNbPamis();
+    void setNbPamis(int value);
+
     bool getBalise();
     void setBalise(bool value);
 
@@ -152,6 +156,7 @@ signals:
     void baliseChanged(bool newValue);
     void messageChanged(QString message);
     void otherRobotChanged(bool newValue);
+    void nbPamisChanged(int newValue);
     void scoreChanged(int newValue);
     void inMatchChanged(bool newValue);
     void tiretteChanged(bool newValue);
@@ -168,7 +173,7 @@ private:
 
     // RO
     int score;
-    bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot, balise, i2c, lidar;
+    bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot, nbPamis, balise, i2c, lidar;
     QString message, photoMessage, photo;
 
 };

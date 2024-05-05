@@ -32,6 +32,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setAlimServos(false);
     this->setTirette(false);
     this->setOtherRobot(false);
+    this->setNbPamis(0);
     this->setBalise(false);
     this->setMessage("Démarrage en cours ...");
 }
@@ -205,6 +206,14 @@ bool RobotModel::getOtherRobot() {
 void RobotModel::setOtherRobot(bool value) {
     this->otherRobot = value;
     emit otherRobotChanged(value);
+}
+
+int RobotModel::getNbPamis() {
+    return this->nbPamis;
+}
+void RobotModel::setNbPamis(int value) {
+    this->nbPamis = value;
+    emit nbPamisChanged(value);
 }
 
 bool RobotModel::getBalise() {

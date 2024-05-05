@@ -26,12 +26,11 @@ ApplicationWindow {
         }
 
         ToolButton {
-            text: "Calibration"
+            text: "PAMIs"
             anchors.leftMargin: 50
             font.pixelSize: Qt.application.font.pixelSize * 1.6
-            visible: (ParamsModel.primary || !RobotModel.otherRobot) && stackView.currentItem.title !== "Calibration balise"
-            enabled: RobotModel.balise
-            onClicked: stackView.push("CalibrationBaliseForm.qml")
+            visible: (ParamsModel.primary || !RobotModel.otherRobot) && !ParamsModel.pami && stackView.currentItem.title !== "Etats des PAMIs"
+            onClicked: stackView.push("Pamis.qml")
         }
 
         Label {
