@@ -124,7 +124,16 @@ Page {
 
                         StateComponent {
                             id: otherRobotState
-                            libelle: ParamsModel.primary ? "PAMIs " + RobotModel.nbPamis + "/3" : "Nerell"
+                            libelle: {
+                                if (ParamsModel.primary) {
+                                    var nb = RobotModel.pamiTriangle ? 1 : 0;
+                                    nb += RobotModel.pamiCarre ? 1 : 0;
+                                    nb += RobotModel.pamiRond ? 1 : 0;
+                                    return "PAMIs " + nb + "/3";
+                                } else {
+                                    return "Nerell";
+                                }
+                            }
                             stateColor: {
                                 if (RobotModel.primary) {
                                     return getBooleanColor(RobotModel.nbPamis > 0, RobotModel.nbPamis === 3)

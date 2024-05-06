@@ -216,7 +216,6 @@ bool RobotModel::getPamiTriangle() {
 void RobotModel::setPamiTriangle(bool value) {
     this->pamiTriangle = value;
     emit pamiTriangleChanged(value);
-    refreshNbPamis();
 }
 
 bool RobotModel::getPamiCarre() {
@@ -225,7 +224,6 @@ bool RobotModel::getPamiCarre() {
 void RobotModel::setPamiCarre(bool value) {
     this->pamiCarre = value;
     emit pamiCarreChanged(value);
-    refreshNbPamis();
 }
 
 bool RobotModel::getPamiRond() {
@@ -234,15 +232,6 @@ bool RobotModel::getPamiRond() {
 void RobotModel::setPamiRond(bool value) {
     this->pamiRond = value;
     emit pamiRondChanged(value);
-    refreshNbPamis();
-}
-
-int RobotModel::getNbPamis() {
-    return this->nbPamis;
-}
-void RobotModel::setNbPamis(int value) {
-    this->nbPamis = value;
-    emit nbPamisChanged(value);
 }
 
 bool RobotModel::getBalise() {
@@ -283,12 +272,4 @@ QString RobotModel::getPhoto() {
 void RobotModel::setPhoto(QString value) {
     this->photo = value;
     emit photoChanged(value);
-}
-
-// Business private
-void RobotModel::refreshNbPamis() {
-    this->nbPamis = this->pamiTriangle ? 1 : 0;
-    this->nbPamis += this->pamiCarre ? 1 : 0;
-    this->nbPamis += this->pamiRond ? 1 : 0;
-    emit nbPamisChanged(this->nbPamis);
 }
