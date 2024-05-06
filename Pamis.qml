@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 import QtQuick.Layouts 1.15
-
+import Process 1.0
 
 Page {
     id: page
@@ -12,6 +12,22 @@ Page {
 
     function getBooleanColor(value) {
         return value ? "green" : "red";
+    }
+
+    function sendSSHCmd(hostName, cmd) {
+        term.text = "Send to " + hostName + " " + cmd;
+        sshCmd.start("ssh", [hostName, "touch", "/tmp/external-dir/" + cmd ]);
+    }
+
+    Process {
+        id: sshCmd
+
+        property string output: ""
+
+        onReadyReadStandardOutput: {
+            output = sshCmd.readAll();
+            term.text += output;
+        }
     }
 
     ColumnLayout {
@@ -38,30 +54,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-triangle", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-triangle", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-triangle", "poweroff")
             }
 
             Button {
                 text: "Shutdown"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-triangle", "shutdown")
             }
         }
 
@@ -79,30 +87,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-carre", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-carre", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-carre", "poweroff")
             }
 
             Button {
                 text: "Shutdown"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-carre", "shutdown")
             }
         }
 
@@ -120,31 +120,31 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-rond", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-rond", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-rond", "poweroff")
             }
 
             Button {
                 text: "Shutdown"
-                onClicked: {
-                    // SEND AN SSH CALL
-                }
+                onClicked: sendSSHCmd("pami-rond", "shutdown")
             }
+        }
+
+        TextArea {
+            id: term
+            anchors.left: parent.left
+            anchors.right: parent.right
+            textFormat: TextArea.RichText
+            height: 200
         }
     }
 }

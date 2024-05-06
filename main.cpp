@@ -10,6 +10,7 @@
 #include "socketthread.h"
 #include "robotmodel.h"
 #include "paramsmodel.h"
+#include "process.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
 void printUsage() {
@@ -97,6 +98,9 @@ int main(int argc, char *argv[])
     // Enregistrement du model
     ctx->setContextProperty("RobotModel", RobotModel::getInstance());
     ctx->setContextProperty("ParamsModel", ParamsModel::getInstance());
+
+    // Enregistrement de classe CPP pour QML
+    qmlRegisterType<Process>( "Process", 1, 0, "Process" );
 
 
     engine.load(url);
