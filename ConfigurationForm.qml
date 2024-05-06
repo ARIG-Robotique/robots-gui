@@ -14,6 +14,25 @@ Page {
         return value ? value2 === false ? "yellow" : "green" : "red";
     }
 
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: {
+            if (ParamsModel.primary) {
+                var nb = RobotModel.pamiTriangle ? 1 : 0;
+                nb += RobotModel.pamiCarre ? 1 : 0;
+                nb += RobotModel.pamiRond ? 1 : 0;
+                otherRobotState.libelle = "PAMIs " + nb + "/3";
+                otherRobotState.stateColor = getBooleanColor(RobotModel.pamiTriangle || RobotModel.pamiCarre || RobotModel.pamiRond, RobotModel.pamiTriangle && RobotModel.pamiCarre && RobotModel.pamiRond)
+            } else {
+                otherRobotState.libelle = "Nerell";
+                otherRobotState.stateColor = getBooleanColor(RobotModel.otherRobot);
+            }
+        }
+
+    }
+
     Popup {
         id: calibConfirmation
         modal: true
@@ -124,23 +143,8 @@ Page {
 
                         StateComponent {
                             id: otherRobotState
-                            libelle: {
-                                if (ParamsModel.primary) {
-                                    var nb = RobotModel.pamiTriangle ? 1 : 0;
-                                    nb += RobotModel.pamiCarre ? 1 : 0;
-                                    nb += RobotModel.pamiRond ? 1 : 0;
-                                    return "PAMIs " + nb + "/3";
-                                } else {
-                                    return "Nerell";
-                                }
-                            }
-                            stateColor: {
-                                if (RobotModel.primary) {
-                                    return getBooleanColor(RobotModel.nbPamis > 0, RobotModel.nbPamis === 3)
-                                } else {
-                                    return getBooleanColor(RobotModel.otherRobot)
-                                }
-                            }
+                            libelle: "???"
+                            stateColor: "gray"
                         }
 
                         StateComponent {
