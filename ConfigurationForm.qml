@@ -133,13 +133,11 @@ Page {
                             id: otherRobotState
                             libelle: ParamsModel.primary ? "PAMIs " + RobotModel.nbPamis + "/3" : "Nerell"
                             stateColor: {
-                                const color;
                                 if (RobotModel.primary) {
-                                    color = getBooleanColor(RobotModel.nbPamis > 0, RobotModel.nbPamis === 3)
+                                    return getBooleanColor(RobotModel.nbPamis > 0, RobotModel.nbPamis === 3)
                                 } else {
-                                    color = getBooleanColor(RobotModel.otherRobot)
+                                    return getBooleanColor(RobotModel.otherRobot)
                                 }
-                                return color
                             }
                         }
 
