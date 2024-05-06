@@ -22,8 +22,6 @@ private:
     Q_PROPERTY(bool modeManuel READ getModeManuel WRITE setModeManuel NOTIFY modeManuelChanged)
     Q_PROPERTY(bool safeAvoidance READ getSafeAvoidance WRITE setSafeAvoidance NOTIFY safeAvoidanceChanged)
     Q_PROPERTY(bool updatePhoto READ getUpdatePhoto WRITE setUpdatePhoto NOTIFY updatePhotoChanged)
-    Q_PROPERTY(bool etalonnageBalise READ getEtalonnageBalise WRITE setEtalonnageBalise NOTIFY etalonnageBaliseChanged)
-    Q_PROPERTY(bool etalonnageOk READ getEtalonnageOk WRITE setEtalonnageOk NOTIFY etalonnageOkChanged)
     Q_PROPERTY(bool twoRobots READ getTwoRobots WRITE setTwoRobots NOTIFY twoRobotsChanged)
     Q_PROPERTY(QVariantMap options READ getOptions WRITE setOptions NOTIFY optionsChanged)
 
@@ -75,12 +73,6 @@ public:
 
     bool getUpdatePhoto();
     void setUpdatePhoto(bool value);
-
-    bool getEtalonnageBalise();
-    void setEtalonnageBalise(bool value);
-
-    bool getEtalonnageOk();
-    void setEtalonnageOk(bool value);
 
     bool getTwoRobots();
     void setTwoRobots(bool value);
@@ -150,8 +142,6 @@ signals:
     void modeManuelChanged(bool newValue);
     void safeAvoidanceChanged(bool newValue);
     void updatePhotoChanged(bool newValue);
-    void etalonnageBaliseChanged(bool newValue);
-    void etalonnageOkChanged(bool newValue);
     void twoRobotsChanged(bool newValue);
     void optionsChanged(QVariantMap newValue);
 
@@ -178,7 +168,7 @@ public slots:
 private:
     // RW
     QString team, strategy;
-    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, updatePhoto, etalonnageBalise, etalonnageOk, twoRobots;
+    bool exit, startCalibration, modeManuel, skipCalageBordure, safeAvoidance, updatePhoto, twoRobots;
     QVariantMap options;
 
     // RO

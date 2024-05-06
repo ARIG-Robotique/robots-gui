@@ -18,8 +18,6 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setSafeAvoidance(true);
     this->setSkipCalageBordure(false);
     this->setUpdatePhoto(false);
-    this->setEtalonnageBalise(false);
-    this->setEtalonnageOk(false);
     this->setTwoRobots(false);
 
     // RO
@@ -104,22 +102,6 @@ bool RobotModel::getUpdatePhoto() {
 void RobotModel::setUpdatePhoto(bool value) {
     this->updatePhoto = value;
     emit updatePhotoChanged(value);
-}
-
-bool RobotModel::getEtalonnageBalise() {
-    return this->etalonnageBalise;
-}
-void RobotModel::setEtalonnageBalise(bool value) {
-    this->etalonnageBalise = value;
-    emit etalonnageBaliseChanged(value);
-}
-
-bool RobotModel::getEtalonnageOk() {
-    return this->etalonnageOk;
-}
-void RobotModel::setEtalonnageOk(bool value) {
-    this->etalonnageOk = value;
-    emit etalonnageOkChanged(value);
 }
 
 bool RobotModel::getTwoRobots() {

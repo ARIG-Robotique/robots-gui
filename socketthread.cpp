@@ -100,8 +100,6 @@ void SocketThread::run() {
             result.data["safeAvoidance"] = robotModel->getSafeAvoidance();
             result.data["skipCalageBordure"] = robotModel->getSkipCalageBordure();
             result.data["updatePhoto"] = robotModel->getUpdatePhoto();
-            result.data["etalonnageBalise"] = robotModel->getEtalonnageBalise();
-            result.data["etalonnageOk"] = robotModel->getEtalonnageOk();
             result.data["twoRobots"] = robotModel->getTwoRobots();
             result.data["options"] = json({});
 
@@ -181,7 +179,6 @@ void SocketThread::run() {
             json data = query.data;
 
             robotModel->setUpdatePhoto(false);
-            robotModel->setEtalonnageBalise(false);
             if (data["message"].is_null()) {
                 robotModel->setPhotoMessage("");
             } else {

@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>ConfigurationForm.qml</file>
-        <file>CalibrationBaliseForm.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>StateComponent.qml</file>
         <file>fond-ecran.png</file>

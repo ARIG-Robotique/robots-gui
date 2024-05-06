@@ -147,7 +147,7 @@ Page {
                             id: baliseState
                             visible: ParamsModel.primary || !RobotModel.otherRobot
                             libelle: "Cyclops"
-                            stateColor: getBooleanColor(RobotModel.balise, RobotModel.etalonnageOk)
+                            stateColor: getBooleanColor(RobotModel.balise)
                         }
                     }
 

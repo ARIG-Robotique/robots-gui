@@ -99,8 +99,6 @@ robots-gui inet 9000 [debug]
         "modeManuel": false,
         "skipCalageBordure": false,
         "updatePhoto": false,
-        "etalonnageBalise": false,
-        "etalonnageOk": false,
         "options": {
             "option1": true,
             "option2": false
