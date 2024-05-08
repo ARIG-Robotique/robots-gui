@@ -14,9 +14,14 @@ Page {
         return value ? "green" : "red";
     }
 
-    function sendSSHCmd(hostName, cmd) {
+    function sendSSHArigCmd(hostName, cmd) {
         term.text = "Send to " + hostName + " " + cmd;
         sshCmd.start("ssh", [hostName, "touch", "/tmp/external-dir/" + cmd ]);
+    }
+
+    function sendSSHSystemCmd(hostName, cmd) {
+        term.text = "Send to " + hostName + " " + cmd;
+        sshCmd.start("ssh", [hostName, "sudo", cmd ]);
     }
 
     Process {
@@ -54,22 +59,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHCmd("pami-triangle", "run")
+                onClicked: sendSSHArigCmd("pami-triangle", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHCmd("pami-triangle", "monitoring")
+                onClicked: sendSSHArigCmd("pami-triangle", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHCmd("pami-triangle", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-triangle", "poweroff")
             }
 
             Button {
-                text: "Shutdown"
-                onClicked: sendSSHCmd("pami-triangle", "shutdown")
+                text: "Reboot"
+                onClicked: sendSSHSystemCmd("pami-triangle", "reboot")
             }
         }
 
@@ -87,22 +92,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHCmd("pami-carre", "run")
+                onClicked: sendSSHArigCmd("pami-carre", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHCmd("pami-carre", "monitoring")
+                onClicked: sendSSHArigCmd("pami-carre", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHCmd("pami-carre", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-carre", "poweroff")
             }
 
             Button {
-                text: "Shutdown"
-                onClicked: sendSSHCmd("pami-carre", "shutdown")
+                text: "Reboot"
+                onClicked: sendSSHSystemCmd("pami-carre", "reboot")
             }
         }
 
@@ -120,22 +125,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHCmd("pami-rond", "run")
+                onClicked: sendSSHArigCmd("pami-rond", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHCmd("pami-rond", "monitoring")
+                onClicked: sendSSHArigCmd("pami-rond", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHCmd("pami-rond", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-rond", "poweroff")
             }
 
             Button {
-                text: "Shutdown"
-                onClicked: sendSSHCmd("pami-rond", "shutdown")
+                text: "Reboot"
+                onClicked: sendSSHSystemCmd("pami-rond", "reboot")
             }
         }
 
