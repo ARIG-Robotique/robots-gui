@@ -59,22 +59,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHArigCmd("pami-triangle", "run")
+                onClicked: sendSSHArigCmd("pami-triangle.local", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHArigCmd("pami-triangle", "monitoring")
+                onClicked: sendSSHArigCmd("pami-triangle.local", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHSystemCmd("pami-triangle", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-triangle.local", "poweroff")
             }
 
             Button {
                 text: "Reboot"
-                onClicked: sendSSHSystemCmd("pami-triangle", "reboot")
+                onClicked: sendSSHSystemCmd("pami-triangle.local", "reboot")
             }
         }
 
@@ -92,22 +92,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHArigCmd("pami-carre", "run")
+                onClicked: sendSSHArigCmd("pami-carre.local", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHArigCmd("pami-carre", "monitoring")
+                onClicked: sendSSHArigCmd("pami-carre.local", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHSystemCmd("pami-carre", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-carre.local", "poweroff")
             }
 
             Button {
                 text: "Reboot"
-                onClicked: sendSSHSystemCmd("pami-carre", "reboot")
+                onClicked: sendSSHSystemCmd("pami-carre.local", "reboot")
             }
         }
 
@@ -125,22 +125,22 @@ Page {
 
             Button {
                 text: "Run"
-                onClicked: sendSSHArigCmd("pami-rond", "run")
+                onClicked: sendSSHArigCmd("pami-rond.local", "run")
             }
 
             Button {
                 text: "Monitoring"
-                onClicked: sendSSHArigCmd("pami-rond", "monitoring")
+                onClicked: sendSSHArigCmd("pami-rond.local", "monitoring")
             }
 
             Button {
                 text: "Power OFF"
-                onClicked: sendSSHSystemCmd("pami-rond", "poweroff")
+                onClicked: sendSSHSystemCmd("pami-rond.local", "poweroff")
             }
 
             Button {
                 text: "Reboot"
-                onClicked: sendSSHSystemCmd("pami-rond", "reboot")
+                onClicked: sendSSHSystemCmd("pami-rond.local", "reboot")
             }
         }
 
