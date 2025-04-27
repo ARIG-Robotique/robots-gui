@@ -144,6 +144,39 @@ Page {
             }
         }
 
+        RowLayout {
+            spacing: 5
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.leftMargin: 5
+            anchors.rightMargin: 5
+
+            StateComponent {
+                libelle: "Star"
+                stateColor: getBooleanColor(RobotModel.pamiStar)
+            }
+
+            Button {
+                text: "Run"
+                onClicked: sendSSHArigCmd("pami-star.local", "run")
+            }
+
+            Button {
+                text: "Monitoring"
+                onClicked: sendSSHArigCmd("pami-star.local", "monitoring")
+            }
+
+            Button {
+                text: "Power OFF"
+                onClicked: sendSSHSystemCmd("pami-star.local", "poweroff")
+            }
+
+            Button {
+                text: "Reboot"
+                onClicked: sendSSHSystemCmd("pami-star.local", "reboot")
+            }
+        }
+
         TextArea {
             id: term
             anchors.left: parent.left

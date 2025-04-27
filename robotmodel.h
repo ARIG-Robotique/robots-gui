@@ -37,6 +37,7 @@ private:
     Q_PROPERTY(bool pamiTriangle READ getPamiTriangle NOTIFY pamiTriangleChanged)
     Q_PROPERTY(bool pamiCarre READ getPamiCarre NOTIFY pamiCarreChanged)
     Q_PROPERTY(bool pamiRond READ getPamiRond NOTIFY pamiRondChanged)
+    Q_PROPERTY(bool pamiStar READ getPamiStar NOTIFY pamiStarChanged)
     Q_PROPERTY(bool balise READ getBalise NOTIFY baliseChanged)
     Q_PROPERTY(int score READ getScore NOTIFY scoreChanged)
     Q_PROPERTY(QString message READ getMessage NOTIFY messageChanged)
@@ -117,6 +118,9 @@ public:
     bool getPamiRond();
     void setPamiRond(bool value);
 
+    bool getPamiStar();
+    void setPamiStar(bool value);
+
     bool getBalise();
     void setBalise(bool value);
 
@@ -157,6 +161,7 @@ signals:
     void pamiTriangleChanged(bool newValue);
     void pamiCarreChanged(bool newValue);
     void pamiRondChanged(bool newValue);
+    void pamiStarChanged(bool newValue);
     void scoreChanged(int newValue);
     void inMatchChanged(bool newValue);
     void tiretteChanged(bool newValue);
@@ -174,7 +179,7 @@ private:
     // RO
     int score;
     bool inMatch, au, alimMoteurs, alimServos, tirette, otherRobot;
-    bool pamiTriangle, pamiCarre, pamiRond, balise, i2c, lidar;
+    bool pamiTriangle, pamiCarre, pamiRond, pamiStar, balise, i2c, lidar;
     QString message, photoMessage, photo;
 };
 

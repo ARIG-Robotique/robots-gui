@@ -127,6 +127,7 @@ void SocketThread::run() {
             robotModel->setPamiTriangle(data["pamiTriangle"]);
             robotModel->setPamiCarre(data["pamiCarre"]);
             robotModel->setPamiRond(data["pamiRond"]);
+            robotModel->setPamiStar(data["pamiStar"]);
             robotModel->setBalise(data["balise"]);
             if (data["message"].is_null()) {
                 robotModel->setMessage("");

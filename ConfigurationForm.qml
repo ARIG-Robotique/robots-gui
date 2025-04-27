@@ -23,7 +23,8 @@ Page {
                 var nb = RobotModel.pamiTriangle ? 1 : 0;
                 nb += RobotModel.pamiCarre ? 1 : 0;
                 nb += RobotModel.pamiRond ? 1 : 0;
-                otherRobotState.libelle = "PAMIs " + nb + "/3";
+                nb += RobotModel.pamiStar ? 1 : 0;
+                otherRobotState.libelle = "PAMIs " + nb + "/4";
                 otherRobotState.stateColor = getBooleanColor(RobotModel.pamiTriangle || RobotModel.pamiCarre || RobotModel.pamiRond, RobotModel.pamiTriangle && RobotModel.pamiCarre && RobotModel.pamiRond)
             } else {
                 otherRobotState.libelle = "Nerell";

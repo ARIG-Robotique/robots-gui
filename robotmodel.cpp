@@ -33,6 +33,7 @@ RobotModel::RobotModel(QObject *parent) : QObject(parent) {
     this->setPamiTriangle(false);
     this->setPamiCarre(false);
     this->setPamiRond(false);
+    this->setPamiStar(false);
     this->setBalise(false);
     this->setMessage("Démarrage en cours ...");
 }
@@ -214,6 +215,14 @@ bool RobotModel::getPamiRond() {
 void RobotModel::setPamiRond(bool value) {
     this->pamiRond = value;
     emit pamiRondChanged(value);
+}
+
+bool RobotModel::getPamiStar() {
+    return this->pamiStar;
+}
+void RobotModel::setPamiStar(bool value) {
+    this->pamiStar = value;
+    emit pamiStarChanged(value);
 }
 
 bool RobotModel::getBalise() {
