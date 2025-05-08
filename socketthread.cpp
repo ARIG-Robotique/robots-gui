@@ -75,8 +75,16 @@ void SocketThread::run() {
             QStringList options;
             auto rawOptions = data["options"].get<list<string>>();
             for (auto const &o : rawOptions) {
-                options.push_back(QString::fromStdString(o));
-                robotModel->setOption(QString::fromStdString(o), false);
+                auto rawString = QString::fromStdString(o);
+
+                QStringList optionSplit = rawString.split('|');
+                QString optionName = optionSplit.at(0);
+                bool optionValue = false;
+                if (optionSplit.size() == 2) {
+                    optionValue = optionSplit.at(1) == "1";
+                }
+                options.push_back(optionName);
+                robotModel->setOption(optionName, optionValue);
             }
             paramsModel->setOptions(options);
 
