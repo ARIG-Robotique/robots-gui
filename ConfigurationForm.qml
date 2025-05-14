@@ -25,7 +25,7 @@ Page {
                 nb += RobotModel.pamiRond ? 1 : 0;
                 nb += RobotModel.pamiStar ? 1 : 0;
                 otherRobotState.libelle = "PAMIs " + nb + "/4";
-                otherRobotState.stateColor = getBooleanColor(RobotModel.pamiTriangle || RobotModel.pamiCarre || RobotModel.pamiRond, RobotModel.pamiTriangle && RobotModel.pamiCarre && RobotModel.pamiRond)
+                otherRobotState.stateColor = getBooleanColor(RobotModel.pamiTriangle || RobotModel.pamiCarre || RobotModel.pamiRond || RobotModel.pamiStar, RobotModel.pamiTriangle && RobotModel.pamiCarre && RobotModel.pamiRond && RobotModel.pamiStar)
             } else {
                 otherRobotState.libelle = "Nerell";
                 otherRobotState.stateColor = getBooleanColor(RobotModel.otherRobot);
